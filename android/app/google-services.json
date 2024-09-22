@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "22921355697",
+    "project_id": "unlock-444",
+    "storage_bucket": "unlock-444.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:22921355697:android:23d9890ace76b453255d90",
+        "android_client_info": {
+          "package_name": "com.mycompany.unlock444"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvi1f5gWRSyuVOl8KiPM_z4JBqO86F0sA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

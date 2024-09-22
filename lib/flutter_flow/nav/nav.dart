@@ -72,15 +72,15 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) => appStateNotifier.loggedIn
-          ? const HomePage1Widget()
-          : const CreateAccountIndWidget(),
+          ? const HomepageWidget()
+          : const CreateAccountOrgWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) => appStateNotifier.loggedIn
-              ? const HomePage1Widget()
-              : const CreateAccountIndWidget(),
+              ? const HomepageWidget()
+              : const CreateAccountOrgWidget(),
         ),
         FFRoute(
           name: 'HomePage1',
@@ -203,9 +203,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const HomepageWidget(),
         ),
         FFRoute(
-          name: 'test',
-          path: '/test',
-          builder: (context, params) => const TestWidget(),
+          name: 'ViewChallengesCopy',
+          path: '/viewChallengesCopy',
+          builder: (context, params) => const ViewChallengesCopyWidget(),
+        ),
+        FFRoute(
+          name: 'ChallengeDetails',
+          path: '/challengeDetails',
+          builder: (context, params) => const ChallengeDetailsWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -376,7 +381,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/createAccountInd';
+            return '/createAccountOrg';
           }
           return null;
         },

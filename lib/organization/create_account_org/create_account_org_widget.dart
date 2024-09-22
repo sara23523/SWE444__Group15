@@ -140,28 +140,28 @@ class _CreateAccountOrgWidgetState extends State<CreateAccountOrgWidget> {
                                         .primaryBackground,
                                     width: 2.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).primary,
                                     width: 2.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 errorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).error,
                                     width: 2.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).error,
                                     width: 2.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 filled: true,
                                 fillColor: FlutterFlowTheme.of(context)
@@ -205,28 +205,28 @@ class _CreateAccountOrgWidgetState extends State<CreateAccountOrgWidget> {
                                         .primaryBackground,
                                     width: 2.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).primary,
                                     width: 2.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 errorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).error,
                                     width: 2.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).error,
                                     width: 2.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 filled: true,
                                 fillColor: FlutterFlowTheme.of(context)
@@ -269,28 +269,28 @@ class _CreateAccountOrgWidgetState extends State<CreateAccountOrgWidget> {
                                         .primaryBackground,
                                     width: 2.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).primary,
                                     width: 2.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 errorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).error,
                                     width: 2.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).error,
                                     width: 2.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 filled: true,
                                 fillColor: FlutterFlowTheme.of(context)
@@ -347,28 +347,28 @@ class _CreateAccountOrgWidgetState extends State<CreateAccountOrgWidget> {
                                         .primaryBackground,
                                     width: 2.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).primary,
                                     width: 2.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 errorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).error,
                                     width: 2.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).error,
                                     width: 2.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 filled: true,
                                 fillColor: FlutterFlowTheme.of(context)
@@ -426,28 +426,28 @@ class _CreateAccountOrgWidgetState extends State<CreateAccountOrgWidget> {
                                         .primaryBackground,
                                     width: 2.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).primary,
                                     width: 2.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 errorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).error,
                                     width: 2.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).error,
                                     width: 2.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 filled: true,
                                 fillColor: FlutterFlowTheme.of(context)
@@ -496,12 +496,12 @@ class _CreateAccountOrgWidgetState extends State<CreateAccountOrgWidget> {
                                 return;
                               }
 
-                              context.goNamedAuth('HomePage1', context.mounted);
+                              context.goNamedAuth('Homepage', context.mounted);
                             },
                             text: 'Create Account',
                             options: FFButtonOptions(
                               width: 370.0,
-                              height: 44.0,
+                              height: 54.0,
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               iconPadding: const EdgeInsetsDirectional.fromSTEB(
@@ -514,12 +514,11 @@ class _CreateAccountOrgWidgetState extends State<CreateAccountOrgWidget> {
                                     color: Colors.white,
                                     letterSpacing: 0.0,
                                   ),
-                              elevation: 3.0,
                               borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
-                              borderRadius: BorderRadius.circular(12.0),
+                              borderRadius: BorderRadius.circular(10.0),
                             ),
                           ),
                         ),
@@ -556,9 +555,11 @@ class _CreateAccountOrgWidgetState extends State<CreateAccountOrgWidget> {
                                   .labelLarge
                                   .override(
                                     fontFamily: 'Inter',
+                                    fontSize: 13.0,
                                     letterSpacing: 0.0,
                                   ),
                             ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ],

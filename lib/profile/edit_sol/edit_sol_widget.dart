@@ -432,34 +432,73 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                 alignment: const AlignmentDirectional(0.0, 0.05),
                 child: Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
-                  child: FFButtonWidget(
-                    onPressed: () {
-                      print('Button pressed ...');
-                    },
-                    text: 'Save Changes',
-                    options: FFButtonOptions(
-                      width: 340.0,
-                      height: 60.0,
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).primary,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Lexend Deca',
-                                color: Colors.white,
-                                fontSize: 16.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.normal,
-                              ),
-                      elevation: 2.0,
-                      borderSide: const BorderSide(
-                        color: Colors.transparent,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(30.0),
+                  child: StreamBuilder<List<SolverRecord>>(
+                    stream: querySolverRecord(
+                      singleRecord: true,
                     ),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 50.0,
+                            height: 50.0,
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                FlutterFlowTheme.of(context).primary,
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+                      List<SolverRecord> buttonSolverRecordList =
+                          snapshot.data!;
+                      // Return an empty Container when the item does not exist.
+                      if (snapshot.data!.isEmpty) {
+                        return Container();
+                      }
+                      final buttonSolverRecord =
+                          buttonSolverRecordList.isNotEmpty
+                              ? buttonSolverRecordList.first
+                              : null;
+
+                      return FFButtonWidget(
+                        onPressed: () async {
+                          await buttonSolverRecord!.reference
+                              .update(createSolverRecordData(
+                            photoUrl: _model.uploadedFileUrl,
+                            bio: _model.myBioTextController.text,
+                            displayName: _model.textController1.text,
+                          ));
+
+                          context.pushNamed('sol_ProfileCopy');
+                        },
+                        text: 'Save Changes',
+                        options: FFButtonOptions(
+                          width: 340.0,
+                          height: 60.0,
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: FlutterFlowTheme.of(context).primary,
+                          textStyle:
+                              FlutterFlowTheme.of(context).titleSmall.override(
+                                    fontFamily: 'Lexend Deca',
+                                    color: Colors.white,
+                                    fontSize: 16.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                          elevation: 2.0,
+                          borderSide: const BorderSide(
+                            color: Colors.transparent,
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),

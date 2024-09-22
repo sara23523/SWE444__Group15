@@ -570,7 +570,7 @@ class _TSTSOLVERcreateAccWidgetState extends State<TSTSOLVERcreateAccWidget> {
                                       }
 
                                       context.goNamedAuth(
-                                          'HomePage1', context.mounted);
+                                          'Homepage', context.mounted);
                                     },
                                     text: 'Create Account',
                                     options: FFButtonOptions(

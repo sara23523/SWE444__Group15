@@ -90,6 +90,7 @@ class _StartPageWidgetState extends State<StartPageWidget> {
                   children: [
                     Text(
                       'Connect, Solve, Succeed: Where\n Challenges Meet Solutions',
+                      textAlign: TextAlign.center,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Inter',
                             letterSpacing: 0.0,
@@ -115,7 +116,7 @@ class _StartPageWidgetState extends State<StartPageWidget> {
                       text: 'Sign in',
                       options: FFButtonOptions(
                         width: 300.0,
-                        height: 50.0,
+                        height: 54.0,
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
                         iconPadding:
@@ -138,7 +139,7 @@ class _StartPageWidgetState extends State<StartPageWidget> {
                       text: 'Create account',
                       options: FFButtonOptions(
                         width: 300.0,
-                        height: 50.0,
+                        height: 54.0,
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
                         iconPadding:

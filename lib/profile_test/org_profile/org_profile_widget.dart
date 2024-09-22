@@ -82,7 +82,7 @@ class _OrgProfileWidgetState extends State<OrgProfileWidget> {
                   await authManager.signOut();
                   GoRouter.of(context).clearRedirectLocation();
 
-                  context.goNamedAuth('createAccountInd', context.mounted);
+                  context.goNamedAuth('createAccountOrg', context.mounted);
                 },
               ),
             ),

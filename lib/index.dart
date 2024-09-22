@@ -32,4 +32,7 @@ export '/profile/edit_sol/edit_sol_widget.dart' show EditSolWidget;
 export '/solver/view_challenges/view_challenges_widget.dart'
     show ViewChallengesWidget;
 export '/homepage/homepage_widget.dart' show HomepageWidget;
-export '/test/test_widget.dart' show TestWidget;
+export '/organization/view_challenges_copy/view_challenges_copy_widget.dart'
+    show ViewChallengesCopyWidget;
+export '/solver/challenge_details/challenge_details_widget.dart'
+    show ChallengeDetailsWidget;

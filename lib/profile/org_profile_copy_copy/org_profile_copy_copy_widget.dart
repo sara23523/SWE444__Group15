@@ -655,7 +655,7 @@ class _OrgProfileCopyCopyWidgetState extends State<OrgProfileCopyCopyWidget> {
                     await authManager.signOut();
                     GoRouter.of(context).clearRedirectLocation();
 
-                    context.goNamedAuth('createAccountInd', context.mounted);
+                    context.goNamedAuth('createAccountOrg', context.mounted);
                   },
                   text: 'Log Out',
                   options: FFButtonOptions(

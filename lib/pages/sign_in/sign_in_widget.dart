@@ -174,8 +174,8 @@ class _SignInWidgetState extends State<SignInWidget>
                         borderRadius: BorderRadius.circular(8.0),
                         child: Image.network(
                           'rocket-ship-as-symbol-project-launch-3d-illustration-start-up-innovative-idea-cartoon-drawing-spaceship-3d-style-white-background-business-startup-innovation-concept_778687-1672.png',
-                          width: 200.0,
-                          height: 200.0,
+                          width: 170.0,
+                          height: 170.0,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -184,6 +184,7 @@ class _SignInWidgetState extends State<SignInWidget>
                             const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                         child: Text(
                           'Sign In',
+                          textAlign: TextAlign.center,
                           style: FlutterFlowTheme.of(context)
                               .headlineSmall
                               .override(
@@ -199,6 +200,7 @@ class _SignInWidgetState extends State<SignInWidget>
                             const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
                         child: Text(
                           'welcome back!',
+                          textAlign: TextAlign.center,
                           style:
                               FlutterFlowTheme.of(context).labelMedium.override(
                                     fontFamily: 'Inter',
@@ -245,28 +247,28 @@ class _SignInWidgetState extends State<SignInWidget>
                                   color: FlutterFlowTheme.of(context).alternate,
                                   width: 2.0,
                                 ),
-                                borderRadius: BorderRadius.circular(12.0),
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: FlutterFlowTheme.of(context).primary,
                                   width: 2.0,
                                 ),
-                                borderRadius: BorderRadius.circular(12.0),
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
                               errorBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: FlutterFlowTheme.of(context).error,
                                   width: 2.0,
                                 ),
-                                borderRadius: BorderRadius.circular(12.0),
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
                               focusedErrorBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: FlutterFlowTheme.of(context).error,
                                   width: 2.0,
                                 ),
-                                borderRadius: BorderRadius.circular(12.0),
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
                               filled: true,
                               fillColor: FlutterFlowTheme.of(context)
@@ -310,28 +312,28 @@ class _SignInWidgetState extends State<SignInWidget>
                                   color: FlutterFlowTheme.of(context).alternate,
                                   width: 2.0,
                                 ),
-                                borderRadius: BorderRadius.circular(12.0),
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: FlutterFlowTheme.of(context).primary,
                                   width: 2.0,
                                 ),
-                                borderRadius: BorderRadius.circular(12.0),
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
                               errorBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: FlutterFlowTheme.of(context).error,
                                   width: 2.0,
                                 ),
-                                borderRadius: BorderRadius.circular(12.0),
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
                               focusedErrorBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: FlutterFlowTheme.of(context).error,
                                   width: 2.0,
                                 ),
-                                borderRadius: BorderRadius.circular(12.0),
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
                               filled: true,
                               fillColor: FlutterFlowTheme.of(context)
@@ -382,11 +384,11 @@ class _SignInWidgetState extends State<SignInWidget>
                                 return;
                               }
 
-                              context.goNamedAuth('HomePage1', context.mounted);
+                              context.goNamedAuth('Homepage', context.mounted);
                             },
                             text: 'Sign In',
                             options: FFButtonOptions(
-                              width: 230.0,
+                              width: 360.0,
                               height: 52.0,
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
@@ -400,12 +402,12 @@ class _SignInWidgetState extends State<SignInWidget>
                                     color: Colors.white,
                                     letterSpacing: 0.0,
                                   ),
-                              elevation: 3.0,
+                              elevation: 0.0,
                               borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
-                              borderRadius: BorderRadius.circular(12.0),
+                              borderRadius: BorderRadius.circular(10.0),
                             ),
                           ),
                         ),

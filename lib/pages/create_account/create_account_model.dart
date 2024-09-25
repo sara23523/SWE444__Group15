@@ -1,27 +1,24 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'create_account_ind_widget.dart' show CreateAccountIndWidget;
+import 'create_account_widget.dart' show CreateAccountWidget;
 import 'package:flutter/material.dart';
 
-class CreateAccountIndModel extends FlutterFlowModel<CreateAccountIndWidget> {
+class CreateAccountModel extends FlutterFlowModel<CreateAccountWidget> {
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();
   // State field(s) for DropDown widget.
   int? dropDownValue;
   FormFieldController<int>? dropDownValueController;
-  // State field(s) for username widget.
-  FocusNode? usernameFocusNode;
-  TextEditingController? usernameTextController;
-  String? Function(BuildContext, String?)? usernameTextControllerValidator;
-  String? _usernameTextControllerValidator(BuildContext context, String? val) {
+  // State field(s) for name widget.
+  FocusNode? nameFocusNode;
+  TextEditingController? nameTextController;
+  String? Function(BuildContext, String?)? nameTextControllerValidator;
+  String? _nameTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
 
-    if (!RegExp(kTextValidatorUsernameRegex).hasMatch(val)) {
-      return 'Username must start with a letter and can \ncontain (numbers/_/-).';
-    }
     return null;
   }
 
@@ -97,7 +94,7 @@ class CreateAccountIndModel extends FlutterFlowModel<CreateAccountIndWidget> {
 
   @override
   void initState(BuildContext context) {
-    usernameTextControllerValidator = _usernameTextControllerValidator;
+    nameTextControllerValidator = _nameTextControllerValidator;
     commercialRegistrationNumberTextControllerValidator =
         _commercialRegistrationNumberTextControllerValidator;
     emailTextControllerValidator = _emailTextControllerValidator;
@@ -110,8 +107,8 @@ class CreateAccountIndModel extends FlutterFlowModel<CreateAccountIndWidget> {
 
   @override
   void dispose() {
-    usernameFocusNode?.dispose();
-    usernameTextController?.dispose();
+    nameFocusNode?.dispose();
+    nameTextController?.dispose();
 
     commercialRegistrationNumberFocusNode?.dispose();
     commercialRegistrationNumberTextController?.dispose();

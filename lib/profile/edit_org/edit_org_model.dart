@@ -5,10 +5,15 @@ import 'package:flutter/material.dart';
 class EditOrgModel extends FlutterFlowModel<EditOrgWidget> {
   ///  State fields for stateful widgets in this page.
 
-  bool isDataUploading = false;
-  FFUploadedFile uploadedLocalFile =
+  bool isDataUploading1 = false;
+  FFUploadedFile uploadedLocalFile1 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl = '';
+  String uploadedFileUrl1 = '';
+
+  bool isDataUploading2 = false;
+  FFUploadedFile uploadedLocalFile2 =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl2 = '';
 
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;

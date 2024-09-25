@@ -1,8 +1,9 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'solver_profile_widget.dart' show SolverProfileWidget;
+import 'required_field_message_widget.dart' show RequiredFieldMessageWidget;
 import 'package:flutter/material.dart';
 
-class SolverProfileModel extends FlutterFlowModel<SolverProfileWidget> {
+class RequiredFieldMessageModel
+    extends FlutterFlowModel<RequiredFieldMessageWidget> {
   @override
   void initState(BuildContext context) {}
 

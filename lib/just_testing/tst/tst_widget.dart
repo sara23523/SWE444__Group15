@@ -257,7 +257,7 @@ class _TstWidgetState extends State<TstWidget> {
                                         16.0, 0.0, 16.0, 0.0),
                                     iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
-                                    color: FlutterFlowTheme.of(context).primary,
+                                    color: const Color(0xFF0043CE),
                                     textStyle: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(

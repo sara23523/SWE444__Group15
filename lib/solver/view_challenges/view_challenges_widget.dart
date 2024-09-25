@@ -1,5 +1,5 @@
 import '/backend/backend.dart';
-import '/components/bottom_navigation_component_widget.dart';
+import '/components/bottom_navigation_bar_sol_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -47,14 +47,14 @@ class _ViewChallengesWidgetState extends State<ViewChallengesWidget> {
             borderColor: Colors.transparent,
             borderRadius: 30.0,
             borderWidth: 1.0,
-            buttonSize: 54.0,
+            buttonSize: 60.0,
             icon: Icon(
               Icons.arrow_back_rounded,
-              color: FlutterFlowTheme.of(context).secondaryText,
-              size: 24.0,
+              color: FlutterFlowTheme.of(context).primaryText,
+              size: 30.0,
             ),
-            onPressed: () {
-              print('IconButton pressed ...');
+            onPressed: () async {
+              context.pop();
             },
           ),
           title: Text(
@@ -65,7 +65,7 @@ class _ViewChallengesWidgetState extends State<ViewChallengesWidget> {
                 ),
           ),
           actions: const [],
-          centerTitle: false,
+          centerTitle: true,
           elevation: 0.0,
         ),
         body: Stack(
@@ -158,15 +158,56 @@ class _ViewChallengesWidgetState extends State<ViewChallengesWidget> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                'Username',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
+                                              StreamBuilder<List<UsersRecord>>(
+                                                stream: queryUsersRecord(
+                                                  singleRecord: true,
+                                                ),
+                                                builder: (context, snapshot) {
+                                                  // Customize what your widget looks like when it's loading.
+                                                  if (!snapshot.hasData) {
+                                                    return Center(
+                                                      child: SizedBox(
+                                                        width: 50.0,
+                                                        height: 50.0,
+                                                        child:
+                                                            CircularProgressIndicator(
+                                                          valueColor:
+                                                              AlwaysStoppedAnimation<
+                                                                  Color>(
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }
+                                                  List<UsersRecord>
+                                                      textUsersRecordList =
+                                                      snapshot.data!;
+                                                  // Return an empty Container when the item does not exist.
+                                                  if (snapshot.data!.isEmpty) {
+                                                    return Container();
+                                                  }
+                                                  final textUsersRecord =
+                                                      textUsersRecordList
+                                                              .isNotEmpty
+                                                          ? textUsersRecordList
+                                                              .first
+                                                          : null;
+
+                                                  return Text(
+                                                    listViewChallengesRecord
+                                                        .displayName,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily: 'Inter',
                                                           letterSpacing: 0.0,
                                                         ),
+                                                  );
+                                                },
                                               ),
                                               Row(
                                                 mainAxisSize: MainAxisSize.max,
@@ -177,7 +218,8 @@ class _ViewChallengesWidgetState extends State<ViewChallengesWidget> {
                                                             .fromSTEB(0.0, 4.0,
                                                                 0.0, 0.0),
                                                     child: Text(
-                                                      'user@domainname.com',
+                                                      listViewChallengesRecord
+                                                          .title,
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .labelMedium
@@ -194,8 +236,20 @@ class _ViewChallengesWidgetState extends State<ViewChallengesWidget> {
                                         ),
                                       ),
                                       FFButtonWidget(
-                                        onPressed: () {
-                                          print('Button pressed ...');
+                                        onPressed: () async {
+                                          context.pushNamed(
+                                            'ChallengeDetails',
+                                            queryParameters: {
+                                              'challenge': serializeParam(
+                                                listViewChallengesRecord,
+                                                ParamType.Document,
+                                              ),
+                                            }.withoutNulls,
+                                            extra: <String, dynamic>{
+                                              'challenge':
+                                                  listViewChallengesRecord,
+                                            },
+                                          );
                                         },
                                         text: 'View',
                                         options: FFButtonOptions(
@@ -207,8 +261,7 @@ class _ViewChallengesWidgetState extends State<ViewChallengesWidget> {
                                           iconPadding:
                                               const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 0.0),
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
+                                          color: const Color(0xFF0043CE),
                                           textStyle:
                                               FlutterFlowTheme.of(context)
                                                   .bodyMedium
@@ -242,12 +295,12 @@ class _ViewChallengesWidgetState extends State<ViewChallengesWidget> {
                 ],
               ),
             ),
-            Align(
-              alignment: const AlignmentDirectional(0.0, 0.0),
-              child: wrapWithModel(
-                model: _model.bottomNavigationComponentModel,
-                updateCallback: () => safeSetState(() {}),
-                child: const BottomNavigationComponentWidget(),
+            wrapWithModel(
+              model: _model.bottomNavigationBarSolModel,
+              updateCallback: () => safeSetState(() {}),
+              child: const BottomNavigationBarSolWidget(
+                selectedPageIndex: 2,
+                hidden: false,
               ),
             ),
           ],

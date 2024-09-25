@@ -142,7 +142,7 @@ class _UserTypeWidgetState extends State<UserTypeWidget> {
                                   options: [''].toList(),
                                   onChanged: (val) async {
                                     safeSetState(() {});
-                                    context.pushNamed('createAccountInd');
+                                    context.pushNamed('createAccount');
                                   },
                                   controller:
                                       _model.radioButtonValueController1 ??=

@@ -8,15 +8,9 @@ export '/just_testing/tst/tst_widget.dart' show TstWidget;
 export '/pages/start_page/start_page_widget.dart' show StartPageWidget;
 export '/pages/user_type/user_type_widget.dart' show UserTypeWidget;
 export '/pages/sign_in/sign_in_widget.dart' show SignInWidget;
-export '/organization/sol_details/sol_details_widget.dart'
-    show SolDetailsWidget;
-export '/solver/create_account_ind/create_account_ind_widget.dart'
-    show CreateAccountIndWidget;
-export '/solver/submit_sol/submit_sol_widget.dart' show SubmitSolWidget;
-export '/profile_test/solver_profile/solver_profile_widget.dart'
-    show SolverProfileWidget;
-export '/profile_test/org_profile/org_profile_widget.dart'
-    show OrgProfileWidget;
+export '/solver/sol_details/sol_details_widget.dart' show SolDetailsWidget;
+export '/pages/create_account/create_account_widget.dart'
+    show CreateAccountWidget;
 export '/organization/create_account_org/create_account_org_widget.dart'
     show CreateAccountOrgWidget;
 export '/just_testing/t_s_t_s_o_l_v_e_rcreate_acc/t_s_t_s_o_l_v_e_rcreate_acc_widget.dart'
@@ -31,8 +25,19 @@ export '/profile/change_password/change_password_widget.dart'
 export '/profile/edit_sol/edit_sol_widget.dart' show EditSolWidget;
 export '/solver/view_challenges/view_challenges_widget.dart'
     show ViewChallengesWidget;
-export '/homepage/homepage_widget.dart' show HomepageWidget;
 export '/organization/view_challenges_copy/view_challenges_copy_widget.dart'
     show ViewChallengesCopyWidget;
 export '/solver/challenge_details/challenge_details_widget.dart'
     show ChallengeDetailsWidget;
+export '/solver/homepage_solver/homepage_solver_widget.dart'
+    show HomepageSolverWidget;
+export '/organization/org_homepage/org_homepage_widget.dart'
+    show OrgHomepageWidget;
+export '/solver/solver_homepage/solver_homepage_widget.dart'
+    show SolverHomepageWidget;
+export '/pages/terms_and_conditions_sign_in/terms_and_conditions_sign_in_widget.dart'
+    show TermsAndConditionsSignInWidget;
+export '/organization/view_solutions_copy/view_solutions_copy_widget.dart'
+    show ViewSolutionsCopyWidget;
+export '/loggedin_page/loggedin_page_widget.dart' show LoggedinPageWidget;
+export '/solver/submitsol2/submitsol2_widget.dart' show Submitsol2Widget;

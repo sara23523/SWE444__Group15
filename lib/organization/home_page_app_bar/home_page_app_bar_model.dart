@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'org_profile_widget.dart' show OrgProfileWidget;
+import 'home_page_app_bar_widget.dart' show HomePageAppBarWidget;
 import 'package:flutter/material.dart';
 
-class OrgProfileModel extends FlutterFlowModel<OrgProfileWidget> {
+class HomePageAppBarModel extends FlutterFlowModel<HomePageAppBarWidget> {
   @override
   void initState(BuildContext context) {}
 

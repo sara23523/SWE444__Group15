@@ -1,32 +1,35 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'create_account_ind_model.dart';
-export 'create_account_ind_model.dart';
+import 'create_account_model.dart';
+export 'create_account_model.dart';
 
-class CreateAccountIndWidget extends StatefulWidget {
-  const CreateAccountIndWidget({super.key});
+class CreateAccountWidget extends StatefulWidget {
+  const CreateAccountWidget({super.key});
 
   @override
-  State<CreateAccountIndWidget> createState() => _CreateAccountIndWidgetState();
+  State<CreateAccountWidget> createState() => _CreateAccountWidgetState();
 }
 
-class _CreateAccountIndWidgetState extends State<CreateAccountIndWidget> {
-  late CreateAccountIndModel _model;
+class _CreateAccountWidgetState extends State<CreateAccountWidget> {
+  late CreateAccountModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => CreateAccountIndModel());
+    _model = createModel(context, () => CreateAccountModel());
 
-    _model.usernameTextController ??= TextEditingController();
-    _model.usernameFocusNode ??= FocusNode();
+    _model.nameTextController ??= TextEditingController();
+    _model.nameFocusNode ??= FocusNode();
 
     _model.commercialRegistrationNumberTextController ??=
         TextEditingController();
@@ -60,20 +63,29 @@ class _CreateAccountIndWidgetState extends State<CreateAccountIndWidget> {
         key: scaffoldKey,
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-          automaticallyImplyLeading: true,
-          leading: InkWell(
-            splashColor: Colors.transparent,
-            focusColor: Colors.transparent,
-            hoverColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            onTap: () async {
-              context.pushNamed('userType');
-            },
-            child: Icon(
-              Icons.arrow_back,
+          automaticallyImplyLeading: false,
+          leading: FlutterFlowIconButton(
+            borderColor: Colors.transparent,
+            borderRadius: 30.0,
+            borderWidth: 1.0,
+            buttonSize: 60.0,
+            icon: Icon(
+              Icons.arrow_back_rounded,
               color: FlutterFlowTheme.of(context).primaryText,
-              size: 24.0,
+              size: 30.0,
             ),
+            onPressed: () async {
+              context.pop();
+            },
+          ),
+          title: Text(
+            'Create an account',
+            style: FlutterFlowTheme.of(context).headlineMedium.override(
+                  fontFamily: 'Inter Tight',
+                  color: FlutterFlowTheme.of(context).primaryText,
+                  fontSize: 22.0,
+                  letterSpacing: 0.0,
+                ),
           ),
           actions: const [],
           centerTitle: true,
@@ -95,19 +107,10 @@ class _CreateAccountIndWidgetState extends State<CreateAccountIndWidget> {
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(
-                          'Create an account',
-                          textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.of(context)
-                              .headlineLarge
-                              .override(
-                                fontFamily: 'Inter Tight',
-                                letterSpacing: 0.0,
-                              ),
-                        ),
                         if (_model.dropDownValue == 0)
                           Text(
                             'You are an individual who is looking to help and improve your CV',
+                            textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -118,6 +121,7 @@ class _CreateAccountIndWidgetState extends State<CreateAccountIndWidget> {
                         if (_model.dropDownValue == 1)
                           Text(
                             'You are a legal organization looking for a solution to your challenge. ',
+                            textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -168,21 +172,20 @@ class _CreateAccountIndWidgetState extends State<CreateAccountIndWidget> {
                           height: 15.0,
                           decoration: const BoxDecoration(),
                         ),
-                        if (_model.dropDownValue == 0)
+                        if (_model.dropDownValue != null)
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 16.0),
                             child: SizedBox(
                               width: 370.0,
                               child: TextFormField(
-                                controller: _model.usernameTextController,
-                                focusNode: _model.usernameFocusNode,
+                                controller: _model.nameTextController,
+                                focusNode: _model.nameFocusNode,
                                 autofocus: false,
                                 textInputAction: TextInputAction.next,
-                                readOnly: _model.dropDownValue == 1,
                                 obscureText: false,
                                 decoration: InputDecoration(
-                                  labelText: 'Username',
+                                  labelText: 'Your name',
                                   labelStyle: FlutterFlowTheme.of(context)
                                       .labelMedium
                                       .override(
@@ -229,8 +232,7 @@ class _CreateAccountIndWidgetState extends State<CreateAccountIndWidget> {
                                       fontFamily: 'Inter',
                                       letterSpacing: 0.0,
                                     ),
-                                validator: _model
-                                    .usernameTextControllerValidator
+                                validator: _model.nameTextControllerValidator
                                     .asValidator(context),
                               ),
                             ),
@@ -636,8 +638,28 @@ class _CreateAccountIndWidgetState extends State<CreateAccountIndWidget> {
                                   return;
                                 }
 
-                                context.goNamedAuth(
-                                    'Homepage', context.mounted);
+                                await UsersRecord.collection
+                                    .doc(user.uid)
+                                    .update(createUsersRecordData(
+                                      bio: _model.bioTextController.text,
+                                      cRNumber: _model
+                                          .commercialRegistrationNumberTextController
+                                          .text,
+                                      password:
+                                          _model.passwordTextController.text,
+                                      userRole: _model.dropDownValue,
+                                      username: _model.nameTextController.text,
+                                    ));
+
+                                if (valueOrDefault(
+                                        currentUserDocument?.userRole, 0) ==
+                                    1) {
+                                  context.pushNamedAuth(
+                                      'orgHomepage', context.mounted);
+                                } else {
+                                  context.pushNamedAuth(
+                                      'solverHomepage', context.mounted);
+                                }
                               },
                               text: 'Create Account',
                               options: FFButtonOptions(
@@ -655,7 +677,7 @@ class _CreateAccountIndWidgetState extends State<CreateAccountIndWidget> {
                                       color: Colors.white,
                                       letterSpacing: 0.0,
                                     ),
-                                elevation: 3.0,
+                                elevation: 0.0,
                                 borderSide: const BorderSide(
                                   color: Colors.transparent,
                                   width: 1.0,
@@ -692,6 +714,12 @@ class _CreateAccountIndWidgetState extends State<CreateAccountIndWidget> {
                                           fontWeight: FontWeight.w600,
                                           decoration: TextDecoration.underline,
                                         ),
+                                    mouseCursor: SystemMouseCursors.click,
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () async {
+                                        context.pushNamed(
+                                            'Terms_and_conditions_signIn');
+                                      },
                                   )
                                 ],
                                 style: FlutterFlowTheme.of(context)

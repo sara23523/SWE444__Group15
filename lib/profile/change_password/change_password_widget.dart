@@ -1,3 +1,5 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -23,14 +25,8 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
     super.initState();
     _model = createModel(context, () => ChangePasswordModel());
 
-    _model.emailAddressTextController1 ??= TextEditingController();
-    _model.emailAddressFocusNode1 ??= FocusNode();
-
-    _model.emailAddressTextController2 ??= TextEditingController();
-    _model.emailAddressFocusNode2 ??= FocusNode();
-
-    _model.emailAddressTextController3 ??= TextEditingController();
-    _model.emailAddressFocusNode3 ??= FocusNode();
+    _model.emailAddressTextController ??= TextEditingController();
+    _model.emailAddressFocusNode ??= FocusNode();
   }
 
   @override
@@ -75,7 +71,7 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
           ),
           actions: const [],
           centerTitle: true,
-          elevation: 2.0,
+          elevation: 0.0,
         ),
         body: SafeArea(
           top: true,
@@ -83,245 +79,127 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 30.0, 16.0, 0.0),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: TextFormField(
-                    controller: _model.emailAddressTextController1,
-                    focusNode: _model.emailAddressFocusNode1,
-                    autofillHints: const [AutofillHints.password],
-                    obscureText: !_model.emailAddressVisibility1,
-                    decoration: InputDecoration(
-                      labelText: ' Current Password',
-                      labelStyle:
-                          FlutterFlowTheme.of(context).labelMedium.override(
-                                fontFamily: 'Inter',
-                                letterSpacing: 0.0,
-                              ),
-                      hintText: 'Enter Your Current Password',
-                      hintStyle:
-                          FlutterFlowTheme.of(context).labelMedium.override(
-                                fontFamily: 'Inter',
-                                fontSize: 13.0,
-                                letterSpacing: 0.0,
-                              ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).alternate,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(12.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 0.0, 0.0),
+                child: Text(
+                  'We will sand a email with link to change your password,please enterthe email associated with your account.',
+                  textAlign: TextAlign.start,
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Inter',
+                        color: const Color(0xFE7D8588),
+                        fontSize: 12.0,
+                        letterSpacing: 0.0,
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).primary,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).error,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).error,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      filled: true,
-                      fillColor:
-                          FlutterFlowTheme.of(context).secondaryBackground,
-                      contentPadding: const EdgeInsetsDirectional.fromSTEB(
-                          24.0, 24.0, 20.0, 24.0),
-                      suffixIcon: InkWell(
-                        onTap: () => safeSetState(
-                          () => _model.emailAddressVisibility1 =
-                              !_model.emailAddressVisibility1,
-                        ),
-                        focusNode: FocusNode(skipTraversal: true),
-                        child: Icon(
-                          _model.emailAddressVisibility1
-                              ? Icons.visibility_outlined
-                              : Icons.visibility_off_outlined,
-                          color: const Color(0xFF757575),
-                          size: 22.0,
-                        ),
-                      ),
-                    ),
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Inter',
-                          letterSpacing: 0.0,
-                        ),
-                    cursorColor: FlutterFlowTheme.of(context).primary,
-                    validator: _model.emailAddressTextController1Validator
-                        .asValidator(context),
-                  ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: TextFormField(
-                    controller: _model.emailAddressTextController2,
-                    focusNode: _model.emailAddressFocusNode2,
-                    autofillHints: const [AutofillHints.password],
-                    obscureText: !_model.emailAddressVisibility2,
-                    decoration: InputDecoration(
-                      labelText: ' New Password',
-                      labelStyle:
-                          FlutterFlowTheme.of(context).labelMedium.override(
-                                fontFamily: 'Inter',
-                                letterSpacing: 0.0,
+              Form(
+                key: _model.formKey,
+                autovalidateMode: AutovalidateMode.disabled,
+                child: Visibility(
+                  visible: currentUserEmail != '',
+                  child: Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(16.0, 30.0, 16.0, 0.0),
+                    child: StreamBuilder<List<UsersRecord>>(
+                      stream: queryUsersRecord(
+                        singleRecord: true,
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50.0,
+                              height: 50.0,
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  FlutterFlowTheme.of(context).primary,
+                                ),
                               ),
-                      hintText: 'Enter Your New Password',
-                      hintStyle:
-                          FlutterFlowTheme.of(context).labelMedium.override(
-                                fontFamily: 'Inter',
-                                fontSize: 13.0,
-                                letterSpacing: 0.0,
+                            ),
+                          );
+                        }
+                        List<UsersRecord> emailAddressUsersRecordList =
+                            snapshot.data!;
+                        // Return an empty Container when the item does not exist.
+                        if (snapshot.data!.isEmpty) {
+                          return Container();
+                        }
+                        final emailAddressUsersRecord =
+                            emailAddressUsersRecordList.isNotEmpty
+                                ? emailAddressUsersRecordList.first
+                                : null;
+
+                        return SizedBox(
+                          width: double.infinity,
+                          child: TextFormField(
+                            controller: _model.emailAddressTextController,
+                            focusNode: _model.emailAddressFocusNode,
+                            autofillHints: const [AutofillHints.email],
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              labelText: 'Email',
+                              labelStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                  ),
+                              hintText: 'Enter Your Email',
+                              hintStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    fontSize: 13.0,
+                                    letterSpacing: 0.0,
+                                  ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).alternate,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).primary,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).error,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).error,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      filled: true,
-                      fillColor:
-                          FlutterFlowTheme.of(context).secondaryBackground,
-                      contentPadding: const EdgeInsetsDirectional.fromSTEB(
-                          24.0, 24.0, 20.0, 24.0),
-                      suffixIcon: InkWell(
-                        onTap: () => safeSetState(
-                          () => _model.emailAddressVisibility2 =
-                              !_model.emailAddressVisibility2,
-                        ),
-                        focusNode: FocusNode(skipTraversal: true),
-                        child: Icon(
-                          _model.emailAddressVisibility2
-                              ? Icons.visibility_outlined
-                              : Icons.visibility_off_outlined,
-                          color: const Color(0xFF757575),
-                          size: 22.0,
-                        ),
-                      ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).error,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).error,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              filled: true,
+                              fillColor: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                                  24.0, 24.0, 20.0, 24.0),
+                            ),
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Inter',
+                                  letterSpacing: 0.0,
+                                ),
+                            cursorColor: FlutterFlowTheme.of(context).primary,
+                            validator: _model
+                                .emailAddressTextControllerValidator
+                                .asValidator(context),
+                          ),
+                        );
+                      },
                     ),
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Inter',
-                          letterSpacing: 0.0,
-                        ),
-                    cursorColor: FlutterFlowTheme.of(context).primary,
-                    validator: _model.emailAddressTextController2Validator
-                        .asValidator(context),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: TextFormField(
-                    controller: _model.emailAddressTextController3,
-                    focusNode: _model.emailAddressFocusNode3,
-                    autofillHints: const [AutofillHints.password],
-                    obscureText: !_model.emailAddressVisibility3,
-                    decoration: InputDecoration(
-                      labelText: ' Confirm Password',
-                      labelStyle:
-                          FlutterFlowTheme.of(context).labelMedium.override(
-                                fontFamily: 'Inter',
-                                letterSpacing: 0.0,
-                              ),
-                      hintText: 'Enter Your New Password',
-                      hintStyle:
-                          FlutterFlowTheme.of(context).labelMedium.override(
-                                fontFamily: 'Inter',
-                                fontSize: 13.0,
-                                letterSpacing: 0.0,
-                              ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).alternate,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).primary,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).error,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).error,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      filled: true,
-                      fillColor:
-                          FlutterFlowTheme.of(context).secondaryBackground,
-                      contentPadding: const EdgeInsetsDirectional.fromSTEB(
-                          24.0, 24.0, 20.0, 24.0),
-                      suffixIcon: InkWell(
-                        onTap: () => safeSetState(
-                          () => _model.emailAddressVisibility3 =
-                              !_model.emailAddressVisibility3,
-                        ),
-                        focusNode: FocusNode(skipTraversal: true),
-                        child: Icon(
-                          _model.emailAddressVisibility3
-                              ? Icons.visibility_outlined
-                              : Icons.visibility_off_outlined,
-                          color: const Color(0xFF757575),
-                          size: 22.0,
-                        ),
-                      ),
-                    ),
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Inter',
-                          letterSpacing: 0.0,
-                        ),
-                    cursorColor: FlutterFlowTheme.of(context).primary,
-                    validator: _model.emailAddressTextController3Validator
-                        .asValidator(context),
                   ),
                 ),
               ),
@@ -332,9 +210,22 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
                       const EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      context.pushNamed('change_password');
+                      if (_model.emailAddressTextController.text.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'Email required!',
+                            ),
+                          ),
+                        );
+                        return;
+                      }
+                      await authManager.resetPassword(
+                        email: _model.emailAddressTextController.text,
+                        context: context,
+                      );
                     },
-                    text: 'Save',
+                    text: 'Sand Link',
                     options: FFButtonOptions(
                       width: double.infinity,
                       height: 50.0,
@@ -342,7 +233,7 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
                           const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       iconPadding:
                           const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).primary,
+                      color: FlutterFlowTheme.of(context).primaryText,
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
                                 fontFamily: 'Inter Tight',
@@ -353,7 +244,7 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
                         color: Colors.transparent,
                         width: 1.0,
                       ),
-                      borderRadius: BorderRadius.circular(12.0),
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
                   ),
                 ),

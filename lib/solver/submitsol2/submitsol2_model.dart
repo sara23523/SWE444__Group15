@@ -1,8 +1,16 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'submit_sol_widget.dart' show SubmitSolWidget;
+import 'submitsol2_widget.dart' show Submitsol2Widget;
 import 'package:flutter/material.dart';
 
-class SubmitSolModel extends FlutterFlowModel<SubmitSolWidget> {
+class Submitsol2Model extends FlutterFlowModel<Submitsol2Widget> {
+  ///  Local state fields for this page.
+
+  int show = 0;
+
+  String? title = '';
+
+  String? desc;
+
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for TitleTextField widget.
@@ -15,9 +23,14 @@ class SubmitSolModel extends FlutterFlowModel<SubmitSolWidget> {
   TextEditingController? descriptionTextFieldTextController;
   String? Function(BuildContext, String?)?
       descriptionTextFieldTextControllerValidator;
-  bool isDataUploading = false;
-  FFUploadedFile uploadedLocalFile =
+  bool isDataUploading1 = false;
+  FFUploadedFile uploadedLocalFile1 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
+
+  bool isDataUploading2 = false;
+  FFUploadedFile uploadedLocalFile2 =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl2 = '';
 
   @override
   void initState(BuildContext context) {}

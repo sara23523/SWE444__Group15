@@ -3,6 +3,14 @@ import 'post_challenge_widget.dart' show PostChallengeWidget;
 import 'package:flutter/material.dart';
 
 class PostChallengeModel extends FlutterFlowModel<PostChallengeWidget> {
+  ///  Local state fields for this page.
+
+  int show = 0;
+
+  String? title = '';
+
+  String? desc;
+
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for TitleTextField widget.

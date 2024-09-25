@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import '/organization/post_confirmation_dialog/post_confirmation_dialog_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'post_challenge_model.dart';
 export 'post_challenge_model.dart';
 
@@ -63,7 +64,7 @@ class _PostChallengeWidgetState extends State<PostChallengeWidget> {
               size: 30.0,
             ),
             onPressed: () async {
-              context.safePop();
+              context.pushNamed('orgHomepage');
             },
           ),
           title: Text(
@@ -144,15 +145,19 @@ class _PostChallengeWidgetState extends State<PostChallengeWidget> {
                                           letterSpacing: 0.0,
                                         ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: Color(0xFFD8DADC),
+                                      borderSide: BorderSide(
+                                        color: (_model.title != 'null') ||
+                                                (_model.show == 0)
+                                            ? const Color(0xFFD8DADC)
+                                            : FlutterFlowTheme.of(context)
+                                                .error,
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
-                                        color: Color(0x00000000),
+                                        color: Color(0xFF0043CE),
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
@@ -183,6 +188,9 @@ class _PostChallengeWidgetState extends State<PostChallengeWidget> {
                                         fontFamily: 'Inter',
                                         letterSpacing: 0.0,
                                       ),
+                                  maxLength: 60,
+                                  maxLengthEnforcement:
+                                      MaxLengthEnforcement.none,
                                   cursorColor:
                                       FlutterFlowTheme.of(context).primaryText,
                                   validator: _model
@@ -191,11 +199,32 @@ class _PostChallengeWidgetState extends State<PostChallengeWidget> {
                                 ),
                               ),
                             ),
+                            if ((_model.show == 1) &&
+                                (_model.titleTextFieldTextController.text ==
+                                        ''))
+                              Align(
+                                alignment: const AlignmentDirectional(-1.0, 0.0),
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 15.0),
+                                  child: Text(
+                                    '^ Title is required',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodySmall
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                ),
+                              ),
                             Align(
                               alignment: const AlignmentDirectional(-1.0, -1.0),
                               child: Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 15.0, 0.0, 10.0),
+                                    0.0, 0.0, 0.0, 10.0),
                                 child: Text(
                                   'Description',
                                   style: FlutterFlowTheme.of(context)
@@ -236,15 +265,19 @@ class _PostChallengeWidgetState extends State<PostChallengeWidget> {
                                           letterSpacing: 0.0,
                                         ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: Color(0xFFD8DADC),
+                                      borderSide: BorderSide(
+                                        color: (_model.desc != 'null') ||
+                                                (_model.show == 0)
+                                            ? const Color(0xFFD8DADC)
+                                            : FlutterFlowTheme.of(context)
+                                                .error,
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
-                                        color: Color(0x00000000),
+                                        color: Color(0xFF0043CE),
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
@@ -277,6 +310,9 @@ class _PostChallengeWidgetState extends State<PostChallengeWidget> {
                                       ),
                                   maxLines: 5,
                                   minLines: 5,
+                                  maxLength: 300,
+                                  maxLengthEnforcement:
+                                      MaxLengthEnforcement.enforced,
                                   cursorColor:
                                       FlutterFlowTheme.of(context).primaryText,
                                   validator: _model
@@ -285,11 +321,33 @@ class _PostChallengeWidgetState extends State<PostChallengeWidget> {
                                 ),
                               ),
                             ),
+                            if ((_model.show == 1) &&
+                                (_model.descriptionTextFieldTextController
+                                            .text ==
+                                        ''))
+                              Align(
+                                alignment: const AlignmentDirectional(-1.0, 0.0),
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 15.0),
+                                  child: Text(
+                                    '^ Description is required',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodySmall
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                ),
+                              ),
                             Align(
                               alignment: const AlignmentDirectional(-1.0, -1.0),
                               child: Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 15.0, 0.0, 10.0),
+                                    0.0, 0.0, 0.0, 10.0),
                                 child: Text(
                                   'File Attachments',
                                   style: FlutterFlowTheme.of(context)
@@ -340,12 +398,6 @@ class _PostChallengeWidgetState extends State<PostChallengeWidget> {
                                     safeSetState(() {});
                                     return;
                                   }
-                                }
-
-                                if ((_model.uploadedLocalFile1.bytes
-                                            ?.isNotEmpty ??
-                                        false)) {
-                                  return;
                                 }
                               },
                               child: Container(
@@ -432,98 +484,166 @@ class _PostChallengeWidgetState extends State<PostChallengeWidget> {
                                 ),
                               ),
                             ),
+                            if (_model.show == 1)
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 15.0, 0.0, 0.0),
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Container(
+                                    width: 330.0,
+                                    height: 50.0,
+                                    decoration: BoxDecoration(
+                                      color: const Color(0x7FFF5963),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      border: Border.all(
+                                        color:
+                                            FlutterFlowTheme.of(context).error,
+                                        width: 2.0,
+                                      ),
+                                    ),
+                                    child: Align(
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
+                                      child: Text(
+                                        'Please fill in all required fields to proceed.',
+                                        style: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 35.0, 0.0, 0.0),
+                                  0.0, 20.0, 0.0, 0.0),
                               child: FFButtonWidget(
-                                onPressed: ((_model.titleTextFieldTextController
-                                                    .text ==
-                                                '') ||
-                                        (_model.descriptionTextFieldTextController
-                                                    .text ==
-                                                ''))
-                                    ? null
-                                    : () async {
-                                        {
-                                          safeSetState(() =>
-                                              _model.isDataUploading2 = true);
-                                          var selectedUploadedFiles =
-                                              <FFUploadedFile>[];
-                                          var selectedFiles = <SelectedFile>[];
-                                          var downloadUrls = <String>[];
-                                          try {
-                                            selectedUploadedFiles = _model
-                                                    .uploadedLocalFile1
-                                                    .bytes!
-                                                    .isNotEmpty
-                                                ? [_model.uploadedLocalFile1]
-                                                : <FFUploadedFile>[];
-                                            selectedFiles =
-                                                selectedFilesFromUploadedFiles(
-                                              selectedUploadedFiles,
-                                            );
-                                            downloadUrls = (await Future.wait(
-                                              selectedFiles.map(
-                                                (f) async => await uploadData(
-                                                    f.storagePath, f.bytes),
-                                              ),
-                                            ))
-                                                .where((u) => u != null)
-                                                .map((u) => u!)
-                                                .toList();
-                                          } finally {
-                                            _model.isDataUploading2 = false;
-                                          }
-                                          if (selectedUploadedFiles.length ==
-                                                  selectedFiles.length &&
-                                              downloadUrls.length ==
-                                                  selectedFiles.length) {
-                                            safeSetState(() {
-                                              _model.uploadedLocalFile2 =
-                                                  selectedUploadedFiles.first;
-                                              _model.uploadedFileUrl2 =
-                                                  downloadUrls.first;
-                                            });
-                                          } else {
-                                            safeSetState(() {});
-                                            return;
-                                          }
+                                onPressed: () async {
+                                  _model.title =
+                                      _model.titleTextFieldTextController.text;
+                                  _model.desc = _model
+                                      .descriptionTextFieldTextController.text;
+                                  safeSetState(() {});
+                                  if ((_model.titleTextFieldTextController
+                                                  .text ==
+                                              '') ||
+                                      (_model.descriptionTextFieldTextController
+                                                  .text ==
+                                              '')) {
+                                    _model.show = 1;
+                                    safeSetState(() {});
+                                  } else {
+                                    _model.show = 0;
+                                    safeSetState(() {});
+                                    if ((_model.uploadedLocalFile1.bytes
+                                                ?.isNotEmpty ??
+                                            false)) {
+                                      {
+                                        safeSetState(() =>
+                                            _model.isDataUploading2 = true);
+                                        var selectedUploadedFiles =
+                                            <FFUploadedFile>[];
+                                        var selectedFiles = <SelectedFile>[];
+                                        var downloadUrls = <String>[];
+                                        try {
+                                          selectedUploadedFiles = _model
+                                                  .uploadedLocalFile1
+                                                  .bytes!
+                                                  .isNotEmpty
+                                              ? [_model.uploadedLocalFile1]
+                                              : <FFUploadedFile>[];
+                                          selectedFiles =
+                                              selectedFilesFromUploadedFiles(
+                                            selectedUploadedFiles,
+                                          );
+                                          downloadUrls = (await Future.wait(
+                                            selectedFiles.map(
+                                              (f) async => await uploadData(
+                                                  f.storagePath, f.bytes),
+                                            ),
+                                          ))
+                                              .where((u) => u != null)
+                                              .map((u) => u!)
+                                              .toList();
+                                        } finally {
+                                          _model.isDataUploading2 = false;
                                         }
+                                        if (selectedUploadedFiles.length ==
+                                                selectedFiles.length &&
+                                            downloadUrls.length ==
+                                                selectedFiles.length) {
+                                          safeSetState(() {
+                                            _model.uploadedLocalFile2 =
+                                                selectedUploadedFiles.first;
+                                            _model.uploadedFileUrl2 =
+                                                downloadUrls.first;
+                                          });
+                                        } else {
+                                          safeSetState(() {});
+                                          return;
+                                        }
+                                      }
 
-                                        await ChallengesRecord.collection
-                                            .doc()
-                                            .set(createChallengesRecordData(
-                                              descriptionFile:
-                                                  _model.uploadedFileUrl2,
-                                              title: _model
-                                                  .titleTextFieldTextController
-                                                  .text,
-                                              description: _model
-                                                  .descriptionTextFieldTextController
-                                                  .text,
-                                              uid: currentUserUid,
-                                            ));
-                                        showModalBottomSheet(
-                                          isScrollControlled: true,
-                                          backgroundColor: Colors.transparent,
-                                          enableDrag: false,
-                                          context: context,
-                                          builder: (context) {
-                                            return GestureDetector(
-                                              onTap: () =>
-                                                  FocusScope.of(context)
-                                                      .unfocus(),
-                                              child: Padding(
-                                                padding:
-                                                    MediaQuery.viewInsetsOf(
-                                                        context),
-                                                child:
-                                                    const PostConfirmationDialogWidget(),
-                                              ),
-                                            );
-                                          },
-                                        ).then((value) => safeSetState(() {}));
+                                      await ChallengesRecord.collection
+                                          .doc()
+                                          .set(createChallengesRecordData(
+                                            descriptionFile:
+                                                _model.uploadedFileUrl2,
+                                            title: _model
+                                                .titleTextFieldTextController
+                                                .text,
+                                            description: _model
+                                                .descriptionTextFieldTextController
+                                                .text,
+                                            uid: currentUserUid,
+                                          ));
+                                    } else {
+                                      await ChallengesRecord.collection
+                                          .doc()
+                                          .set(createChallengesRecordData(
+                                            description: _model
+                                                .descriptionTextFieldTextController
+                                                .text,
+                                            title: _model
+                                                .titleTextFieldTextController
+                                                .text,
+                                            uid: currentUserUid,
+                                          ));
+                                    }
+
+                                    await showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      enableDrag: false,
+                                      context: context,
+                                      builder: (context) {
+                                        return GestureDetector(
+                                          onTap: () =>
+                                              FocusScope.of(context).unfocus(),
+                                          child: Padding(
+                                            padding: MediaQuery.viewInsetsOf(
+                                                context),
+                                            child:
+                                                const PostConfirmationDialogWidget(),
+                                          ),
+                                        );
                                       },
+                                    ).then((value) => safeSetState(() {}));
+                                  }
+                                },
                                 text: 'Post',
                                 options: FFButtonOptions(
                                   width: 360.0,
@@ -542,7 +662,6 @@ class _PostChallengeWidgetState extends State<PostChallengeWidget> {
                                       ),
                                   elevation: 0.0,
                                   borderRadius: BorderRadius.circular(8.0),
-                                  disabledColor: const Color(0x80000000),
                                 ),
                               ),
                             ),

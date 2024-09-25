@@ -12,9 +12,11 @@ class ChallengeDetailsWidget extends StatefulWidget {
   const ChallengeDetailsWidget({
     super.key,
     required this.challenge,
+    required this.image,
   });
 
   final ChallengesRecord? challenge;
+  final String? image;
 
   @override
   State<ChallengeDetailsWidget> createState() => _ChallengeDetailsWidgetState();
@@ -121,10 +123,7 @@ class _ChallengeDetailsWidgetState extends State<ChallengeDetailsWidget> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
                           child: Image.network(
-                            valueOrDefault<String>(
-                              challengeDetailsChallengesRecord?.photoUrl,
-                              'photo',
-                            ),
+                            widget.image!,
                             width: double.infinity,
                             height: 330.0,
                             fit: BoxFit.cover,
@@ -162,17 +161,21 @@ class _ChallengeDetailsWidgetState extends State<ChallengeDetailsWidget> {
                                         ),
                                   ),
                                 ),
-                                Text(
-                                  valueOrDefault<String>(
-                                    widget.challenge?.description,
-                                    'challenge description',
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 8.0, 0.0, 20.0),
+                                  child: Text(
+                                    valueOrDefault<String>(
+                                      widget.challenge?.description,
+                                      'challenge description',
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
                                   ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        letterSpacing: 0.0,
-                                      ),
                                 ),
                                 FFButtonWidget(
                                   onPressed: () async {

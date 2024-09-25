@@ -40,7 +40,5 @@ export '/organization/view_solutions_copy/view_solutions_copy_widget.dart'
     show ViewSolutionsCopyWidget;
 export '/loggedin_page/loggedin_page_widget.dart' show LoggedinPageWidget;
 export '/solver/submitsol/submitsol_widget.dart' show SubmitsolWidget;
-export '/solver/sol_details_copy/sol_details_copy_widget.dart'
-    show SolDetailsCopyWidget;
 export '/organization/edit_post_challenge/edit_post_challenge_widget.dart'
     show EditPostChallengeWidget;

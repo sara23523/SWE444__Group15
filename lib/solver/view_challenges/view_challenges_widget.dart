@@ -236,6 +236,11 @@ class _ViewChallengesWidgetState extends State<ViewChallengesWidget> {
                                                 listViewChallengesRecord,
                                                 ParamType.Document,
                                               ),
+                                              'image': serializeParam(
+                                                listViewChallengesRecord
+                                                    .photoUrl,
+                                                ParamType.String,
+                                              ),
                                             }.withoutNulls,
                                             extra: <String, dynamic>{
                                               'challenge':

@@ -72,14 +72,15 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const EditOrgWidget() : const PostChallengeWidget(),
+      errorBuilder: (context, state) => appStateNotifier.loggedIn
+          ? const ViewSolutionsWidget()
+          : const PostChallengeWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) => appStateNotifier.loggedIn
-              ? const EditOrgWidget()
+              ? const ViewSolutionsWidget()
               : const PostChallengeWidget(),
         ),
         FFRoute(
@@ -197,6 +198,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'challenge',
               ParamType.Document,
             ),
+            image: params.getParam(
+              'image',
+              ParamType.String,
+            ),
           ),
         ),
         FFRoute(
@@ -238,27 +243,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => SubmitsolWidget(
             chDocid: params.getParam(
               'chDocid',
-              ParamType.Document,
-            ),
-          ),
-        ),
-        FFRoute(
-          name: 'Sol_detailsCopy',
-          path: '/solDetailsCopy',
-          asyncParams: {
-            'reply': getDoc(['replies'], RepliesRecord.fromSnapshot),
-          },
-          builder: (context, params) => SolDetailsCopyWidget(
-            desc: params.getParam(
-              'desc',
-              ParamType.String,
-            ),
-            solTitle: params.getParam(
-              'solTitle',
-              ParamType.String,
-            ),
-            reply: params.getParam(
-              'reply',
               ParamType.Document,
             ),
           ),

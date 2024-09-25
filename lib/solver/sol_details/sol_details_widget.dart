@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/solver/pdf_component/pdf_component_widget.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'sol_details_model.dart';
 export 'sol_details_model.dart';
@@ -148,21 +147,6 @@ class _SolDetailsWidgetState extends State<SolDetailsWidget> {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(18.0),
-                            child: CachedNetworkImage(
-                              fadeInDuration: const Duration(milliseconds: 500),
-                              fadeOutDuration: const Duration(milliseconds: 500),
-                              imageUrl: solDetailsChallengesRecord?.photoUrl !=
-                                          null &&
-                                      solDetailsChallengesRecord?.photoUrl != ''
-                                  ? solDetailsChallengesRecord!.photoUrl
-                                  : 'https://th.bing.com/th/id/OIP.F4eiZn0Wjgp4EFtocph2BAHaFj?rs=1&pid=ImgDetMain',
-                              width: MediaQuery.sizeOf(context).width * 1.0,
-                              height: 230.0,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
                           Divider(
                             thickness: 2.0,
                             color: FlutterFlowTheme.of(context).alternate,

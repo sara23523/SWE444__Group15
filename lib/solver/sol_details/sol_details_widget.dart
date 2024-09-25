@@ -153,8 +153,11 @@ class _SolDetailsWidgetState extends State<SolDetailsWidget> {
                             child: CachedNetworkImage(
                               fadeInDuration: const Duration(milliseconds: 500),
                               fadeOutDuration: const Duration(milliseconds: 500),
-                              imageUrl:
-                                  'https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw1fHxhbWF6b258ZW58MHx8fHwxNzI2NDEzMzA3fDA&ixlib=rb-4.0.3&q=80&w=1080',
+                              imageUrl: solDetailsChallengesRecord?.photoUrl !=
+                                          null &&
+                                      solDetailsChallengesRecord?.photoUrl != ''
+                                  ? solDetailsChallengesRecord!.photoUrl
+                                  : 'https://th.bing.com/th/id/OIP.F4eiZn0Wjgp4EFtocph2BAHaFj?rs=1&pid=ImgDetMain',
                               width: MediaQuery.sizeOf(context).width * 1.0,
                               height: 230.0,
                               fit: BoxFit.cover,

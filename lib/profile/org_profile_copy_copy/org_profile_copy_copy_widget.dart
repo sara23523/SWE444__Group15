@@ -268,10 +268,7 @@ class _OrgProfileCopyCopyWidgetState extends State<OrgProfileCopyCopyWidget> {
                                               : null;
 
                                       return Text(
-                                        valueOrDefault<String>(
-                                          textUserNameUsersRecord?.displayName,
-                                          '[]',
-                                        ),
+                                        textUserNameUsersRecord!.username,
                                         style: FlutterFlowTheme.of(context)
                                             .headlineSmall
                                             .override(

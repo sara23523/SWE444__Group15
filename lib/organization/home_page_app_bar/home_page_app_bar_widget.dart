@@ -55,7 +55,7 @@ class _HomePageAppBarWidgetState extends State<HomePageAppBarWidget> {
                   decoration: const BoxDecoration(),
                   child: Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(22.0, 20.0, 0.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -111,7 +111,7 @@ class _HomePageAppBarWidgetState extends State<HomePageAppBarWidget> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(18.0, 0.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 0.0, 0.0),
                   child: InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,

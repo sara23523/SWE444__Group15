@@ -119,7 +119,7 @@ class _PostChallengeWidgetState extends State<PostChallengeWidget> {
                               ),
                             ),
                             Align(
-                              alignment: const AlignmentDirectional(-1.0, -1.0),
+                              alignment: const AlignmentDirectional(0.0, -1.0),
                               child: SizedBox(
                                 width: 360.0,
                                 child: TextFormField(
@@ -500,7 +500,7 @@ class _PostChallengeWidgetState extends State<PostChallengeWidget> {
                                     width: 330.0,
                                     height: 50.0,
                                     decoration: BoxDecoration(
-                                      color: const Color(0x7FFF5963),
+                                      color: const Color(0x52FF5963),
                                       borderRadius: BorderRadius.circular(10.0),
                                       border: Border.all(
                                         color:
@@ -518,7 +518,7 @@ class _PostChallengeWidgetState extends State<PostChallengeWidget> {
                                               fontFamily: 'Inter',
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .info,
+                                                      .error,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w600,
                                             ),

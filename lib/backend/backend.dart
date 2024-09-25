@@ -9,7 +9,6 @@ import 'schema/organization_record.dart';
 import 'schema/challenges_record.dart';
 import 'schema/solver_record.dart';
 import 'schema/replies_record.dart';
-import 'schema/solutions_record.dart';
 import 'schema/users_record.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -23,7 +22,6 @@ export 'schema/organization_record.dart';
 export 'schema/challenges_record.dart';
 export 'schema/solver_record.dart';
 export 'schema/replies_record.dart';
-export 'schema/solutions_record.dart';
 export 'schema/users_record.dart';
 
 /// Functions to query OrganizationRecords (as a Stream and as a Future).
@@ -169,46 +167,6 @@ Future<List<RepliesRecord>> queryRepliesRecordOnce({
     queryCollectionOnce(
       RepliesRecord.collection,
       RepliesRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-/// Functions to query SolutionsRecords (as a Stream and as a Future).
-Future<int> querySolutionsRecordCount({
-  DocumentReference? parent,
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-}) =>
-    queryCollectionCount(
-      SolutionsRecord.collection(parent),
-      queryBuilder: queryBuilder,
-      limit: limit,
-    );
-
-Stream<List<SolutionsRecord>> querySolutionsRecord({
-  DocumentReference? parent,
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      SolutionsRecord.collection(parent),
-      SolutionsRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<SolutionsRecord>> querySolutionsRecordOnce({
-  DocumentReference? parent,
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      SolutionsRecord.collection(parent),
-      SolutionsRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,

@@ -19,6 +19,9 @@ class CreateAccountModel extends FlutterFlowModel<CreateAccountWidget> {
       return 'Field is required';
     }
 
+    if (!RegExp('^[a-zA-Z\\s\'-]+\$').hasMatch(val)) {
+      return 'Name can only contain letters, spaces,\n hyphens, or apostrophes. Please\n remove any numbers or special \ncharacters.';
+    }
     return null;
   }
 

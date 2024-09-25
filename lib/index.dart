@@ -29,8 +29,7 @@ export '/organization/view_challenges_copy/view_challenges_copy_widget.dart'
     show ViewChallengesCopyWidget;
 export '/solver/challenge_details/challenge_details_widget.dart'
     show ChallengeDetailsWidget;
-export '/solver/homepage_solver/homepage_solver_widget.dart'
-    show HomepageSolverWidget;
+export '/homepage_solver/homepage_solver_widget.dart' show HomepageSolverWidget;
 export '/organization/org_homepage/org_homepage_widget.dart'
     show OrgHomepageWidget;
 export '/solver/solver_homepage/solver_homepage_widget.dart'
@@ -40,4 +39,8 @@ export '/pages/terms_and_conditions_sign_in/terms_and_conditions_sign_in_widget.
 export '/organization/view_solutions_copy/view_solutions_copy_widget.dart'
     show ViewSolutionsCopyWidget;
 export '/loggedin_page/loggedin_page_widget.dart' show LoggedinPageWidget;
-export '/solver/submitsol2/submitsol2_widget.dart' show Submitsol2Widget;
+export '/solver/submitsol/submitsol_widget.dart' show SubmitsolWidget;
+export '/solver/sol_details_copy/sol_details_copy_widget.dart'
+    show SolDetailsCopyWidget;
+export '/organization/edit_post_challenge/edit_post_challenge_widget.dart'
+    show EditPostChallengeWidget;

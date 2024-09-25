@@ -6,10 +6,6 @@ import 'package:flutter/material.dart';
 class ViewSolutionsCopyModel extends FlutterFlowModel<ViewSolutionsCopyWidget> {
   ///  State fields for stateful widgets in this page.
 
-  // State field(s) for searchBar widget.
-  FocusNode? searchBarFocusNode;
-  TextEditingController? searchBarTextController;
-  String? Function(BuildContext, String?)? searchBarTextControllerValidator;
   // Model for BottomNavigationBarOrg component.
   late BottomNavigationBarOrgModel bottomNavigationBarOrgModel;
 
@@ -21,9 +17,6 @@ class ViewSolutionsCopyModel extends FlutterFlowModel<ViewSolutionsCopyWidget> {
 
   @override
   void dispose() {
-    searchBarFocusNode?.dispose();
-    searchBarTextController?.dispose();
-
     bottomNavigationBarOrgModel.dispose();
   }
 }

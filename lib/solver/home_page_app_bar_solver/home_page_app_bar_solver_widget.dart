@@ -136,52 +136,49 @@ class _HomePageAppBarSolverWidgetState
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(4.0),
-                        child: AuthUserStreamWidget(
-                          builder: (context) =>
-                              StreamBuilder<List<UsersRecord>>(
-                            stream: queryUsersRecord(
-                              singleRecord: true,
-                            ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
-                                      ),
+                        child: StreamBuilder<List<UsersRecord>>(
+                          stream: queryUsersRecord(
+                            singleRecord: true,
+                          ),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      FlutterFlowTheme.of(context).primary,
                                     ),
                                   ),
-                                );
-                              }
-                              List<UsersRecord> circleImageUsersRecordList =
-                                  snapshot.data!;
-                              // Return an empty Container when the item does not exist.
-                              if (snapshot.data!.isEmpty) {
-                                return Container();
-                              }
-                              final circleImageUsersRecord =
-                                  circleImageUsersRecordList.isNotEmpty
-                                      ? circleImageUsersRecordList.first
-                                      : null;
-
-                              return Container(
-                                width: 120.0,
-                                height: 120.0,
-                                clipBehavior: Clip.antiAlias,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Image.network(
-                                  currentUserPhoto,
-                                  fit: BoxFit.cover,
                                 ),
                               );
-                            },
-                          ),
+                            }
+                            List<UsersRecord> circleImageUsersRecordList =
+                                snapshot.data!;
+                            // Return an empty Container when the item does not exist.
+                            if (snapshot.data!.isEmpty) {
+                              return Container();
+                            }
+                            final circleImageUsersRecord =
+                                circleImageUsersRecordList.isNotEmpty
+                                    ? circleImageUsersRecordList.first
+                                    : null;
+
+                            return Container(
+                              width: 120.0,
+                              height: 120.0,
+                              clipBehavior: Clip.antiAlias,
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                              ),
+                              child: Image.network(
+                                circleImageUsersRecord!.photoUrl,
+                                fit: BoxFit.cover,
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ),

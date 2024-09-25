@@ -9,25 +9,30 @@ import '/flutter_flow/upload_data.dart';
 import '/solver/submit_sol_confirmation_dialog/submit_sol_confirmation_dialog_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'submitsol2_model.dart';
-export 'submitsol2_model.dart';
+import 'submitsol_model.dart';
+export 'submitsol_model.dart';
 
-class Submitsol2Widget extends StatefulWidget {
-  const Submitsol2Widget({super.key});
+class SubmitsolWidget extends StatefulWidget {
+  const SubmitsolWidget({
+    super.key,
+    required this.chDocid,
+  });
+
+  final ChallengesRecord? chDocid;
 
   @override
-  State<Submitsol2Widget> createState() => _Submitsol2WidgetState();
+  State<SubmitsolWidget> createState() => _SubmitsolWidgetState();
 }
 
-class _Submitsol2WidgetState extends State<Submitsol2Widget> {
-  late Submitsol2Model _model;
+class _SubmitsolWidgetState extends State<SubmitsolWidget> {
+  late SubmitsolModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => Submitsol2Model());
+    _model = createModel(context, () => SubmitsolModel());
 
     _model.titleTextFieldTextController ??= TextEditingController();
     _model.titleTextFieldFocusNode ??= FocusNode();
@@ -609,6 +614,9 @@ class _Submitsol2WidgetState extends State<Submitsol2Widget> {
                                                 .text,
                                             uid: currentUserUid,
                                             file: _model.uploadedFileUrl2,
+                                            points: 0,
+                                            challengeRef:
+                                                widget.chDocid?.reference,
                                           ));
                                     } else {
                                       await RepliesRecord.collection
@@ -621,6 +629,10 @@ class _Submitsol2WidgetState extends State<Submitsol2Widget> {
                                                 .titleTextFieldTextController
                                                 .text,
                                             uid: currentUserUid,
+                                            file: '',
+                                            points: 0,
+                                            challengeRef:
+                                                widget.chDocid?.reference,
                                           ));
                                     }
 

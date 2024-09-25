@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'submitsol2_widget.dart' show Submitsol2Widget;
+import 'edit_post_challenge_widget.dart' show EditPostChallengeWidget;
 import 'package:flutter/material.dart';
 
-class Submitsol2Model extends FlutterFlowModel<Submitsol2Widget> {
+class EditPostChallengeModel extends FlutterFlowModel<EditPostChallengeWidget> {
   ///  Local state fields for this page.
 
   int show = 0;

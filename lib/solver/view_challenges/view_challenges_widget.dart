@@ -136,15 +136,52 @@ class _ViewChallengesWidgetState extends State<ViewChallengesWidget> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(26.0),
-                                        child: Image.network(
-                                          listViewChallengesRecord.photoUrl,
-                                          width: 36.0,
-                                          height: 36.0,
-                                          fit: BoxFit.cover,
+                                      StreamBuilder<List<UsersRecord>>(
+                                        stream: queryUsersRecord(
+                                          singleRecord: true,
                                         ),
+                                        builder: (context, snapshot) {
+                                          // Customize what your widget looks like when it's loading.
+                                          if (!snapshot.hasData) {
+                                            return Center(
+                                              child: SizedBox(
+                                                width: 50.0,
+                                                height: 50.0,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  valueColor:
+                                                      AlwaysStoppedAnimation<
+                                                          Color>(
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                          List<UsersRecord>
+                                              imageUsersRecordList =
+                                              snapshot.data!;
+                                          // Return an empty Container when the item does not exist.
+                                          if (snapshot.data!.isEmpty) {
+                                            return Container();
+                                          }
+                                          final imageUsersRecord =
+                                              imageUsersRecordList.isNotEmpty
+                                                  ? imageUsersRecordList.first
+                                                  : null;
+
+                                          return ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(26.0),
+                                            child: Image.network(
+                                              imageUsersRecord!.photoUrl,
+                                              width: 36.0,
+                                              height: 36.0,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          );
+                                        },
                                       ),
                                       Expanded(
                                         child: Padding(
@@ -158,57 +195,6 @@ class _ViewChallengesWidgetState extends State<ViewChallengesWidget> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              StreamBuilder<List<UsersRecord>>(
-                                                stream: queryUsersRecord(
-                                                  singleRecord: true,
-                                                ),
-                                                builder: (context, snapshot) {
-                                                  // Customize what your widget looks like when it's loading.
-                                                  if (!snapshot.hasData) {
-                                                    return Center(
-                                                      child: SizedBox(
-                                                        width: 50.0,
-                                                        height: 50.0,
-                                                        child:
-                                                            CircularProgressIndicator(
-                                                          valueColor:
-                                                              AlwaysStoppedAnimation<
-                                                                  Color>(
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    );
-                                                  }
-                                                  List<UsersRecord>
-                                                      textUsersRecordList =
-                                                      snapshot.data!;
-                                                  // Return an empty Container when the item does not exist.
-                                                  if (snapshot.data!.isEmpty) {
-                                                    return Container();
-                                                  }
-                                                  final textUsersRecord =
-                                                      textUsersRecordList
-                                                              .isNotEmpty
-                                                          ? textUsersRecordList
-                                                              .first
-                                                          : null;
-
-                                                  return Text(
-                                                    listViewChallengesRecord
-                                                        .displayName,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                                  );
-                                                },
-                                              ),
                                               Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
@@ -225,7 +211,13 @@ class _ViewChallengesWidgetState extends State<ViewChallengesWidget> {
                                                           .labelMedium
                                                           .override(
                                                             fontFamily: 'Inter',
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryText,
+                                                            fontSize: 16.0,
                                                             letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.w600,
                                                           ),
                                                     ),
                                                   ),

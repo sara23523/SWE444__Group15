@@ -226,7 +226,34 @@ class _ViewSolutionsWidgetState extends State<ViewSolutionsWidget> {
                                             focusColor: Colors.transparent,
                                             hoverColor: Colors.transparent,
                                             highlightColor: Colors.transparent,
-                                            onTap: () async {},
+                                            onTap: () async {
+                                              context.pushNamed(
+                                                'Sol_details',
+                                                queryParameters: {
+                                                  'chalRef': serializeParam(
+                                                    listViewRepliesRecord
+                                                        .challengeRef,
+                                                    ParamType.DocumentReference,
+                                                  ),
+                                                  'reply': serializeParam(
+                                                    listViewRepliesRecord,
+                                                    ParamType.Document,
+                                                  ),
+                                                }.withoutNulls,
+                                                extra: <String, dynamic>{
+                                                  'reply':
+                                                      listViewRepliesRecord,
+                                                  kTransitionInfoKey:
+                                                      const TransitionInfo(
+                                                    hasTransition: true,
+                                                    transitionType:
+                                                        PageTransitionType.fade,
+                                                    duration: Duration(
+                                                        milliseconds: 0),
+                                                  ),
+                                                },
+                                              );
+                                            },
                                             child: FaIcon(
                                               FontAwesomeIcons.angleRight,
                                               color:

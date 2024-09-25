@@ -1,9 +1,9 @@
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_pdf_viewer.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/solver/challenge_document/challenge_document_widget.dart';
 import 'package:flutter/material.dart';
 import 'challenge_details_model.dart';
 export 'challenge_details_model.dart';
@@ -174,17 +174,28 @@ class _ChallengeDetailsWidgetState extends State<ChallengeDetailsWidget> {
                                         letterSpacing: 0.0,
                                       ),
                                 ),
-                                FlutterFlowPdfViewer(
-                                  networkPath: valueOrDefault<String>(
-                                    widget.challenge?.descriptionFile,
-                                    'Description file',
-                                  ),
-                                  height: 50.0,
-                                  horizontalScroll: false,
-                                ),
                                 FFButtonWidget(
-                                  onPressed: () {
-                                    print('Button pressed ...');
+                                  onPressed: () async {
+                                    await showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      enableDrag: false,
+                                      context: context,
+                                      builder: (context) {
+                                        return GestureDetector(
+                                          onTap: () =>
+                                              FocusScope.of(context).unfocus(),
+                                          child: Padding(
+                                            padding: MediaQuery.viewInsetsOf(
+                                                context),
+                                            child: ChallengeDocumentWidget(
+                                              pdf:
+                                                  challengeDetailsChallengesRecord!,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ).then((value) => safeSetState(() {}));
                                   },
                                   text: 'Description file',
                                   options: FFButtonOptions(
@@ -216,7 +227,18 @@ class _ChallengeDetailsWidgetState extends State<ChallengeDetailsWidget> {
                     alignment: const AlignmentDirectional(0.0, 1.0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        context.pushNamed('null');
+                        context.pushNamed(
+                          'submitsol',
+                          queryParameters: {
+                            'chDocid': serializeParam(
+                              widget.challenge,
+                              ParamType.Document,
+                            ),
+                          }.withoutNulls,
+                          extra: <String, dynamic>{
+                            'chDocid': widget.challenge,
+                          },
+                        );
                       },
                       text: 'Submit Solution',
                       options: FFButtonOptions(

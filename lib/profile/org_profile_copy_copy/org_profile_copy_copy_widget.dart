@@ -233,62 +233,58 @@ class _OrgProfileCopyCopyWidgetState extends State<OrgProfileCopyCopyWidget> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  AuthUserStreamWidget(
-                                    builder: (context) =>
-                                        StreamBuilder<List<UsersRecord>>(
-                                      stream: queryUsersRecord(
-                                        singleRecord: true,
-                                      ),
-                                      builder: (context, snapshot) {
-                                        // Customize what your widget looks like when it's loading.
-                                        if (!snapshot.hasData) {
-                                          return Center(
-                                            child: SizedBox(
-                                              width: 50.0,
-                                              height: 50.0,
-                                              child: CircularProgressIndicator(
-                                                valueColor:
-                                                    AlwaysStoppedAnimation<
-                                                        Color>(
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                                ),
+                                  StreamBuilder<List<UsersRecord>>(
+                                    stream: queryUsersRecord(
+                                      singleRecord: true,
+                                    ),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 50.0,
+                                            height: 50.0,
+                                            child: CircularProgressIndicator(
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
                                               ),
                                             ),
-                                          );
-                                        }
-                                        List<UsersRecord>
-                                            textUserNameUsersRecordList =
-                                            snapshot.data!;
-                                        // Return an empty Container when the item does not exist.
-                                        if (snapshot.data!.isEmpty) {
-                                          return Container();
-                                        }
-                                        final textUserNameUsersRecord =
-                                            textUserNameUsersRecordList
-                                                    .isNotEmpty
-                                                ? textUserNameUsersRecordList
-                                                    .first
-                                                : null;
-
-                                        return Text(
-                                          valueOrDefault(
-                                              currentUserDocument?.username,
-                                              ''),
-                                          style: FlutterFlowTheme.of(context)
-                                              .headlineSmall
-                                              .override(
-                                                fontFamily: 'Lexend Deca',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                                fontSize: 20.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                          ),
                                         );
-                                      },
-                                    ),
+                                      }
+                                      List<UsersRecord>
+                                          textUserNameUsersRecordList =
+                                          snapshot.data!;
+                                      // Return an empty Container when the item does not exist.
+                                      if (snapshot.data!.isEmpty) {
+                                        return Container();
+                                      }
+                                      final textUserNameUsersRecord =
+                                          textUserNameUsersRecordList.isNotEmpty
+                                              ? textUserNameUsersRecordList
+                                                  .first
+                                              : null;
+
+                                      return Text(
+                                        valueOrDefault<String>(
+                                          textUserNameUsersRecord?.displayName,
+                                          '[]',
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .headlineSmall
+                                            .override(
+                                              fontFamily: 'Lexend Deca',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              fontSize: 20.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      );
+                                    },
                                   ),
                                   Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(
@@ -389,8 +385,11 @@ class _OrgProfileCopyCopyWidgetState extends State<OrgProfileCopyCopyWidget> {
                                                   : null;
 
                                           return Text(
-                                            valueOrDefault(
-                                                currentUserDocument?.bio, ''),
+                                            valueOrDefault<String>(
+                                              valueOrDefault(
+                                                  currentUserDocument?.bio, ''),
+                                              'bio',
+                                            ),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(

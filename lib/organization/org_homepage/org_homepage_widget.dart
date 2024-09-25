@@ -44,7 +44,7 @@ class _OrgHomepageWidgetState extends State<OrgHomepageWidget> {
           backgroundColor: const Color(0xFF0043CE),
           elevation: 8.0,
           child: Icon(
-            Icons.add_rounded,
+            Icons.post_add_outlined,
             color: FlutterFlowTheme.of(context).info,
             size: 24.0,
           ),

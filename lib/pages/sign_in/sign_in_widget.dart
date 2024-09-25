@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/pages/send_email_verification/send_email_verification_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -374,6 +375,12 @@ class _SignInWidgetState extends State<SignInWidget>
                                   0.0, 0.0, 0.0, 16.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
+                                  await authManager.refreshUser();
+                                  if (_model.formKey.currentState == null ||
+                                      !_model.formKey.currentState!
+                                          .validate()) {
+                                    return;
+                                  }
                                   GoRouter.of(context).prepareAuthEvent();
 
                                   final user =
@@ -386,14 +393,35 @@ class _SignInWidgetState extends State<SignInWidget>
                                     return;
                                   }
 
-                                  if (valueOrDefault(
-                                          currentUserDocument?.userRole, 0) ==
-                                      1) {
-                                    context.pushNamedAuth(
-                                        'orgHomepage', context.mounted);
+                                  if (currentUserEmailVerified == true) {
+                                    if (valueOrDefault(
+                                            currentUserDocument?.userRole, 0) ==
+                                        1) {
+                                      context.pushNamedAuth(
+                                          'orgHomepage', context.mounted);
+                                    } else {
+                                      context.pushNamedAuth(
+                                          'solverHomepage', context.mounted);
+                                    }
                                   } else {
-                                    context.pushNamedAuth(
-                                        'solverHomepage', context.mounted);
+                                    await showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      enableDrag: false,
+                                      context: context,
+                                      builder: (context) {
+                                        return GestureDetector(
+                                          onTap: () =>
+                                              FocusScope.of(context).unfocus(),
+                                          child: Padding(
+                                            padding: MediaQuery.viewInsetsOf(
+                                                context),
+                                            child:
+                                                const SendEmailVerificationWidget(),
+                                          ),
+                                        );
+                                      },
+                                    ).then((value) => safeSetState(() {}));
                                   }
                                 },
                                 text: 'Sign In',

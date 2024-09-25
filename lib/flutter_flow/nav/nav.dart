@@ -73,13 +73,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const Submitsol2Widget() : const SignInWidget(),
+          appStateNotifier.loggedIn ? const EditOrgWidget() : const PostChallengeWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) =>
-              appStateNotifier.loggedIn ? const Submitsol2Widget() : const SignInWidget(),
+          builder: (context, _) => appStateNotifier.loggedIn
+              ? const EditOrgWidget()
+              : const PostChallengeWidget(),
         ),
         FFRoute(
           name: 'HomePage1',
@@ -119,6 +120,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Sol_details',
           path: '/solDetails',
+          asyncParams: {
+            'reply': getDoc(['replies'], RepliesRecord.fromSnapshot),
+          },
           builder: (context, params) => SolDetailsWidget(
             chalRef: params.getParam(
               'chalRef',
@@ -126,13 +130,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               isList: false,
               collectionNamePath: ['Challenges'],
             ),
-            desc: params.getParam(
-              'desc',
-              ParamType.String,
-            ),
-            solTitle: params.getParam(
-              'solTitle',
-              ParamType.String,
+            reply: params.getParam(
+              'reply',
+              ParamType.Document,
             ),
           ),
         ),
@@ -230,9 +230,59 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const LoggedinPageWidget(),
         ),
         FFRoute(
-          name: 'submitsol2',
-          path: '/submitsol2',
-          builder: (context, params) => const Submitsol2Widget(),
+          name: 'submitsol',
+          path: '/submitsol',
+          asyncParams: {
+            'chDocid': getDoc(['Challenges'], ChallengesRecord.fromSnapshot),
+          },
+          builder: (context, params) => SubmitsolWidget(
+            chDocid: params.getParam(
+              'chDocid',
+              ParamType.Document,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'Sol_detailsCopy',
+          path: '/solDetailsCopy',
+          asyncParams: {
+            'reply': getDoc(['replies'], RepliesRecord.fromSnapshot),
+          },
+          builder: (context, params) => SolDetailsCopyWidget(
+            desc: params.getParam(
+              'desc',
+              ParamType.String,
+            ),
+            solTitle: params.getParam(
+              'solTitle',
+              ParamType.String,
+            ),
+            reply: params.getParam(
+              'reply',
+              ParamType.Document,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'EditPostChallenge',
+          path: '/editPostChallenge',
+          asyncParams: {
+            'challenge': getDoc(['Challenges'], ChallengesRecord.fromSnapshot),
+          },
+          builder: (context, params) => EditPostChallengeWidget(
+            title: params.getParam(
+              'title',
+              ParamType.String,
+            ),
+            challenge: params.getParam(
+              'challenge',
+              ParamType.Document,
+            ),
+            challengeID: params.getParam(
+              'challengeID',
+              ParamType.String,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -403,7 +453,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/signIn';
+            return '/postChallenge';
           }
           return null;
         },

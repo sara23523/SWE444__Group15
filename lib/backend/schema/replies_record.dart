@@ -40,6 +40,11 @@ class RepliesRecord extends FirestoreRecord {
   String get title => _title ?? '';
   bool hasTitle() => _title != null;
 
+  // "uid" field.
+  String? _uid;
+  String get uid => _uid ?? '';
+  bool hasUid() => _uid != null;
+
   // "challengeRef" field.
   DocumentReference? _challengeRef;
   DocumentReference? get challengeRef => _challengeRef;
@@ -51,6 +56,7 @@ class RepliesRecord extends FirestoreRecord {
     _points = castToType<int>(snapshotData['points']);
     _solver = snapshotData['solver'] as DocumentReference?;
     _title = snapshotData['title'] as String?;
+    _uid = snapshotData['uid'] as String?;
     _challengeRef = snapshotData['challengeRef'] as DocumentReference?;
   }
 
@@ -94,6 +100,7 @@ Map<String, dynamic> createRepliesRecordData({
   int? points,
   DocumentReference? solver,
   String? title,
+  String? uid,
   DocumentReference? challengeRef,
 }) {
   final firestoreData = mapToFirestore(
@@ -103,6 +110,7 @@ Map<String, dynamic> createRepliesRecordData({
       'points': points,
       'solver': solver,
       'title': title,
+      'uid': uid,
       'challengeRef': challengeRef,
     }.withoutNulls,
   );
@@ -120,6 +128,7 @@ class RepliesRecordDocumentEquality implements Equality<RepliesRecord> {
         e1?.points == e2?.points &&
         e1?.solver == e2?.solver &&
         e1?.title == e2?.title &&
+        e1?.uid == e2?.uid &&
         e1?.challengeRef == e2?.challengeRef;
   }
 
@@ -130,6 +139,7 @@ class RepliesRecordDocumentEquality implements Equality<RepliesRecord> {
         e?.points,
         e?.solver,
         e?.title,
+        e?.uid,
         e?.challengeRef
       ]);
 

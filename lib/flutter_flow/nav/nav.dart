@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '/backend/backend.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
@@ -71,16 +72,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) => appStateNotifier.loggedIn
-          ? const HomepageWidget()
-          : const CreateAccountOrgWidget(),
+      errorBuilder: (context, state) =>
+          appStateNotifier.loggedIn ? const SubmitsolWidget() : const HomePage1Widget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => appStateNotifier.loggedIn
-              ? const HomepageWidget()
-              : const CreateAccountOrgWidget(),
+          builder: (context, _) =>
+              appStateNotifier.loggedIn ? const SubmitsolWidget() : const HomePage1Widget(),
         ),
         FFRoute(
           name: 'HomePage1',
@@ -120,6 +119,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Sol_details',
           path: '/solDetails',
+          asyncParams: {
+            'reply': getDoc(['replies'], RepliesRecord.fromSnapshot),
+          },
           builder: (context, params) => SolDetailsWidget(
             chalRef: params.getParam(
               'chalRef',
@@ -127,35 +129,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               isList: false,
               collectionNamePath: ['Challenges'],
             ),
-            desc: params.getParam(
-              'desc',
-              ParamType.String,
-            ),
-            solTitle: params.getParam(
-              'solTitle',
-              ParamType.String,
+            reply: params.getParam(
+              'reply',
+              ParamType.Document,
             ),
           ),
         ),
         FFRoute(
-          name: 'createAccountInd',
-          path: '/createAccountInd',
-          builder: (context, params) => const CreateAccountIndWidget(),
-        ),
-        FFRoute(
-          name: 'submitSol',
-          path: '/submitSol',
-          builder: (context, params) => const SubmitSolWidget(),
-        ),
-        FFRoute(
-          name: 'Solver_Profile',
-          path: '/solverProfile',
-          builder: (context, params) => const SolverProfileWidget(),
-        ),
-        FFRoute(
-          name: 'org_Profile',
-          path: '/orgProfile',
-          builder: (context, params) => const OrgProfileWidget(),
+          name: 'createAccount',
+          path: '/createAccount',
+          builder: (context, params) => const CreateAccountWidget(),
         ),
         FFRoute(
           name: 'createAccountOrg',
@@ -198,11 +181,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const ViewChallengesWidget(),
         ),
         FFRoute(
-          name: 'Homepage',
-          path: '/homepage',
-          builder: (context, params) => const HomepageWidget(),
-        ),
-        FFRoute(
           name: 'ViewChallengesCopy',
           path: '/viewChallengesCopy',
           builder: (context, params) => const ViewChallengesCopyWidget(),
@@ -211,6 +189,80 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'ChallengeDetails',
           path: '/challengeDetails',
           builder: (context, params) => const ChallengeDetailsWidget(),
+        ),
+        FFRoute(
+          name: 'HomepageSolver',
+          path: '/homepageSolver',
+          builder: (context, params) => const HomepageSolverWidget(),
+        ),
+        FFRoute(
+          name: 'orgHomepage',
+          path: '/orgHomepage',
+          builder: (context, params) => const OrgHomepageWidget(),
+        ),
+        FFRoute(
+          name: 'solverHomepage',
+          path: '/solverHomepage',
+          builder: (context, params) => const SolverHomepageWidget(),
+        ),
+        FFRoute(
+          name: 'Terms_and_conditions_signIn',
+          path: '/termsAndConditionsSignIn',
+          builder: (context, params) => const TermsAndConditionsSignInWidget(),
+        ),
+        FFRoute(
+          name: 'viewSolutionsCopy',
+          path: '/viewSolutionsCopy',
+          builder: (context, params) => const ViewSolutionsCopyWidget(),
+        ),
+        FFRoute(
+          name: 'loggedin_page',
+          path: '/loggedinPage',
+          builder: (context, params) => const LoggedinPageWidget(),
+        ),
+        FFRoute(
+          name: 'submitsol',
+          path: '/submitsol',
+          builder: (context, params) => const SubmitsolWidget(),
+        ),
+        FFRoute(
+          name: 'EditPostChallenge',
+          path: '/editPostChallenge',
+          asyncParams: {
+            'challenge': getDoc(['Challenges'], ChallengesRecord.fromSnapshot),
+          },
+          builder: (context, params) => EditPostChallengeWidget(
+            title: params.getParam(
+              'title',
+              ParamType.String,
+            ),
+            challenge: params.getParam(
+              'challenge',
+              ParamType.Document,
+            ),
+            challengeID: params.getParam(
+              'challengeID',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'ChallengeDetailsCopy',
+          path: '/challengeDetailsCopy',
+          builder: (context, params) => const ChallengeDetailsCopyWidget(),
+        ),
+        FFRoute(
+          name: 'blank',
+          path: '/blank',
+          asyncParams: {
+            'challenge': getDoc(['Challenges'], ChallengesRecord.fromSnapshot),
+          },
+          builder: (context, params) => BlankWidget(
+            challenge: params.getParam(
+              'challenge',
+              ParamType.Document,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -381,7 +433,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/createAccountOrg';
+            return '/homePage1';
           }
           return null;
         },

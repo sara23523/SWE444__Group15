@@ -70,6 +70,16 @@ class ChallengesRecord extends FirestoreRecord {
   String get phoneNumber => _phoneNumber ?? '';
   bool hasPhoneNumber() => _phoneNumber != null;
 
+  // "user" field.
+  DocumentReference? _user;
+  DocumentReference? get user => _user;
+  bool hasUser() => _user != null;
+
+  // "ChallengeDocID" field.
+  DocumentReference? _challengeDocID;
+  DocumentReference? get challengeDocID => _challengeDocID;
+  bool hasChallengeDocID() => _challengeDocID != null;
+
   void _initializeFields() {
     _id = castToType<int>(snapshotData['ID']);
     _organizationEmail =
@@ -83,6 +93,8 @@ class ChallengesRecord extends FirestoreRecord {
     _uid = snapshotData['uid'] as String?;
     _createdTime = snapshotData['created_time'] as DateTime?;
     _phoneNumber = snapshotData['phone_number'] as String?;
+    _user = snapshotData['user'] as DocumentReference?;
+    _challengeDocID = snapshotData['ChallengeDocID'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -131,6 +143,8 @@ Map<String, dynamic> createChallengesRecordData({
   String? uid,
   DateTime? createdTime,
   String? phoneNumber,
+  DocumentReference? user,
+  DocumentReference? challengeDocID,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -145,6 +159,8 @@ Map<String, dynamic> createChallengesRecordData({
       'uid': uid,
       'created_time': createdTime,
       'phone_number': phoneNumber,
+      'user': user,
+      'ChallengeDocID': challengeDocID,
     }.withoutNulls,
   );
 
@@ -166,7 +182,9 @@ class ChallengesRecordDocumentEquality implements Equality<ChallengesRecord> {
         e1?.photoUrl == e2?.photoUrl &&
         e1?.uid == e2?.uid &&
         e1?.createdTime == e2?.createdTime &&
-        e1?.phoneNumber == e2?.phoneNumber;
+        e1?.phoneNumber == e2?.phoneNumber &&
+        e1?.user == e2?.user &&
+        e1?.challengeDocID == e2?.challengeDocID;
   }
 
   @override
@@ -181,7 +199,9 @@ class ChallengesRecordDocumentEquality implements Equality<ChallengesRecord> {
         e?.photoUrl,
         e?.uid,
         e?.createdTime,
-        e?.phoneNumber
+        e?.phoneNumber,
+        e?.user,
+        e?.challengeDocID
       ]);
 
   @override

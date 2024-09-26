@@ -89,7 +89,7 @@ class _StartPageWidgetState extends State<StartPageWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Text(
-                      'Connect, Solve, Succeed: Where\n Challenges Meet Solutions',
+                      'Connect, Solve, Succeed: \nWhere Challenges Meet Solutions',
                       textAlign: TextAlign.center,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Inter',
@@ -134,7 +134,7 @@ class _StartPageWidgetState extends State<StartPageWidget> {
                     ),
                     FFButtonWidget(
                       onPressed: () async {
-                        context.pushNamed('createAccountInd');
+                        context.pushNamed('createAccount');
                       },
                       text: 'Create account',
                       options: FFButtonOptions(

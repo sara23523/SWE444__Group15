@@ -1,4 +1,4 @@
-import '/components/bottom_navigation_component_widget.dart';
+import '/components/bottom_navigation_bar_sol_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'view_challenges_widget.dart' show ViewChallengesWidget;
 import 'package:flutter/material.dart';
@@ -6,17 +6,17 @@ import 'package:flutter/material.dart';
 class ViewChallengesModel extends FlutterFlowModel<ViewChallengesWidget> {
   ///  State fields for stateful widgets in this page.
 
-  // Model for BottomNavigationComponent component.
-  late BottomNavigationComponentModel bottomNavigationComponentModel;
+  // Model for BottomNavigationBarSol component.
+  late BottomNavigationBarSolModel bottomNavigationBarSolModel;
 
   @override
   void initState(BuildContext context) {
-    bottomNavigationComponentModel =
-        createModel(context, () => BottomNavigationComponentModel());
+    bottomNavigationBarSolModel =
+        createModel(context, () => BottomNavigationBarSolModel());
   }
 
   @override
   void dispose() {
-    bottomNavigationComponentModel.dispose();
+    bottomNavigationBarSolModel.dispose();
   }
 }

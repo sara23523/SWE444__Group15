@@ -1,8 +1,8 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/bottom_navigation_component_widget.dart';
+import '/components/bottom_navigation_bar_sol_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'view_solutions_model.dart';
@@ -24,9 +24,6 @@ class _ViewSolutionsWidgetState extends State<ViewSolutionsWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ViewSolutionsModel());
-
-    _model.searchBarTextController ??= TextEditingController();
-    _model.searchBarFocusNode ??= FocusNode();
   }
 
   @override
@@ -55,7 +52,7 @@ class _ViewSolutionsWidgetState extends State<ViewSolutionsWidget> {
                     padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
                     child: Container(
                       width: double.infinity,
-                      height: 210.0,
+                      height: 140.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).primaryText,
                         boxShadow: const [
@@ -115,130 +112,6 @@ class _ViewSolutionsWidgetState extends State<ViewSolutionsWidget> {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                16.0, 16.0, 16.0, 0.0),
-                            child: Container(
-                              width: double.infinity,
-                              height: 60.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              alignment: const AlignmentDirectional(0.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          7.0, 0.0, 0.0, 0.0),
-                                      child: TextFormField(
-                                        controller:
-                                            _model.searchBarTextController,
-                                        focusNode: _model.searchBarFocusNode,
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          labelText:
-                                              'Amazon Sol, the lines sol..',
-                                          labelStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Urbanist',
-                                                    color: const Color(0xFF95A1AC),
-                                                    letterSpacing: 0.0,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                          prefixIcon: Icon(
-                                            Icons.search_sharp,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                          ),
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Urbanist',
-                                              color: const Color(0xFF95A1AC),
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                        validator: _model
-                                            .searchBarTextControllerValidator
-                                            .asValidator(context),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 8.0, 0.0),
-                                    child: FFButtonWidget(
-                                      onPressed: () {
-                                        print('Button pressed ...');
-                                      },
-                                      text: 'sreach',
-                                      options: FFButtonOptions(
-                                        width: 90.0,
-                                        height: 40.0,
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 0.0, 16.0, 0.0),
-                                        iconPadding:
-                                            const EdgeInsetsDirectional.fromSTEB(
-                                                0.0, 0.0, 0.0, 0.0),
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily: 'Inter Tight',
-                                              color: Colors.white,
-                                              letterSpacing: 0.0,
-                                            ),
-                                        elevation: 0.0,
-                                        borderRadius:
-                                            BorderRadius.circular(24.0),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
                         ],
                       ),
                     ),
@@ -246,7 +119,12 @@ class _ViewSolutionsWidgetState extends State<ViewSolutionsWidget> {
                   Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
                     child: StreamBuilder<List<RepliesRecord>>(
-                      stream: queryRepliesRecord(),
+                      stream: queryRepliesRecord(
+                        queryBuilder: (repliesRecord) => repliesRecord.where(
+                          'uid',
+                          isEqualTo: currentUserUid,
+                        ),
+                      ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
                         if (!snapshot.hasData) {
@@ -357,16 +235,23 @@ class _ViewSolutionsWidgetState extends State<ViewSolutionsWidget> {
                                                         .challengeRef,
                                                     ParamType.DocumentReference,
                                                   ),
-                                                  'desc': serializeParam(
-                                                    listViewRepliesRecord
-                                                        .description,
-                                                    ParamType.String,
-                                                  ),
-                                                  'solTitle': serializeParam(
-                                                    listViewRepliesRecord.title,
-                                                    ParamType.String,
+                                                  'reply': serializeParam(
+                                                    listViewRepliesRecord,
+                                                    ParamType.Document,
                                                   ),
                                                 }.withoutNulls,
+                                                extra: <String, dynamic>{
+                                                  'reply':
+                                                      listViewRepliesRecord,
+                                                  kTransitionInfoKey:
+                                                      const TransitionInfo(
+                                                    hasTransition: true,
+                                                    transitionType:
+                                                        PageTransitionType.fade,
+                                                    duration: Duration(
+                                                        milliseconds: 0),
+                                                  ),
+                                                },
                                               );
                                             },
                                             child: FaIcon(
@@ -458,9 +343,12 @@ class _ViewSolutionsWidgetState extends State<ViewSolutionsWidget> {
             ),
           ),
           wrapWithModel(
-            model: _model.bottomNavigationComponentModel,
+            model: _model.bottomNavigationBarSolModel,
             updateCallback: () => safeSetState(() {}),
-            child: const BottomNavigationComponentWidget(),
+            child: const BottomNavigationBarSolWidget(
+              selectedPageIndex: 3,
+              hidden: false,
+            ),
           ),
         ],
       ),

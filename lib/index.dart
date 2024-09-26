@@ -42,3 +42,6 @@ export '/loggedin_page/loggedin_page_widget.dart' show LoggedinPageWidget;
 export '/solver/submitsol/submitsol_widget.dart' show SubmitsolWidget;
 export '/organization/edit_post_challenge/edit_post_challenge_widget.dart'
     show EditPostChallengeWidget;
+export '/solver/challenge_details_copy/challenge_details_copy_widget.dart'
+    show ChallengeDetailsCopyWidget;
+export '/solver/blank/blank_widget.dart' show BlankWidget;

@@ -94,112 +94,107 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
               Form(
                 key: _model.formKey,
                 autovalidateMode: AutovalidateMode.disabled,
-                child: Visibility(
-                  visible: currentUserEmail != '',
-                  child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(16.0, 30.0, 16.0, 0.0),
-                    child: StreamBuilder<List<UsersRecord>>(
-                      stream: queryUsersRecord(
-                        singleRecord: true,
-                      ),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  FlutterFlowTheme.of(context).primary,
-                                ),
+                child: Padding(
+                  padding:
+                      const EdgeInsetsDirectional.fromSTEB(16.0, 30.0, 16.0, 0.0),
+                  child: StreamBuilder<List<UsersRecord>>(
+                    stream: queryUsersRecord(
+                      singleRecord: true,
+                    ),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 50.0,
+                            height: 50.0,
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                FlutterFlowTheme.of(context).primary,
                               ),
                             ),
-                          );
-                        }
-                        List<UsersRecord> emailAddressUsersRecordList =
-                            snapshot.data!;
-                        // Return an empty Container when the item does not exist.
-                        if (snapshot.data!.isEmpty) {
-                          return Container();
-                        }
-                        final emailAddressUsersRecord =
-                            emailAddressUsersRecordList.isNotEmpty
-                                ? emailAddressUsersRecordList.first
-                                : null;
+                          ),
+                        );
+                      }
+                      List<UsersRecord> emailAddressUsersRecordList =
+                          snapshot.data!;
+                      // Return an empty Container when the item does not exist.
+                      if (snapshot.data!.isEmpty) {
+                        return Container();
+                      }
+                      final emailAddressUsersRecord =
+                          emailAddressUsersRecordList.isNotEmpty
+                              ? emailAddressUsersRecordList.first
+                              : null;
 
-                        return SizedBox(
-                          width: double.infinity,
-                          child: TextFormField(
-                            controller: _model.emailAddressTextController,
-                            focusNode: _model.emailAddressFocusNode,
-                            autofillHints: const [AutofillHints.email],
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              labelText: 'Email',
-                              labelStyle: FlutterFlowTheme.of(context)
-                                  .labelMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
-                                  ),
-                              hintText: 'Enter Your Email',
-                              hintStyle: FlutterFlowTheme.of(context)
-                                  .labelMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    fontSize: 13.0,
-                                    letterSpacing: 0.0,
-                                  ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).alternate,
-                                  width: 2.0,
-                                ),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  width: 2.0,
-                                ),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).error,
-                                  width: 2.0,
-                                ),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).error,
-                                  width: 2.0,
-                                ),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              filled: true,
-                              fillColor: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              contentPadding: const EdgeInsetsDirectional.fromSTEB(
-                                  24.0, 24.0, 20.0, 24.0),
-                            ),
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
+                      return SizedBox(
+                        width: double.infinity,
+                        child: TextFormField(
+                          controller: _model.emailAddressTextController,
+                          focusNode: _model.emailAddressFocusNode,
+                          autofillHints: const [AutofillHints.email],
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Email',
+                            labelStyle: FlutterFlowTheme.of(context)
+                                .labelMedium
                                 .override(
                                   fontFamily: 'Inter',
                                   letterSpacing: 0.0,
                                 ),
-                            cursorColor: FlutterFlowTheme.of(context).primary,
-                            validator: _model
-                                .emailAddressTextControllerValidator
-                                .asValidator(context),
+                            hintText: 'Enter Your Email',
+                            hintStyle: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: 'Inter',
+                                  fontSize: 13.0,
+                                  letterSpacing: 0.0,
+                                ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).alternate,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).primary,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            filled: true,
+                            fillColor: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                                24.0, 24.0, 20.0, 24.0),
                           ),
-                        );
-                      },
-                    ),
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                  ),
+                          cursorColor: FlutterFlowTheme.of(context).primary,
+                          validator: _model.emailAddressTextControllerValidator
+                              .asValidator(context),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),

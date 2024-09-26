@@ -2,20 +2,25 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'save_edit_confirmation_dialog_model.dart';
-export 'save_edit_confirmation_dialog_model.dart';
+import 'delete_edit_confirmation_dialog_org_model.dart';
+export 'delete_edit_confirmation_dialog_org_model.dart';
 
-class SaveEditConfirmationDialogWidget extends StatefulWidget {
-  const SaveEditConfirmationDialogWidget({super.key});
+class DeleteEditConfirmationDialogOrgWidget extends StatefulWidget {
+  const DeleteEditConfirmationDialogOrgWidget({
+    super.key,
+    this.challengeReferance,
+  });
+
+  final String? challengeReferance;
 
   @override
-  State<SaveEditConfirmationDialogWidget> createState() =>
-      _SaveEditConfirmationDialogWidgetState();
+  State<DeleteEditConfirmationDialogOrgWidget> createState() =>
+      _DeleteEditConfirmationDialogOrgWidgetState();
 }
 
-class _SaveEditConfirmationDialogWidgetState
-    extends State<SaveEditConfirmationDialogWidget> {
-  late SaveEditConfirmationDialogModel _model;
+class _DeleteEditConfirmationDialogOrgWidgetState
+    extends State<DeleteEditConfirmationDialogOrgWidget> {
+  late DeleteEditConfirmationDialogOrgModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -26,7 +31,7 @@ class _SaveEditConfirmationDialogWidgetState
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => SaveEditConfirmationDialogModel());
+    _model = createModel(context, () => DeleteEditConfirmationDialogOrgModel());
   }
 
   @override
@@ -79,14 +84,14 @@ class _SaveEditConfirmationDialogWidgetState
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
+                      Align(
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 16.0),
                           child: Icon(
-                            Icons.done_rounded,
-                            color: Color(0xFF0043CE),
+                            Icons.delete_sharp,
+                            color: FlutterFlowTheme.of(context).error,
                             size: 45.0,
                           ),
                         ),
@@ -94,7 +99,7 @@ class _SaveEditConfirmationDialogWidgetState
                       Align(
                         alignment: const AlignmentDirectional(0.0, 0.0),
                         child: Text(
-                          'Challenge Successfully Posted!',
+                          'Delete Confirmation',
                           textAlign: TextAlign.center,
                           style: FlutterFlowTheme.of(context)
                               .headlineMedium
@@ -107,10 +112,10 @@ class _SaveEditConfirmationDialogWidgetState
                       ),
                       Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(
-                            10.0, 12.0, 10.0, 0.0),
+                            10.0, 12.0, 10.0, 12.0),
                         child: Text(
-                          'Your challenge is live! Review incoming solutions and connect with helpers to find the best one.',
-                          textAlign: TextAlign.center,
+                          'Are you sure you want to delete this item? This action cannot be undone, and all associated data will be permanently removed.',
+                          textAlign: TextAlign.justify,
                           style:
                               FlutterFlowTheme.of(context).labelMedium.override(
                                     fontFamily: 'Inter',
@@ -132,12 +137,46 @@ class _SaveEditConfirmationDialogWidgetState
                         child: Align(
                           alignment: const AlignmentDirectional(0.0, 1.0),
                           child: FFButtonWidget(
+                            onPressed: () {
+                              print('Button pressed ...');
+                            },
+                            text: 'Delete',
+                            options: FFButtonOptions(
+                              width: 110.0,
+                              height: 45.0,
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  20.0, 0.0, 20.0, 0.0),
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: 'Inter Tight',
+                                    color: FlutterFlowTheme.of(context).error,
+                                    letterSpacing: 0.0,
+                                  ),
+                              elevation: 0.0,
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        child: Align(
+                          alignment: const AlignmentDirectional(0.0, 1.0),
+                          child: FFButtonWidget(
                             onPressed: () async {
                               context.goNamed('orgHomepage');
                             },
-                            text: 'OK!',
+                            text: 'Cancel',
                             options: FFButtonOptions(
-                              width: 300.0,
+                              width: 130.0,
                               height: 45.0,
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   20.0, 0.0, 20.0, 0.0),

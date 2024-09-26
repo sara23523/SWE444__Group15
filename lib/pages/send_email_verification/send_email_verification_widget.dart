@@ -1,6 +1,6 @@
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'send_email_verification_model.dart';
@@ -110,20 +110,6 @@ class _SendEmailVerificationWidgetState
                                   ],
                                 ),
                               ),
-                              FlutterFlowIconButton(
-                                borderColor: Colors.transparent,
-                                borderRadius: 30.0,
-                                borderWidth: 1.0,
-                                buttonSize: 44.0,
-                                icon: const Icon(
-                                  Icons.close_rounded,
-                                  color: Color(0xFF57636C),
-                                  size: 24.0,
-                                ),
-                                onPressed: () async {
-                                  Navigator.pop(context);
-                                },
-                              ),
                             ],
                           ),
                         ),
@@ -142,6 +128,36 @@ class _SendEmailVerificationWidgetState
                                   fontWeight: FontWeight.w500,
                                 ),
                           ),
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            FFButtonWidget(
+                              onPressed: () async {
+                                context.pushNamed('signIn');
+                              },
+                              text: 'OK',
+                              options: FFButtonOptions(
+                                width: 100.0,
+                                height: 40.0,
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    16.0, 0.0, 16.0, 0.0),
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .override(
+                                      fontFamily: 'Inter Tight',
+                                      color: Colors.white,
+                                      letterSpacing: 0.0,
+                                    ),
+                                elevation: 0.0,
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
+                          ].addToEnd(const SizedBox(width: 40.0)),
                         ),
                       ],
                     ),

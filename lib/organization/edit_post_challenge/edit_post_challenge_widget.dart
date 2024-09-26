@@ -6,7 +6,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import '/organization/delete_confirmation_dialog/delete_confirmation_dialog_widget.dart';
-import '/organization/post_confirmation_dialog/post_confirmation_dialog_widget.dart';
+import '/organization/save_edit_confirmation_dialog_copy/save_edit_confirmation_dialog_copy_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'edit_post_challenge_model.dart';
@@ -119,7 +119,7 @@ class _EditPostChallengeWidgetState extends State<EditPostChallengeWidget> {
                 },
               ),
               title: Text(
-                'Post Challenge',
+                'Edit Challenge',
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
                       fontFamily: 'Inter Tight',
                       color: FlutterFlowTheme.of(context).primaryText,
@@ -493,24 +493,51 @@ class _EditPostChallengeWidgetState extends State<EditPostChallengeWidget> {
                                           ),
                                         ),
                                       ),
-                                    Align(
-                                      alignment:
-                                          const AlignmentDirectional(-1.0, -1.0),
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 10.0),
-                                        child: Text(
-                                          'File Attachments',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                fontSize: 16.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w600,
-                                              ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Align(
+                                          alignment:
+                                              const AlignmentDirectional(-1.0, -1.0),
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 10.0),
+                                            child: Text(
+                                              'File Attachments',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        fontSize: 16.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                            ),
+                                          ),
                                         ),
-                                      ),
+                                        Align(
+                                          alignment:
+                                              const AlignmentDirectional(-1.0, -1.0),
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    5.0, 0.0, 0.0, 10.0),
+                                            child: Text(
+                                              '(Optional)',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelSmall
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     InkWell(
                                       splashColor: Colors.transparent,
@@ -872,7 +899,7 @@ class _EditPostChallengeWidgetState extends State<EditPostChallengeWidget> {
                                                         MediaQuery.viewInsetsOf(
                                                             context),
                                                     child:
-                                                        const PostConfirmationDialogWidget(),
+                                                        const SaveEditConfirmationDialogCopyWidget(),
                                                   ),
                                                 );
                                               },

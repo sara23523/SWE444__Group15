@@ -16,6 +16,9 @@ class SignInModel extends FlutterFlowModel<SignInWidget> {
       return 'Field is required';
     }
 
+    if (!RegExp(kTextValidatorEmailRegex).hasMatch(val)) {
+      return 'Has to be a valid email address.';
+    }
     return null;
   }
 

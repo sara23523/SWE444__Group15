@@ -115,49 +115,53 @@ class _SolProfileCopyWidgetState extends State<SolProfileCopyWidget> {
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(2.0),
-                                child: StreamBuilder<List<UsersRecord>>(
-                                  stream: queryUsersRecord(
-                                    singleRecord: true,
-                                  ),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 50.0,
-                                          height: 50.0,
-                                          child: CircularProgressIndicator(
-                                            valueColor:
-                                                AlwaysStoppedAnimation<Color>(
-                                              FlutterFlowTheme.of(context)
-                                                  .primary,
+                                child: AuthUserStreamWidget(
+                                  builder: (context) =>
+                                      StreamBuilder<List<UsersRecord>>(
+                                    stream: queryUsersRecord(
+                                      singleRecord: true,
+                                    ),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 50.0,
+                                            height: 50.0,
+                                            child: CircularProgressIndicator(
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                              ),
                                             ),
                                           ),
+                                        );
+                                      }
+                                      List<UsersRecord>
+                                          userAvatarUsersRecordList =
+                                          snapshot.data!;
+                                      // Return an empty Container when the item does not exist.
+                                      if (snapshot.data!.isEmpty) {
+                                        return Container();
+                                      }
+                                      final userAvatarUsersRecord =
+                                          userAvatarUsersRecordList.isNotEmpty
+                                              ? userAvatarUsersRecordList.first
+                                              : null;
+
+                                      return ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(60.0),
+                                        child: Image.network(
+                                          currentUserPhoto,
+                                          width: 80.0,
+                                          height: 80.0,
+                                          fit: BoxFit.cover,
                                         ),
                                       );
-                                    }
-                                    List<UsersRecord>
-                                        userAvatarUsersRecordList =
-                                        snapshot.data!;
-                                    // Return an empty Container when the item does not exist.
-                                    if (snapshot.data!.isEmpty) {
-                                      return Container();
-                                    }
-                                    final userAvatarUsersRecord =
-                                        userAvatarUsersRecordList.isNotEmpty
-                                            ? userAvatarUsersRecordList.first
-                                            : null;
-
-                                    return ClipRRect(
-                                      borderRadius: BorderRadius.circular(60.0),
-                                      child: Image.network(
-                                        userAvatarUsersRecord!.photoUrl,
-                                        width: 80.0,
-                                        height: 80.0,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    );
-                                  },
+                                    },
+                                  ),
                                 ),
                               ),
                             ),

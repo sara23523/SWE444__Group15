@@ -13,12 +13,7 @@ import 'submitsol_model.dart';
 export 'submitsol_model.dart';
 
 class SubmitsolWidget extends StatefulWidget {
-  const SubmitsolWidget({
-    super.key,
-    required this.chDocid,
-  });
-
-  final ChallengesRecord? chDocid;
+  const SubmitsolWidget({super.key});
 
   @override
   State<SubmitsolWidget> createState() => _SubmitsolWidgetState();
@@ -614,9 +609,6 @@ class _SubmitsolWidgetState extends State<SubmitsolWidget> {
                                                 .text,
                                             uid: currentUserUid,
                                             file: _model.uploadedFileUrl2,
-                                            points: 0,
-                                            challengeRef:
-                                                widget.chDocid?.reference,
                                           ));
                                     } else {
                                       await RepliesRecord.collection
@@ -629,10 +621,6 @@ class _SubmitsolWidgetState extends State<SubmitsolWidget> {
                                                 .titleTextFieldTextController
                                                 .text,
                                             uid: currentUserUid,
-                                            file: '',
-                                            points: 0,
-                                            challengeRef:
-                                                widget.chDocid?.reference,
                                           ));
                                     }
 

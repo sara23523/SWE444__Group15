@@ -5,25 +5,27 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/solver/challenge_document/challenge_document_widget.dart';
 import 'package:flutter/material.dart';
-import 'challenge_details_model.dart';
-export 'challenge_details_model.dart';
+import 'challenge_details_copy_model.dart';
+export 'challenge_details_copy_model.dart';
 
-class ChallengeDetailsWidget extends StatefulWidget {
-  const ChallengeDetailsWidget({super.key});
+class ChallengeDetailsCopyWidget extends StatefulWidget {
+  const ChallengeDetailsCopyWidget({super.key});
 
   @override
-  State<ChallengeDetailsWidget> createState() => _ChallengeDetailsWidgetState();
+  State<ChallengeDetailsCopyWidget> createState() =>
+      _ChallengeDetailsCopyWidgetState();
 }
 
-class _ChallengeDetailsWidgetState extends State<ChallengeDetailsWidget> {
-  late ChallengeDetailsModel _model;
+class _ChallengeDetailsCopyWidgetState
+    extends State<ChallengeDetailsCopyWidget> {
+  late ChallengeDetailsCopyModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ChallengeDetailsModel());
+    _model = createModel(context, () => ChallengeDetailsCopyModel());
   }
 
   @override
@@ -57,15 +59,15 @@ class _ChallengeDetailsWidgetState extends State<ChallengeDetailsWidget> {
             ),
           );
         }
-        List<ChallengesRecord> challengeDetailsChallengesRecordList =
+        List<ChallengesRecord> challengeDetailsCopyChallengesRecordList =
             snapshot.data!;
         // Return an empty Container when the item does not exist.
         if (snapshot.data!.isEmpty) {
           return Container();
         }
-        final challengeDetailsChallengesRecord =
-            challengeDetailsChallengesRecordList.isNotEmpty
-                ? challengeDetailsChallengesRecordList.first
+        final challengeDetailsCopyChallengesRecord =
+            challengeDetailsCopyChallengesRecordList.isNotEmpty
+                ? challengeDetailsCopyChallengesRecordList.first
                 : null;
 
         return GestureDetector(
@@ -116,7 +118,7 @@ class _ChallengeDetailsWidgetState extends State<ChallengeDetailsWidget> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
                           child: Image.network(
-                            challengeDetailsChallengesRecord!.photoUrl,
+                            challengeDetailsCopyChallengesRecord!.photoUrl,
                             width: double.infinity,
                             height: 330.0,
                             fit: BoxFit.cover,
@@ -143,8 +145,9 @@ class _ChallengeDetailsWidgetState extends State<ChallengeDetailsWidget> {
                                       0.0, 8.0, 0.0, 8.0),
                                   child: Text(
                                     valueOrDefault<String>(
-                                      challengeDetailsChallengesRecord.title,
-                                      'challenge title',
+                                      challengeDetailsCopyChallengesRecord
+                                          .title,
+                                      'title',
                                     ),
                                     style: FlutterFlowTheme.of(context)
                                         .headlineMedium
@@ -159,7 +162,7 @@ class _ChallengeDetailsWidgetState extends State<ChallengeDetailsWidget> {
                                       0.0, 8.0, 0.0, 20.0),
                                   child: Text(
                                     valueOrDefault<String>(
-                                      challengeDetailsChallengesRecord
+                                      challengeDetailsCopyChallengesRecord
                                           .description,
                                       'description',
                                     ),
@@ -187,7 +190,7 @@ class _ChallengeDetailsWidgetState extends State<ChallengeDetailsWidget> {
                                                 context),
                                             child: ChallengeDocumentWidget(
                                               pdf:
-                                                  challengeDetailsChallengesRecord,
+                                                  challengeDetailsCopyChallengesRecord,
                                             ),
                                           ),
                                         );
@@ -223,9 +226,7 @@ class _ChallengeDetailsWidgetState extends State<ChallengeDetailsWidget> {
                   Align(
                     alignment: const AlignmentDirectional(0.0, 1.0),
                     child: FFButtonWidget(
-                      onPressed: () {
-                        print('Button pressed ...');
-                      },
+                      onPressed: () async {},
                       text: 'Submit Solution',
                       options: FFButtonOptions(
                         width: 340.0,

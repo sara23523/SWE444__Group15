@@ -230,16 +230,11 @@ class _ViewChallengesWidgetState extends State<ViewChallengesWidget> {
                                       FFButtonWidget(
                                         onPressed: () async {
                                           context.pushNamed(
-                                            'ChallengeDetails',
+                                            'blank',
                                             queryParameters: {
                                               'challenge': serializeParam(
                                                 listViewChallengesRecord,
                                                 ParamType.Document,
-                                              ),
-                                              'image': serializeParam(
-                                                listViewChallengesRecord
-                                                    .photoUrl,
-                                                ParamType.String,
                                               ),
                                             }.withoutNulls,
                                             extra: <String, dynamic>{

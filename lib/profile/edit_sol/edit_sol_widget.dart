@@ -134,7 +134,7 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                                       shape: BoxShape.circle,
                                     ),
                                     child: Image.network(
-                                      circleImageUsersRecord!.photoUrl,
+                                      _model.uploadedFileUrl,
                                       fit: BoxFit.fitWidth,
                                     ),
                                   );
@@ -305,7 +305,7 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                         return TextFormField(
                           controller: _model.textController1 ??=
                               TextEditingController(
-                            text: textFieldUsersRecord?.displayName,
+                            text: textFieldUsersRecord?.username,
                           ),
                           focusNode: _model.textFieldFocusNode,
                           obscureText: false,
@@ -517,29 +517,21 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                                 username: _model.textController1.text,
                                 uid: currentUserUid,
                               ));
-                              var confirmDialogResponse =
-                                  await showDialog<bool>(
-                                        context: context,
-                                        builder: (alertDialogContext) {
-                                          return AlertDialog(
-                                            content: const Text(
-                                                'Profile Edit Successflly'),
-                                            actions: [
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                    alertDialogContext, false),
-                                                child: const Text('Close'),
-                                              ),
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                    alertDialogContext, true),
-                                                child: const Text('OK'),
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      ) ??
-                                      false;
+                              await showDialog(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return AlertDialog(
+                                    content: const Text('Profile Edit Successflly'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(alertDialogContext),
+                                        child: const Text('Ok'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
 
                               context.pushNamed('sol_ProfileCopy');
                             },

@@ -146,10 +146,7 @@ class _EditOrgWidgetState extends State<EditOrgWidget> {
                                     shape: BoxShape.circle,
                                   ),
                                   child: Image.network(
-                                    valueOrDefault<String>(
-                                      circleImageUsersRecord?.photoUrl,
-                                      'https://th.bing.com/th/id/R.7ea4af7d8401d2b43ee841bfa2abe89d?rik=xidyUKdveUKULQ&riu=http%3a%2f%2fpluspng.com%2fimg-png%2fuser-png-icon-download-icons-logos-emojis-users-2240.png&ehk=2%2bOqgdMZqFkKaBclc%2fPL9B86vLju3iBGiFmH64kXaTM%3d&risl=&pid=ImgRaw&r=0',
-                                    ),
+                                    _model.uploadedFileUrl,
                                     fit: BoxFit.fitWidth,
                                   ),
                                 );
@@ -536,30 +533,23 @@ class _EditOrgWidgetState extends State<EditOrgWidget> {
                             bio: _model.myBioTextController.text,
                             uid: currentUserUid,
                           ));
+                          await showDialog(
+                            context: context,
+                            builder: (alertDialogContext) {
+                              return AlertDialog(
+                                content: const Text('Profile Edit Successfliy'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: const Text('Ok'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
 
                           context.pushNamed('org_ProfileCopyCopy');
-
-                          var confirmDialogResponse = await showDialog<bool>(
-                                context: context,
-                                builder: (alertDialogContext) {
-                                  return AlertDialog(
-                                    content: const Text('Profile Edit Successflly'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(
-                                            alertDialogContext, false),
-                                        child: const Text('Close'),
-                                      ),
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(
-                                            alertDialogContext, true),
-                                        child: const Text('OK'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              ) ??
-                              false;
                         },
                         text: 'Save Changes',
                         options: FFButtonOptions(

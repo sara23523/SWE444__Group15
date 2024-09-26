@@ -72,16 +72,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) => appStateNotifier.loggedIn
-          ? const ViewSolutionsWidget()
-          : const PostChallengeWidget(),
+      errorBuilder: (context, state) =>
+          appStateNotifier.loggedIn ? const SubmitsolWidget() : const HomePage1Widget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => appStateNotifier.loggedIn
-              ? const ViewSolutionsWidget()
-              : const PostChallengeWidget(),
+          builder: (context, _) =>
+              appStateNotifier.loggedIn ? const SubmitsolWidget() : const HomePage1Widget(),
         ),
         FFRoute(
           name: 'HomePage1',
@@ -190,19 +188,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'ChallengeDetails',
           path: '/challengeDetails',
-          asyncParams: {
-            'challenge': getDoc(['Challenges'], ChallengesRecord.fromSnapshot),
-          },
-          builder: (context, params) => ChallengeDetailsWidget(
-            challenge: params.getParam(
-              'challenge',
-              ParamType.Document,
-            ),
-            image: params.getParam(
-              'image',
-              ParamType.String,
-            ),
-          ),
+          builder: (context, params) => const ChallengeDetailsWidget(),
         ),
         FFRoute(
           name: 'HomepageSolver',
@@ -237,15 +223,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'submitsol',
           path: '/submitsol',
-          asyncParams: {
-            'chDocid': getDoc(['Challenges'], ChallengesRecord.fromSnapshot),
-          },
-          builder: (context, params) => SubmitsolWidget(
-            chDocid: params.getParam(
-              'chDocid',
-              ParamType.Document,
-            ),
-          ),
+          builder: (context, params) => const SubmitsolWidget(),
         ),
         FFRoute(
           name: 'EditPostChallenge',
@@ -265,6 +243,24 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             challengeID: params.getParam(
               'challengeID',
               ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'ChallengeDetailsCopy',
+          path: '/challengeDetailsCopy',
+          builder: (context, params) => const ChallengeDetailsCopyWidget(),
+        ),
+        FFRoute(
+          name: 'blank',
+          path: '/blank',
+          asyncParams: {
+            'challenge': getDoc(['Challenges'], ChallengesRecord.fromSnapshot),
+          },
+          builder: (context, params) => BlankWidget(
+            challenge: params.getParam(
+              'challenge',
+              ParamType.Document,
             ),
           ),
         )
@@ -437,7 +433,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/postChallenge';
+            return '/homePage1';
           }
           return null;
         },

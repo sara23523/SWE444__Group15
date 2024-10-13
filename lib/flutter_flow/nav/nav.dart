@@ -6,6 +6,8 @@ import '/backend/backend.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
+import '/backend/push_notifications/push_notifications_handler.dart'
+    show PushNotificationsHandler;
 import '/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -73,13 +75,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const SubmitsolWidget() : const HomePage1Widget(),
+          appStateNotifier.loggedIn ? const LoggedinPageWidget() : const StartPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) =>
-              appStateNotifier.loggedIn ? const SubmitsolWidget() : const HomePage1Widget(),
+          builder: (context, _) => appStateNotifier.loggedIn
+              ? const LoggedinPageWidget()
+              : const StartPageWidget(),
         ),
         FFRoute(
           name: 'HomePage1',
@@ -89,7 +92,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'PostChallenge',
           path: '/postChallenge',
-          builder: (context, params) => const PostChallengeWidget(),
+          builder: (context, params) => PostChallengeWidget(
+            backStack: params.getParam(
+              'backStack',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
           name: 'viewSolutions',
@@ -181,19 +189,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const ViewChallengesWidget(),
         ),
         FFRoute(
-          name: 'ViewChallengesCopy',
-          path: '/viewChallengesCopy',
-          builder: (context, params) => const ViewChallengesCopyWidget(),
+          name: 'orgViewChallenges',
+          path: '/orgViewChallenges',
+          builder: (context, params) => const OrgViewChallengesWidget(),
         ),
         FFRoute(
           name: 'ChallengeDetails',
           path: '/challengeDetails',
           builder: (context, params) => const ChallengeDetailsWidget(),
-        ),
-        FFRoute(
-          name: 'HomepageSolver',
-          path: '/homepageSolver',
-          builder: (context, params) => const HomepageSolverWidget(),
         ),
         FFRoute(
           name: 'orgHomepage',
@@ -211,9 +214,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const TermsAndConditionsSignInWidget(),
         ),
         FFRoute(
-          name: 'viewSolutionsCopy',
-          path: '/viewSolutionsCopy',
-          builder: (context, params) => const ViewSolutionsCopyWidget(),
+          name: 'orgViewSolutions',
+          path: '/orgViewSolutions',
+          builder: (context, params) => OrgViewSolutionsWidget(
+            challengeID: params.getParam(
+              'challengeID',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['Challenges'],
+            ),
+          ),
         ),
         FFRoute(
           name: 'loggedin_page',
@@ -223,7 +233,22 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'submitsol',
           path: '/submitsol',
-          builder: (context, params) => const SubmitsolWidget(),
+          asyncParams: {
+            'challengWholeDoc':
+                getDoc(['Challenges'], ChallengesRecord.fromSnapshot),
+          },
+          builder: (context, params) => SubmitsolWidget(
+            challenge: params.getParam(
+              'challenge',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['Challenges'],
+            ),
+            challengWholeDoc: params.getParam(
+              'challengWholeDoc',
+              ParamType.Document,
+            ),
+          ),
         ),
         FFRoute(
           name: 'EditPostChallenge',
@@ -247,11 +272,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'ChallengeDetailsCopy',
-          path: '/challengeDetailsCopy',
-          builder: (context, params) => const ChallengeDetailsCopyWidget(),
-        ),
-        FFRoute(
           name: 'blank',
           path: '/blank',
           asyncParams: {
@@ -261,6 +281,90 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             challenge: params.getParam(
               'challenge',
               ParamType.Document,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'viewSolvers',
+          path: '/viewSolvers',
+          builder: (context, params) => const ViewSolversWidget(),
+        ),
+        FFRoute(
+          name: 'reset_password',
+          path: '/resetPassword',
+          builder: (context, params) => const ResetPasswordWidget(),
+        ),
+        FFRoute(
+          name: 'orgNotification',
+          path: '/orgNotification',
+          builder: (context, params) => const OrgNotificationWidget(),
+        ),
+        FFRoute(
+          name: 'orgNotification2',
+          path: '/orgNotification2',
+          builder: (context, params) => const OrgNotification2Widget(),
+        ),
+        FFRoute(
+          name: 'viewSolutionsCopyCopy',
+          path: '/viewSolutionsCopyCopy',
+          asyncParams: {
+            'challengeID':
+                getDoc(['Challenges'], ChallengesRecord.fromSnapshot),
+          },
+          builder: (context, params) => ViewSolutionsCopyCopyWidget(
+            challengeID: params.getParam(
+              'challengeID',
+              ParamType.Document,
+            ),
+            idTest: params.getParam(
+              'idTest',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'Chats',
+          path: '/chats',
+          builder: (context, params) => const ChatsWidget(),
+        ),
+        FFRoute(
+          name: 'chatPage',
+          path: '/chatPage',
+          builder: (context, params) => ChatPageWidget(
+            recieveChat: params.getParam(
+              'recieveChat',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['Chats'],
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'ChatsCopy',
+          path: '/chatsCopy',
+          builder: (context, params) => const ChatsCopyWidget(),
+        ),
+        FFRoute(
+          name: 'chatPage_solver',
+          path: '/chatPageSolver',
+          builder: (context, params) => ChatPageSolverWidget(
+            recieveChat: params.getParam(
+              'recieveChat',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['Chats'],
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'chatPage_org',
+          path: '/chatPageOrg',
+          builder: (context, params) => ChatPageOrgWidget(
+            recieveChat: params.getParam(
+              'recieveChat',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['Chats'],
             ),
           ),
         )
@@ -433,7 +537,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/homePage1';
+            return '/startPage';
           }
           return null;
         },
@@ -458,7 +562,7 @@ class FFRoute {
                     ),
                   ),
                 )
-              : page;
+              : PushNotificationsHandler(child: page);
 
           final transitionInfo = state.transitionInfo;
           return transitionInfo.hasTransition

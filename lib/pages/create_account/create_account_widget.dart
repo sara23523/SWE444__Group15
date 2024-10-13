@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/pages/send_email_verification/send_email_verification_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'create_account_model.dart';
@@ -233,6 +232,12 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                       fontFamily: 'Inter',
                                       letterSpacing: 0.0,
                                     ),
+                                maxLength: 20,
+                                buildCounter: (context,
+                                        {required currentLength,
+                                        required isFocused,
+                                        maxLength}) =>
+                                    null,
                                 validator: _model.nameTextControllerValidator
                                     .asValidator(context),
                               ),
@@ -299,6 +304,12 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                       fontFamily: 'Inter',
                                       letterSpacing: 0.0,
                                     ),
+                                maxLength: 20,
+                                buildCounter: (context,
+                                        {required currentLength,
+                                        required isFocused,
+                                        maxLength}) =>
+                                    null,
                                 keyboardType: TextInputType.number,
                                 validator: _model
                                     .commercialRegistrationNumberTextControllerValidator
@@ -367,6 +378,12 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                       fontFamily: 'Inter',
                                       letterSpacing: 0.0,
                                     ),
+                                maxLength: 100,
+                                buildCounter: (context,
+                                        {required currentLength,
+                                        required isFocused,
+                                        maxLength}) =>
+                                    null,
                                 keyboardType: TextInputType.emailAddress,
                                 validator: _model.emailTextControllerValidator
                                     .asValidator(context),
@@ -449,6 +466,12 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                       letterSpacing: 0.0,
                                     ),
                                 minLines: 1,
+                                maxLength: 12,
+                                buildCounter: (context,
+                                        {required currentLength,
+                                        required isFocused,
+                                        maxLength}) =>
+                                    null,
                                 validator: _model
                                     .passwordTextControllerValidator
                                     .asValidator(context),
@@ -532,6 +555,12 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                       letterSpacing: 0.0,
                                     ),
                                 minLines: 1,
+                                maxLength: 12,
+                                buildCounter: (context,
+                                        {required currentLength,
+                                        required isFocused,
+                                        maxLength}) =>
+                                    null,
                                 validator: _model
                                     .confirmPasswordTextControllerValidator
                                     .asValidator(context),
@@ -598,6 +627,12 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                       fontFamily: 'Inter',
                                       letterSpacing: 0.0,
                                     ),
+                                maxLength: 120,
+                                buildCounter: (context,
+                                        {required currentLength,
+                                        required isFocused,
+                                        maxLength}) =>
+                                    null,
                                 validator: _model.bioTextControllerValidator
                                     .asValidator(context),
                               ),
@@ -609,7 +644,6 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                 0.0, 0.0, 0.0, 16.0),
                             child: FFButtonWidget(
                               onPressed: () async {
-                                await authManager.refreshUser();
                                 if (_model.formKey.currentState == null ||
                                     !_model.formKey.currentState!.validate()) {
                                   return;
@@ -655,35 +689,9 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                     ));
 
                                 await authManager.sendEmailVerification();
-                                if (currentUserEmailVerified == true) {
-                                  if (valueOrDefault(
-                                          currentUserDocument?.userRole, 0) ==
-                                      1) {
-                                    context.pushNamedAuth(
-                                        'orgHomepage', context.mounted);
-                                  } else {
-                                    context.pushNamedAuth(
-                                        'solverHomepage', context.mounted);
-                                  }
-                                } else {
-                                  await showModalBottomSheet(
-                                    isScrollControlled: true,
-                                    backgroundColor: Colors.transparent,
-                                    enableDrag: false,
-                                    context: context,
-                                    builder: (context) {
-                                      return GestureDetector(
-                                        onTap: () =>
-                                            FocusScope.of(context).unfocus(),
-                                        child: Padding(
-                                          padding:
-                                              MediaQuery.viewInsetsOf(context),
-                                          child: const SendEmailVerificationWidget(),
-                                        ),
-                                      );
-                                    },
-                                  ).then((value) => safeSetState(() {}));
-                                }
+
+                                context.pushNamedAuth(
+                                    'signIn', context.mounted);
                               },
                               text: 'Create Account',
                               options: FFButtonOptions(

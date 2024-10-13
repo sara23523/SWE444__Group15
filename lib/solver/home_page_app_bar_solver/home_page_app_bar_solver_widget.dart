@@ -1,5 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -113,74 +113,44 @@ class _HomePageAppBarSolverWidgetState
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
-                  child: InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      context.pushNamed('sol_ProfileCopy');
-                    },
-                    child: Container(
-                      width: 60.0,
-                      height: 60.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: const Color(0xFF0043CE),
-                          width: 2.0,
-                        ),
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
+                      child: Icon(
+                        Icons.notifications_active,
+                        color: FlutterFlowTheme.of(context).primaryText,
+                        size: 30.0,
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: StreamBuilder<List<UsersRecord>>(
-                          stream: queryUsersRecord(
-                            singleRecord: true,
+                    ),
+                  ],
+                ),
+                Align(
+                  alignment: const AlignmentDirectional(1.0, 0.0),
+                  child: Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        FlutterFlowIconButton(
+                          borderRadius: 8.0,
+                          buttonSize: 40.0,
+                          fillColor: const Color(0x000043CE),
+                          icon: Icon(
+                            Icons.chat,
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            size: 30.0,
                           ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 50.0,
-                                  height: 50.0,
-                                  child: CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                      FlutterFlowTheme.of(context).primary,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }
-                            List<UsersRecord> circleImageUsersRecordList =
-                                snapshot.data!;
-                            // Return an empty Container when the item does not exist.
-                            if (snapshot.data!.isEmpty) {
-                              return Container();
-                            }
-                            final circleImageUsersRecord =
-                                circleImageUsersRecordList.isNotEmpty
-                                    ? circleImageUsersRecordList.first
-                                    : null;
-
-                            return Container(
-                              width: 120.0,
-                              height: 120.0,
-                              clipBehavior: Clip.antiAlias,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                              ),
-                              child: Image.network(
-                                circleImageUsersRecord!.photoUrl,
-                                fit: BoxFit.cover,
-                              ),
-                            );
+                          onPressed: () async {
+                            context.pushNamed('Chats');
                           },
                         ),
-                      ),
+                      ],
                     ),
                   ),
                 ),

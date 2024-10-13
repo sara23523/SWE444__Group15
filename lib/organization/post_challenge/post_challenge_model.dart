@@ -11,6 +11,57 @@ class PostChallengeModel extends FlutterFlowModel<PostChallengeWidget> {
 
   String? desc;
 
+  bool technology = false;
+
+  bool marketing = false;
+
+  bool businessStrategy = false;
+
+  bool finance = false;
+
+  bool design = false;
+
+  bool operationsLogistics = false;
+
+  bool educationTraining = false;
+
+  bool healthcare = false;
+
+  bool legalCompliance = false;
+
+  bool humanResources = false;
+
+  bool sustainabilityEnvironment = false;
+
+  bool artCreativity = false;
+
+  bool salesCustomerService = false;
+
+  bool personalDevelopment = false;
+
+  List<String> selectedCategories = [];
+  void addToSelectedCategories(String item) => selectedCategories.add(item);
+  void removeFromSelectedCategories(String item) =>
+      selectedCategories.remove(item);
+  void removeAtIndexFromSelectedCategories(int index) =>
+      selectedCategories.removeAt(index);
+  void insertAtIndexInSelectedCategories(int index, String item) =>
+      selectedCategories.insert(index, item);
+  void updateSelectedCategoriesAtIndex(int index, Function(String) updateFn) =>
+      selectedCategories[index] = updateFn(selectedCategories[index]);
+
+  bool other = false;
+
+  List<DocumentReference> solversref = [];
+  void addToSolversref(DocumentReference item) => solversref.add(item);
+  void removeFromSolversref(DocumentReference item) => solversref.remove(item);
+  void removeAtIndexFromSolversref(int index) => solversref.removeAt(index);
+  void insertAtIndexInSolversref(int index, DocumentReference item) =>
+      solversref.insert(index, item);
+  void updateSolversrefAtIndex(
+          int index, Function(DocumentReference) updateFn) =>
+      solversref[index] = updateFn(solversref[index]);
+
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for TitleTextField widget.

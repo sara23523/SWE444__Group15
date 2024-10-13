@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -19,11 +20,6 @@ class ChallengesRecord extends FirestoreRecord {
   int? _id;
   int get id => _id ?? 0;
   bool hasId() => _id != null;
-
-  // "Organization_email" field.
-  DocumentReference? _organizationEmail;
-  DocumentReference? get organizationEmail => _organizationEmail;
-  bool hasOrganizationEmail() => _organizationEmail != null;
 
   // "Description_file" field.
   String? _descriptionFile;
@@ -80,10 +76,13 @@ class ChallengesRecord extends FirestoreRecord {
   DocumentReference? get challengeDocID => _challengeDocID;
   bool hasChallengeDocID() => _challengeDocID != null;
 
+  // "selectedCategories" field.
+  List<String>? _selectedCategories;
+  List<String> get selectedCategories => _selectedCategories ?? const [];
+  bool hasSelectedCategories() => _selectedCategories != null;
+
   void _initializeFields() {
     _id = castToType<int>(snapshotData['ID']);
-    _organizationEmail =
-        snapshotData['Organization_email'] as DocumentReference?;
     _descriptionFile = snapshotData['Description_file'] as String?;
     _description = snapshotData['description'] as String?;
     _title = snapshotData['title'] as String?;
@@ -95,6 +94,7 @@ class ChallengesRecord extends FirestoreRecord {
     _phoneNumber = snapshotData['phone_number'] as String?;
     _user = snapshotData['user'] as DocumentReference?;
     _challengeDocID = snapshotData['ChallengeDocID'] as DocumentReference?;
+    _selectedCategories = getDataList(snapshotData['selectedCategories']);
   }
 
   static CollectionReference get collection =>
@@ -133,7 +133,6 @@ class ChallengesRecord extends FirestoreRecord {
 
 Map<String, dynamic> createChallengesRecordData({
   int? id,
-  DocumentReference? organizationEmail,
   String? descriptionFile,
   String? description,
   String? title,
@@ -149,7 +148,6 @@ Map<String, dynamic> createChallengesRecordData({
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'ID': id,
-      'Organization_email': organizationEmail,
       'Description_file': descriptionFile,
       'description': description,
       'title': title,
@@ -172,8 +170,8 @@ class ChallengesRecordDocumentEquality implements Equality<ChallengesRecord> {
 
   @override
   bool equals(ChallengesRecord? e1, ChallengesRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.id == e2?.id &&
-        e1?.organizationEmail == e2?.organizationEmail &&
         e1?.descriptionFile == e2?.descriptionFile &&
         e1?.description == e2?.description &&
         e1?.title == e2?.title &&
@@ -184,13 +182,13 @@ class ChallengesRecordDocumentEquality implements Equality<ChallengesRecord> {
         e1?.createdTime == e2?.createdTime &&
         e1?.phoneNumber == e2?.phoneNumber &&
         e1?.user == e2?.user &&
-        e1?.challengeDocID == e2?.challengeDocID;
+        e1?.challengeDocID == e2?.challengeDocID &&
+        listEquality.equals(e1?.selectedCategories, e2?.selectedCategories);
   }
 
   @override
   int hash(ChallengesRecord? e) => const ListEquality().hash([
         e?.id,
-        e?.organizationEmail,
         e?.descriptionFile,
         e?.description,
         e?.title,
@@ -201,7 +199,8 @@ class ChallengesRecordDocumentEquality implements Equality<ChallengesRecord> {
         e?.createdTime,
         e?.phoneNumber,
         e?.user,
-        e?.challengeDocID
+        e?.challengeDocID,
+        e?.selectedCategories
       ]);
 
   @override

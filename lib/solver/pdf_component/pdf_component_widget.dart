@@ -93,7 +93,7 @@ class _PdfComponentWidgetState extends State<PdfComponentWidget> {
             ),
             const FlutterFlowPdfViewer(
               networkPath: 'http://www.pdf995.com/samples/pdf.pdf',
-              height: 500.0,
+              height: 484.0,
               horizontalScroll: false,
             ),
           ].divide(const SizedBox(height: 4.0)),

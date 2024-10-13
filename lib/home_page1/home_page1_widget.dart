@@ -65,7 +65,7 @@ class _HomePage1WidgetState extends State<HomePage1Widget> {
                   await authManager.signOut();
                   GoRouter.of(context).clearRedirectLocation();
 
-                  context.goNamedAuth('HomePage1', context.mounted);
+                  context.goNamedAuth('startPage', context.mounted);
                 },
                 text: 'log out',
                 options: FFButtonOptions(
@@ -135,7 +135,15 @@ class _HomePage1WidgetState extends State<HomePage1Widget> {
                   padding: const EdgeInsetsDirectional.fromSTEB(0.0, 200.0, 0.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      context.pushNamed('PostChallenge');
+                      context.pushNamed(
+                        'PostChallenge',
+                        queryParameters: {
+                          'backStack': serializeParam(
+                            '',
+                            ParamType.String,
+                          ),
+                        }.withoutNulls,
+                      );
                     },
                     text: 'أهلا بالجميع',
                     options: FFButtonOptions(
@@ -161,7 +169,7 @@ class _HomePage1WidgetState extends State<HomePage1Widget> {
                 padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                 child: FFButtonWidget(
                   onPressed: () async {
-                    context.pushNamed('viewSolutions');
+                    context.pushNamed('solverHomepage');
                   },
                   text: 'to solver',
                   options: FFButtonOptions(

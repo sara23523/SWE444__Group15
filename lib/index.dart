@@ -25,23 +25,36 @@ export '/profile/change_password/change_password_widget.dart'
 export '/profile/edit_sol/edit_sol_widget.dart' show EditSolWidget;
 export '/solver/view_challenges/view_challenges_widget.dart'
     show ViewChallengesWidget;
-export '/organization/view_challenges_copy/view_challenges_copy_widget.dart'
-    show ViewChallengesCopyWidget;
-export '/solver/challenge_details/challenge_details_widget.dart'
+export '/organization/org_view_challenges/org_view_challenges_widget.dart'
+    show OrgViewChallengesWidget;
+export '/just_testing/challenge_details/challenge_details_widget.dart'
     show ChallengeDetailsWidget;
-export '/homepage_solver/homepage_solver_widget.dart' show HomepageSolverWidget;
 export '/organization/org_homepage/org_homepage_widget.dart'
     show OrgHomepageWidget;
 export '/solver/solver_homepage/solver_homepage_widget.dart'
     show SolverHomepageWidget;
 export '/pages/terms_and_conditions_sign_in/terms_and_conditions_sign_in_widget.dart'
     show TermsAndConditionsSignInWidget;
-export '/organization/view_solutions_copy/view_solutions_copy_widget.dart'
-    show ViewSolutionsCopyWidget;
+export '/organization/org_view_solutions/org_view_solutions_widget.dart'
+    show OrgViewSolutionsWidget;
 export '/loggedin_page/loggedin_page_widget.dart' show LoggedinPageWidget;
 export '/solver/submitsol/submitsol_widget.dart' show SubmitsolWidget;
 export '/organization/edit_post_challenge/edit_post_challenge_widget.dart'
     show EditPostChallengeWidget;
-export '/solver/challenge_details_copy/challenge_details_copy_widget.dart'
-    show ChallengeDetailsCopyWidget;
 export '/solver/blank/blank_widget.dart' show BlankWidget;
+export '/organization/view_solvers/view_solvers_widget.dart'
+    show ViewSolversWidget;
+export '/profile/reset_password/reset_password_widget.dart'
+    show ResetPasswordWidget;
+export '/just_testing/org_notification/org_notification_widget.dart'
+    show OrgNotificationWidget;
+export '/just_testing/org_notification2/org_notification2_widget.dart'
+    show OrgNotification2Widget;
+export '/just_testing/view_solutions_copy_copy/view_solutions_copy_copy_widget.dart'
+    show ViewSolutionsCopyCopyWidget;
+export '/pages/chats/chats_widget.dart' show ChatsWidget;
+export '/just_testing/chat_page/chat_page_widget.dart' show ChatPageWidget;
+export '/pages/chats_copy/chats_copy_widget.dart' show ChatsCopyWidget;
+export '/pages/chat_page_solver/chat_page_solver_widget.dart'
+    show ChatPageSolverWidget;
+export '/pages/chat_page_org/chat_page_org_widget.dart' show ChatPageOrgWidget;

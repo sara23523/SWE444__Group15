@@ -11,6 +11,8 @@ class SubmitsolModel extends FlutterFlowModel<SubmitsolWidget> {
 
   String? desc;
 
+  DocumentReference? orgReference;
+
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for TitleTextField widget.

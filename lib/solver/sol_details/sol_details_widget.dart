@@ -1,9 +1,9 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/solver/pdf_component/pdf_component_widget.dart';
 import 'package:flutter/material.dart';
 import 'sol_details_model.dart';
 export 'sol_details_model.dart';
@@ -42,14 +42,8 @@ class _SolDetailsWidgetState extends State<SolDetailsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<ChallengesRecord>>(
-      stream: queryChallengesRecord(
-        queryBuilder: (challengesRecord) => challengesRecord.where(
-          'ChallengeDocID',
-          isEqualTo: widget.chalRef,
-        ),
-        singleRecord: true,
-      ),
+    return StreamBuilder<ChallengesRecord>(
+      stream: ChallengesRecord.getDocument(widget.chalRef!),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -67,15 +61,8 @@ class _SolDetailsWidgetState extends State<SolDetailsWidget> {
             ),
           );
         }
-        List<ChallengesRecord> solDetailsChallengesRecordList = snapshot.data!;
-        // Return an empty Container when the item does not exist.
-        if (snapshot.data!.isEmpty) {
-          return Container();
-        }
-        final solDetailsChallengesRecord =
-            solDetailsChallengesRecordList.isNotEmpty
-                ? solDetailsChallengesRecordList.first
-                : null;
+
+        final solDetailsChallengesRecord = snapshot.data!;
 
         return Scaffold(
           key: scaffoldKey,
@@ -109,10 +96,8 @@ class _SolDetailsWidgetState extends State<SolDetailsWidget> {
             centerTitle: true,
             elevation: 0.0,
           ),
-          body: StreamBuilder<List<RepliesRecord>>(
-            stream: queryRepliesRecord(
-              singleRecord: true,
-            ),
+          body: StreamBuilder<ChallengesRecord>(
+            stream: ChallengesRecord.getDocument(widget.chalRef!),
             builder: (context, snapshot) {
               // Customize what your widget looks like when it's loading.
               if (!snapshot.hasData) {
@@ -128,14 +113,8 @@ class _SolDetailsWidgetState extends State<SolDetailsWidget> {
                   ),
                 );
               }
-              List<RepliesRecord> columnRepliesRecordList = snapshot.data!;
-              // Return an empty Container when the item does not exist.
-              if (snapshot.data!.isEmpty) {
-                return Container();
-              }
-              final columnRepliesRecord = columnRepliesRecordList.isNotEmpty
-                  ? columnRepliesRecordList.first
-                  : null;
+
+              final columnChallengesRecord = snapshot.data!;
 
               return Column(
                 mainAxisSize: MainAxisSize.max,
@@ -169,8 +148,8 @@ class _SolDetailsWidgetState extends State<SolDetailsWidget> {
                                 20.0, 1.0, 0.0, 0.0),
                             child: Text(
                               valueOrDefault<String>(
-                                solDetailsChallengesRecord?.title,
-                                'title default',
+                                solDetailsChallengesRecord.title,
+                                't d',
                               ),
                               style: FlutterFlowTheme.of(context)
                                   .headlineMedium
@@ -185,7 +164,7 @@ class _SolDetailsWidgetState extends State<SolDetailsWidget> {
                                 20.0, 12.0, 20.0, 4.0),
                             child: Text(
                               valueOrDefault<String>(
-                                solDetailsChallengesRecord?.description,
+                                solDetailsChallengesRecord.description,
                                 'default des',
                               ),
                               style: FlutterFlowTheme.of(context)
@@ -257,25 +236,28 @@ class _SolDetailsWidgetState extends State<SolDetailsWidget> {
                                             Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
-                                                Text(
-                                                  'my reply',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Outfit',
-                                                        color:
-                                                            const Color(0xFF0043CE),
-                                                        fontSize: 14.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                      ),
+                                                AuthUserStreamWidget(
+                                                  builder: (context) => Text(
+                                                    '${valueOrDefault(currentUserDocument?.username, '')} Reply',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Outfit',
+                                                          color:
+                                                              const Color(0xFF0043CE),
+                                                          fontSize: 14.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                        ),
+                                                  ),
                                                 ),
                                               ],
                                             ),
                                             Text(
-                                              'Moments ago',
+                                              dateTimeFormat("MMMd, h:mm a",
+                                                  widget.reply!.createdTime!),
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .labelMedium
@@ -363,7 +345,7 @@ class _SolDetailsWidgetState extends State<SolDetailsWidget> {
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Text(
-                                                  'my files',
+                                                  'my file',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -380,7 +362,11 @@ class _SolDetailsWidgetState extends State<SolDetailsWidget> {
                                               ],
                                             ),
                                             Text(
-                                              'Moments ago',
+                                              valueOrDefault<String>(
+                                                dateTimeFormat("yMMMd",
+                                                    widget.reply?.createdTime),
+                                                '-',
+                                              ),
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .labelMedium
@@ -401,23 +387,8 @@ class _SolDetailsWidgetState extends State<SolDetailsWidget> {
                                           alignment:
                                               const AlignmentDirectional(0.0, 0.0),
                                           child: FFButtonWidget(
-                                            onPressed: () async {
-                                              await showModalBottomSheet(
-                                                isScrollControlled: true,
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                                enableDrag: false,
-                                                context: context,
-                                                builder: (context) {
-                                                  return Padding(
-                                                    padding:
-                                                        MediaQuery.viewInsetsOf(
-                                                            context),
-                                                    child: const PdfComponentWidget(),
-                                                  );
-                                                },
-                                              ).then((value) =>
-                                                  safeSetState(() {}));
+                                            onPressed: () {
+                                              print('Button pressed ...');
                                             },
                                             text: 'View pdf',
                                             options: FFButtonOptions(

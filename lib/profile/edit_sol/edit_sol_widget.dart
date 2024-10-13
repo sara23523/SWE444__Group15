@@ -94,51 +94,60 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                             alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Padding(
                               padding: const EdgeInsets.all(2.0),
-                              child: StreamBuilder<List<UsersRecord>>(
-                                stream: queryUsersRecord(
-                                  singleRecord: true,
-                                ),
-                                builder: (context, snapshot) {
-                                  // Customize what your widget looks like when it's loading.
-                                  if (!snapshot.hasData) {
-                                    return Center(
-                                      child: SizedBox(
-                                        width: 50.0,
-                                        height: 50.0,
-                                        child: CircularProgressIndicator(
-                                          valueColor:
-                                              AlwaysStoppedAnimation<Color>(
-                                            FlutterFlowTheme.of(context)
-                                                .primary,
+                              child: AuthUserStreamWidget(
+                                builder: (context) =>
+                                    StreamBuilder<List<UsersRecord>>(
+                                  stream: queryUsersRecord(
+                                    queryBuilder: (usersRecord) =>
+                                        usersRecord.where(
+                                      'uid',
+                                      isEqualTo: currentUserReference?.id,
+                                    ),
+                                    singleRecord: true,
+                                  ),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 50.0,
+                                          height: 50.0,
+                                          child: CircularProgressIndicator(
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                              FlutterFlowTheme.of(context)
+                                                  .primary,
+                                            ),
                                           ),
                                         ),
+                                      );
+                                    }
+                                    List<UsersRecord>
+                                        circleImageUsersRecordList =
+                                        snapshot.data!;
+                                    // Return an empty Container when the item does not exist.
+                                    if (snapshot.data!.isEmpty) {
+                                      return Container();
+                                    }
+                                    final circleImageUsersRecord =
+                                        circleImageUsersRecordList.isNotEmpty
+                                            ? circleImageUsersRecordList.first
+                                            : null;
+
+                                    return Container(
+                                      width: 90.0,
+                                      height: 90.0,
+                                      clipBehavior: Clip.antiAlias,
+                                      decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Image.network(
+                                        currentUserPhoto,
+                                        fit: BoxFit.fitWidth,
                                       ),
                                     );
-                                  }
-                                  List<UsersRecord> circleImageUsersRecordList =
-                                      snapshot.data!;
-                                  // Return an empty Container when the item does not exist.
-                                  if (snapshot.data!.isEmpty) {
-                                    return Container();
-                                  }
-                                  final circleImageUsersRecord =
-                                      circleImageUsersRecordList.isNotEmpty
-                                          ? circleImageUsersRecordList.first
-                                          : null;
-
-                                  return Container(
-                                    width: 90.0,
-                                    height: 90.0,
-                                    clipBehavior: Clip.antiAlias,
-                                    decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Image.network(
-                                      _model.uploadedFileUrl,
-                                      fit: BoxFit.fitWidth,
-                                    ),
-                                  );
-                                },
+                                  },
+                                ),
                               ),
                             ),
                           ),
@@ -169,6 +178,10 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                             const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 5.0),
                         child: StreamBuilder<List<UsersRecord>>(
                           stream: queryUsersRecord(
+                            queryBuilder: (usersRecord) => usersRecord.where(
+                              'uid',
+                              isEqualTo: currentUserUid,
+                            ),
                             singleRecord: true,
                           ),
                           builder: (context, snapshot) {
@@ -203,10 +216,9 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                final selectedMedia =
-                                    await selectMediaWithSourceBottomSheet(
-                                  context: context,
-                                  allowPhoto: true,
+                                final selectedMedia = await selectMedia(
+                                  mediaSource: MediaSource.photoGallery,
+                                  multiImage: false,
                                 );
                                 if (selectedMedia != null &&
                                     selectedMedia.every((m) =>
@@ -219,6 +231,11 @@ class _EditSolWidgetState extends State<EditSolWidget> {
 
                                   var downloadUrls = <String>[];
                                   try {
+                                    showUploadMessage(
+                                      context,
+                                      'Uploading file...',
+                                      showLoading: true,
+                                    );
                                     selectedUploadedFiles = selectedMedia
                                         .map((m) => FFUploadedFile(
                                               name:
@@ -240,6 +257,8 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                                         .map((u) => u!)
                                         .toList();
                                   } finally {
+                                    ScaffoldMessenger.of(context)
+                                        .hideCurrentSnackBar();
                                     _model.isDataUploading = false;
                                   }
                                   if (selectedUploadedFiles.length ==
@@ -252,11 +271,19 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                                       _model.uploadedFileUrl =
                                           downloadUrls.first;
                                     });
+                                    showUploadMessage(context, 'Success!');
                                   } else {
                                     safeSetState(() {});
+                                    showUploadMessage(
+                                        context, 'Failed to upload data');
                                     return;
                                   }
                                 }
+
+                                await currentUserReference!
+                                    .update(createUsersRecordData(
+                                  photoUrl: _model.uploadedFileUrl,
+                                ));
                               },
                               child: Icon(
                                 Icons.edit,
@@ -274,6 +301,10 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                         const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 16.0),
                     child: StreamBuilder<List<UsersRecord>>(
                       stream: queryUsersRecord(
+                        queryBuilder: (usersRecord) => usersRecord.where(
+                          'uid',
+                          isEqualTo: currentUserReference?.id,
+                        ),
                         singleRecord: true,
                       ),
                       builder: (context, snapshot) {
@@ -376,6 +407,10 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                         const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 12.0),
                     child: StreamBuilder<List<UsersRecord>>(
                       stream: queryUsersRecord(
+                        queryBuilder: (usersRecord) => usersRecord.where(
+                          'uid',
+                          isEqualTo: currentUserReference?.id,
+                        ),
                         singleRecord: true,
                       ),
                       builder: (context, snapshot) {
@@ -467,6 +502,7 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                               ),
                           textAlign: TextAlign.start,
                           maxLines: 3,
+                          maxLength: 150,
                           validator: _model.myBioTextControllerValidator
                               .asValidator(context),
                         );
@@ -480,6 +516,10 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                           const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                       child: StreamBuilder<List<UsersRecord>>(
                         stream: queryUsersRecord(
+                          queryBuilder: (usersRecord) => usersRecord.where(
+                            'uid',
+                            isEqualTo: currentUserReference?.id,
+                          ),
                           singleRecord: true,
                         ),
                         builder: (context, snapshot) {
@@ -510,9 +550,8 @@ class _EditSolWidgetState extends State<EditSolWidget> {
 
                           return FFButtonWidget(
                             onPressed: () async {
-                              await currentUserReference!
+                              await buttonUsersRecord!.reference
                                   .update(createUsersRecordData(
-                                photoUrl: _model.uploadedFileUrl,
                                 bio: _model.myBioTextController.text,
                                 username: _model.textController1.text,
                                 uid: currentUserUid,

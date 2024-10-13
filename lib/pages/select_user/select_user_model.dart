@@ -1,9 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'challenge_details_copy_widget.dart' show ChallengeDetailsCopyWidget;
+import 'select_user_widget.dart' show SelectUserWidget;
 import 'package:flutter/material.dart';
 
-class ChallengeDetailsCopyModel
-    extends FlutterFlowModel<ChallengeDetailsCopyWidget> {
+class SelectUserModel extends FlutterFlowModel<SelectUserWidget> {
   @override
   void initState(BuildContext context) {}
 

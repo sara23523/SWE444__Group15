@@ -115,7 +115,7 @@ class _EditPostChallengeWidgetState extends State<EditPostChallengeWidget> {
                   size: 30.0,
                 ),
                 onPressed: () async {
-                  context.pushNamed('orgHomepage');
+                  context.pushNamed('orgViewChallenges');
                 },
               ),
               title: Text(

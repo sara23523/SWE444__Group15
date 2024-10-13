@@ -1,3 +1,5 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -284,48 +286,114 @@ class _BottomNavigationBarSolWidgetState
                           animationsMap['dividerOnPageLoadAnimation3']!),
                   ],
                 ),
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Opacity(
-                      opacity: widget.selectedPageIndex == 4 ? 1.0 : 0.5,
-                      child: FlutterFlowIconButton(
-                        borderColor: Colors.transparent,
-                        borderRadius: 30.0,
-                        borderWidth: 0.0,
-                        buttonSize: 50.0,
-                        fillColor: const Color(0x004B39EF),
-                        icon: Icon(
-                          Icons.person_outline,
-                          color: FlutterFlowTheme.of(context).primaryBackground,
-                          size: 24.0,
-                        ),
-                        onPressed: () async {
-                          context.pushNamed(
-                            'sol_ProfileCopy',
-                            extra: <String, dynamic>{
-                              kTransitionInfoKey: const TransitionInfo(
-                                hasTransition: true,
-                                transitionType: PageTransitionType.fade,
-                                duration: Duration(milliseconds: 0),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Opacity(
+                        opacity: widget.selectedPageIndex == 4 ? 1.0 : 0.5,
+                        child: Align(
+                          alignment: const AlignmentDirectional(0.0, 0.0),
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 12.0),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                context.pushNamed('sol_ProfileCopy');
+                              },
+                              child: Container(
+                                width: 25.0,
+                                height: 25.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: const Color(0x000043CE),
+                                    width: 2.0,
+                                  ),
+                                ),
+                                child: Opacity(
+                                  opacity: widget.selectedPageIndex == 4
+                                      ? 1.0
+                                      : 0.5,
+                                  child: AuthUserStreamWidget(
+                                    builder: (context) =>
+                                        StreamBuilder<List<UsersRecord>>(
+                                      stream: queryUsersRecord(
+                                        singleRecord: true,
+                                      ),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 50.0,
+                                              height: 50.0,
+                                              child: CircularProgressIndicator(
+                                                valueColor:
+                                                    AlwaysStoppedAnimation<
+                                                        Color>(
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        List<UsersRecord>
+                                            circleImageUsersRecordList =
+                                            snapshot.data!;
+                                        // Return an empty Container when the item does not exist.
+                                        if (snapshot.data!.isEmpty) {
+                                          return Container();
+                                        }
+                                        final circleImageUsersRecord =
+                                            circleImageUsersRecordList
+                                                    .isNotEmpty
+                                                ? circleImageUsersRecordList
+                                                    .first
+                                                : null;
+
+                                        return Container(
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          clipBehavior: Clip.antiAlias,
+                                          decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Image.network(
+                                            currentUserPhoto,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
                               ),
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                    if (widget.selectedPageIndex == 4)
-                      const SizedBox(
-                        width: 30.0,
-                        child: Divider(
-                          height: 2.0,
-                          thickness: 2.0,
-                          color: Color(0xFF7EC1E5),
+                            ),
+                          ),
                         ),
-                      ).animateOnPageLoad(
-                          animationsMap['dividerOnPageLoadAnimation4']!),
-                  ],
+                      ),
+                      if (widget.selectedPageIndex == 4)
+                        const SizedBox(
+                          width: 30.0,
+                          child: Divider(
+                            height: 2.0,
+                            thickness: 2.0,
+                            color: Color(0xFF7EC1E5),
+                          ),
+                        ).animateOnPageLoad(
+                            animationsMap['dividerOnPageLoadAnimation4']!),
+                    ],
+                  ),
                 ),
               ]
                   .divide(const SizedBox(width: 16.0))

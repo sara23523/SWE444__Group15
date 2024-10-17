@@ -9,6 +9,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'view_challenges_model.dart';
 export 'view_challenges_model.dart';
 
@@ -225,308 +226,323 @@ class _ViewChallengesWidgetState extends State<ViewChallengesWidget>
                         ),
                       ],
                     ),
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 44.0),
-                      child: StreamBuilder<List<ChallengesRecord>>(
-                        stream: queryChallengesRecord(
-                          queryBuilder: (challengesRecord) => challengesRecord
-                              .where(
-                                'selectedCategories',
-                                arrayContains: _model.dropDownValue,
-                              )
-                              .orderBy('created_time', descending: true),
-                        ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50.0,
-                                height: 50.0,
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    FlutterFlowTheme.of(context).primary,
-                                  ),
-                                ),
-                              ),
-                            );
-                          }
-                          List<ChallengesRecord> listViewChallengesRecordList =
-                              snapshot.data!;
-
-                          return ListView.builder(
-                            padding: EdgeInsets.zero,
-                            primary: false,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemCount: listViewChallengesRecordList.length,
-                            itemBuilder: (context, listViewIndex) {
-                              final listViewChallengesRecord =
-                                  listViewChallengesRecordList[listViewIndex];
-                              return Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 4.0, 16.0, 8.0),
-                                child: Container(
-                                  width: double.infinity,
-                                  height: 60.0,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        blurRadius: 4.0,
-                                        color: Color(0x32000000),
-                                        offset: Offset(
-                                          0.0,
-                                          2.0,
-                                        ),
-                                      )
-                                    ],
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        8.0, 0.0, 8.0, 0.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        StreamBuilder<List<UsersRecord>>(
-                                          stream: queryUsersRecord(
-                                            queryBuilder: (usersRecord) =>
-                                                usersRecord
-                                                    .where(
-                                                      'uid',
-                                                      isEqualTo:
-                                                          listViewChallengesRecord
-                                                              .user?.id,
-                                                    )
-                                                    .orderBy('created_time',
-                                                        descending: true),
-                                            singleRecord: true,
-                                          ),
-                                          builder: (context, snapshot) {
-                                            // Customize what your widget looks like when it's loading.
-                                            if (!snapshot.hasData) {
-                                              return Center(
-                                                child: SizedBox(
-                                                  width: 50.0,
-                                                  height: 50.0,
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    valueColor:
-                                                        AlwaysStoppedAnimation<
-                                                            Color>(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary,
-                                                    ),
-                                                  ),
-                                                ),
-                                              );
-                                            }
-                                            List<UsersRecord>
-                                                imageUsersRecordList =
-                                                snapshot.data!;
-                                            // Return an empty Container when the item does not exist.
-                                            if (snapshot.data!.isEmpty) {
-                                              return Container();
-                                            }
-                                            final imageUsersRecord =
-                                                imageUsersRecordList.isNotEmpty
-                                                    ? imageUsersRecordList.first
-                                                    : null;
-
-                                            return ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(26.0),
-                                              child: Image.network(
-                                                imageUsersRecord!.photoUrl,
-                                                width: 36.0,
-                                                height: 36.0,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                        Expanded(
-                                          child: Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    12.0, 0.0, 0.0, 0.0),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                StreamBuilder<
-                                                    List<UsersRecord>>(
-                                                  stream: queryUsersRecord(
-                                                    queryBuilder: (usersRecord) =>
-                                                        usersRecord
-                                                            .where(
-                                                              'uid',
-                                                              isEqualTo:
-                                                                  listViewChallengesRecord
-                                                                      .user?.id,
-                                                            )
-                                                            .orderBy(
-                                                                'created_time',
-                                                                descending:
-                                                                    true),
-                                                    singleRecord: true,
-                                                  ),
-                                                  builder: (context, snapshot) {
-                                                    // Customize what your widget looks like when it's loading.
-                                                    if (!snapshot.hasData) {
-                                                      return Center(
-                                                        child: SizedBox(
-                                                          width: 50.0,
-                                                          height: 50.0,
-                                                          child:
-                                                              CircularProgressIndicator(
-                                                            valueColor:
-                                                                AlwaysStoppedAnimation<
-                                                                    Color>(
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .primary,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      );
-                                                    }
-                                                    List<UsersRecord>
-                                                        textUsersRecordList =
-                                                        snapshot.data!;
-                                                    // Return an empty Container when the item does not exist.
-                                                    if (snapshot
-                                                        .data!.isEmpty) {
-                                                      return Container();
-                                                    }
-                                                    final textUsersRecord =
-                                                        textUsersRecordList
-                                                                .isNotEmpty
-                                                            ? textUsersRecordList
-                                                                .first
-                                                            : null;
-
-                                                    return Text(
-                                                      textUsersRecord!.username,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Inter',
-                                                            letterSpacing: 0.0,
-                                                          ),
-                                                    );
-                                                  },
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  4.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Text(
-                                                        listViewChallengesRecord
-                                                            .title
-                                                            .maybeHandleOverflow(
-                                                          maxChars: 28,
-                                                          replacement: '…',
-                                                        ),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Inter',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                                  fontSize:
-                                                                      12.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        FFButtonWidget(
-                                          onPressed: () async {
-                                            context.pushNamed(
-                                              'blank',
-                                              queryParameters: {
-                                                'challenge': serializeParam(
-                                                  listViewChallengesRecord,
-                                                  ParamType.Document,
-                                                ),
-                                              }.withoutNulls,
-                                              extra: <String, dynamic>{
-                                                'challenge':
-                                                    listViewChallengesRecord,
-                                              },
-                                            );
-                                          },
-                                          text: 'View',
-                                          options: FFButtonOptions(
-                                            width: 70.0,
-                                            height: 36.0,
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            iconPadding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: const Color(0xFF0043CE),
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Outfit',
-                                                      color: Colors.white,
-                                                      fontSize: 14.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                    ),
-                                            elevation: 2.0,
-                                            borderSide: const BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                        ),
-                                      ],
+                    Align(
+                      alignment: const AlignmentDirectional(0.0, 0.0),
+                      child: Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 12.0, 0.0, 44.0),
+                        child: StreamBuilder<List<ChallengesRecord>>(
+                          stream: queryChallengesRecord(
+                            queryBuilder: (challengesRecord) => challengesRecord
+                                .where(
+                                  'selectedCategories',
+                                  arrayContains: _model.dropDownValue,
+                                )
+                                .orderBy('created_time', descending: true),
+                          ),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      FlutterFlowTheme.of(context).primary,
                                     ),
                                   ),
                                 ),
                               );
-                            },
-                          );
-                        },
+                            }
+                            List<ChallengesRecord>
+                                listViewChallengesRecordList = snapshot.data!;
+                            if (listViewChallengesRecordList.isEmpty) {
+                              return SvgPicture.asset(
+                                'assets/images/emptyState.svg',
+                                width: 50.0,
+                                height: 100.0,
+                                fit: BoxFit.contain,
+                              );
+                            }
+
+                            return ListView.builder(
+                              padding: EdgeInsets.zero,
+                              primary: false,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemCount: listViewChallengesRecordList.length,
+                              itemBuilder: (context, listViewIndex) {
+                                final listViewChallengesRecord =
+                                    listViewChallengesRecordList[listViewIndex];
+                                return Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 4.0, 16.0, 8.0),
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: 60.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          blurRadius: 4.0,
+                                          color: Color(0x32000000),
+                                          offset: Offset(
+                                            0.0,
+                                            2.0,
+                                          ),
+                                        )
+                                      ],
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          8.0, 0.0, 8.0, 0.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          StreamBuilder<List<UsersRecord>>(
+                                            stream: queryUsersRecord(
+                                              queryBuilder: (usersRecord) =>
+                                                  usersRecord
+                                                      .where(
+                                                        'uid',
+                                                        isEqualTo:
+                                                            listViewChallengesRecord
+                                                                .user?.id,
+                                                      )
+                                                      .orderBy('created_time',
+                                                          descending: true),
+                                              singleRecord: true,
+                                            ),
+                                            builder: (context, snapshot) {
+                                              // Customize what your widget looks like when it's loading.
+                                              if (!snapshot.hasData) {
+                                                return Center(
+                                                  child: SizedBox(
+                                                    width: 50.0,
+                                                    height: 50.0,
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      valueColor:
+                                                          AlwaysStoppedAnimation<
+                                                              Color>(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .primary,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                              List<UsersRecord>
+                                                  imageUsersRecordList =
+                                                  snapshot.data!;
+                                              // Return an empty Container when the item does not exist.
+                                              if (snapshot.data!.isEmpty) {
+                                                return Container();
+                                              }
+                                              final imageUsersRecord =
+                                                  imageUsersRecordList
+                                                          .isNotEmpty
+                                                      ? imageUsersRecordList
+                                                          .first
+                                                      : null;
+
+                                              return ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(26.0),
+                                                child: Image.network(
+                                                  imageUsersRecord!.photoUrl,
+                                                  width: 36.0,
+                                                  height: 36.0,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      12.0, 0.0, 0.0, 0.0),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  StreamBuilder<
+                                                      List<UsersRecord>>(
+                                                    stream: queryUsersRecord(
+                                                      queryBuilder: (usersRecord) =>
+                                                          usersRecord
+                                                              .where(
+                                                                'uid',
+                                                                isEqualTo:
+                                                                    listViewChallengesRecord
+                                                                        .user
+                                                                        ?.id,
+                                                              )
+                                                              .orderBy(
+                                                                  'created_time',
+                                                                  descending:
+                                                                      true),
+                                                      singleRecord: true,
+                                                    ),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      // Customize what your widget looks like when it's loading.
+                                                      if (!snapshot.hasData) {
+                                                        return Center(
+                                                          child: SizedBox(
+                                                            width: 50.0,
+                                                            height: 50.0,
+                                                            child:
+                                                                CircularProgressIndicator(
+                                                              valueColor:
+                                                                  AlwaysStoppedAnimation<
+                                                                      Color>(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                      List<UsersRecord>
+                                                          textUsersRecordList =
+                                                          snapshot.data!;
+                                                      // Return an empty Container when the item does not exist.
+                                                      if (snapshot
+                                                          .data!.isEmpty) {
+                                                        return Container();
+                                                      }
+                                                      final textUsersRecord =
+                                                          textUsersRecordList
+                                                                  .isNotEmpty
+                                                              ? textUsersRecordList
+                                                                  .first
+                                                              : null;
+
+                                                      return Text(
+                                                        textUsersRecord!
+                                                            .username,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                      );
+                                                    },
+                                                  ),
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    4.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: Text(
+                                                          listViewChallengesRecord
+                                                              .title
+                                                              .maybeHandleOverflow(
+                                                            maxChars: 28,
+                                                            replacement: '…',
+                                                          ),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .labelMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Inter',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                                fontSize: 12.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          FFButtonWidget(
+                                            onPressed: () async {
+                                              context.pushNamed(
+                                                'blank',
+                                                queryParameters: {
+                                                  'challenge': serializeParam(
+                                                    listViewChallengesRecord,
+                                                    ParamType.Document,
+                                                  ),
+                                                }.withoutNulls,
+                                                extra: <String, dynamic>{
+                                                  'challenge':
+                                                      listViewChallengesRecord,
+                                                },
+                                              );
+                                            },
+                                            text: 'View',
+                                            options: FFButtonOptions(
+                                              width: 70.0,
+                                              height: 36.0,
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              iconPadding: const EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color: const Color(0xFF0043CE),
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Outfit',
+                                                        color: Colors.white,
+                                                        fontSize: 14.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                      ),
+                                              elevation: 2.0,
+                                              borderSide: const BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ],

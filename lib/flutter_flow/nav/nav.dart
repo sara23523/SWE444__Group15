@@ -100,11 +100,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'viewSolutions',
-          path: '/viewSolutions',
-          builder: (context, params) => const ViewSolutionsWidget(),
-        ),
-        FFRoute(
           name: 'tst',
           path: '/tst',
           builder: (context, params) => const TstWidget(),
@@ -367,6 +362,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               collectionNamePath: ['Chats'],
             ),
           ),
+        ),
+        FFRoute(
+          name: 'viewSolutions',
+          path: '/viewSolutions',
+          builder: (context, params) => const ViewSolutionsWidget(),
+        ),
+        FFRoute(
+          name: 'store',
+          path: '/store',
+          builder: (context, params) => const StoreWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

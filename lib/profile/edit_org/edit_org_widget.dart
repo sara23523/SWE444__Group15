@@ -177,23 +177,6 @@ class _EditOrgWidgetState extends State<EditOrgWidget> {
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 10.0, 0.0, 0.0),
-                              child: Text(
-                                'Edit Photo',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      fontSize: 12.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                              ),
-                            ),
                             StreamBuilder<List<UsersRecord>>(
                               stream: queryUsersRecord(
                                 singleRecord: true,
@@ -308,6 +291,23 @@ class _EditOrgWidgetState extends State<EditOrgWidget> {
                                   },
                                 );
                               },
+                            ),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 10.0, 0.0, 0.0),
+                              child: Text(
+                                'Edit Photo',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      fontSize: 12.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
                             ),
                           ],
                         ),
@@ -557,12 +557,9 @@ class _EditOrgWidgetState extends State<EditOrgWidget> {
                         onPressed: () async {
                           await currentUserReference!
                               .update(createUsersRecordData(
-                            displayName: valueOrDefault<String>(
-                              _model.textController1.text,
-                              'name',
-                            ),
                             bio: _model.myBioTextController.text,
                             uid: currentUserUid,
+                            username: _model.textController1.text,
                           ));
                           await showDialog(
                             context: context,

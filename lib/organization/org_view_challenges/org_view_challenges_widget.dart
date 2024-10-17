@@ -395,6 +395,16 @@ class _OrgViewChallengesWidgetState extends State<OrgViewChallengesWidget> {
                             }
                             List<ChallengesRecord>
                                 listViewChallengesRecordList = snapshot.data!;
+                            if (listViewChallengesRecordList.isEmpty) {
+                              return Center(
+                                child: SvgPicture.asset(
+                                  'assets/images/emptyState.svg',
+                                  width: 50.0,
+                                  height: 100.0,
+                                  fit: BoxFit.contain,
+                                ),
+                              );
+                            }
 
                             return ListView.builder(
                               padding: EdgeInsets.zero,

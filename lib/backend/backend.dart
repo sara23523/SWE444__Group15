@@ -10,6 +10,7 @@ import 'schema/replies_record.dart';
 import 'schema/users_record.dart';
 import 'schema/chats_record.dart';
 import 'schema/chat_messages_record.dart';
+import 'schema/categories_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart' hide Order;
@@ -23,6 +24,7 @@ export 'schema/replies_record.dart';
 export 'schema/users_record.dart';
 export 'schema/chats_record.dart';
 export 'schema/chat_messages_record.dart';
+export 'schema/categories_record.dart';
 
 /// Functions to query ChallengesRecords (as a Stream and as a Future).
 Future<int> queryChallengesRecordCount({
@@ -207,6 +209,43 @@ Future<List<ChatMessagesRecord>> queryChatMessagesRecordOnce({
     queryCollectionOnce(
       ChatMessagesRecord.collection(parent),
       ChatMessagesRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query CategoriesRecords (as a Stream and as a Future).
+Future<int> queryCategoriesRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      CategoriesRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<CategoriesRecord>> queryCategoriesRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      CategoriesRecord.collection,
+      CategoriesRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<CategoriesRecord>> queryCategoriesRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      CategoriesRecord.collection,
+      CategoriesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,

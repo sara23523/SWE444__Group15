@@ -1,20 +1,6 @@
 {
   "indexes": [
     {
-      "collectionGroup": "replies",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "uid",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "createdTime",
-          "order": "DESCENDING"
-        }
-      ]
-    },
-    {
       "collectionGroup": "Challenges",
       "queryScope": "COLLECTION",
       "fields": [
@@ -84,6 +70,20 @@
         },
         {
           "fieldPath": "timeStamp",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "replies",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "uid",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdTime",
           "order": "DESCENDING"
         }
       ]

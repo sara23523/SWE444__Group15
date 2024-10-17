@@ -611,31 +611,25 @@ class _SubmitsolWidgetState extends State<SubmitsolWidget> {
                                         if ((_model.uploadedLocalFile1.bytes
                                                     ?.isNotEmpty ??
                                                 false)) {
-                                          final selectedFiles =
-                                              await selectFiles(
-                                            allowedExtensions: ['pdf'],
-                                            multiFile: false,
-                                          );
-                                          if (selectedFiles != null) {
+                                          {
                                             safeSetState(() =>
                                                 _model.isDataUploading2 = true);
                                             var selectedUploadedFiles =
                                                 <FFUploadedFile>[];
-
+                                            var selectedFiles =
+                                                <SelectedFile>[];
                                             var downloadUrls = <String>[];
                                             try {
-                                              selectedUploadedFiles =
-                                                  selectedFiles
-                                                      .map(
-                                                          (m) => FFUploadedFile(
-                                                                name: m
-                                                                    .storagePath
-                                                                    .split('/')
-                                                                    .last,
-                                                                bytes: m.bytes,
-                                                              ))
-                                                      .toList();
-
+                                              selectedUploadedFiles = _model
+                                                      .uploadedLocalFile1
+                                                      .bytes!
+                                                      .isNotEmpty
+                                                  ? [_model.uploadedLocalFile1]
+                                                  : <FFUploadedFile>[];
+                                              selectedFiles =
+                                                  selectedFilesFromUploadedFiles(
+                                                selectedUploadedFiles,
+                                              );
                                               downloadUrls = (await Future.wait(
                                                 selectedFiles.map(
                                                   (f) async => await uploadData(
@@ -691,14 +685,28 @@ class _SubmitsolWidgetState extends State<SubmitsolWidget> {
                                                     .titleTextFieldTextController
                                                     .text,
                                                 uid: currentUserUid,
-                                                file: '',
                                                 challengeRef: widget.challenge,
                                                 points: 0,
                                                 createdTime:
                                                     getCurrentTimestamp,
+                                                file: '',
                                               ));
                                         }
 
+                                        triggerPushNotification(
+                                          notificationTitle:
+                                              'a new solution is add!',
+                                          notificationText:
+                                              '${valueOrDefault(currentUserDocument?.username, '')} may have a solution for you!',
+                                          notificationSound: 'default',
+                                          userRefs: [
+                                            widget.challengWholeDoc!.user!
+                                          ],
+                                          initialPageName: 'orgViewSolutions',
+                                          parameterData: {
+                                            'challengeID': widget.challenge,
+                                          },
+                                        );
                                         await showModalBottomSheet(
                                           isScrollControlled: true,
                                           backgroundColor: Colors.transparent,
@@ -719,20 +727,6 @@ class _SubmitsolWidgetState extends State<SubmitsolWidget> {
                                             );
                                           },
                                         ).then((value) => safeSetState(() {}));
-
-                                        triggerPushNotification(
-                                          notificationTitle:
-                                              'a new sol is add!',
-                                          notificationText: 'check it out',
-                                          notificationSound: 'default',
-                                          userRefs: [
-                                            widget.challengWholeDoc!.user!
-                                          ],
-                                          initialPageName: 'orgViewSolutions',
-                                          parameterData: {
-                                            'challengeID': widget.challenge,
-                                          },
-                                        );
                                       }
                                     },
                                     text: 'Submit Solution',

@@ -6,6 +6,10 @@ import 'package:flutter/material.dart';
 class ViewSolutionsModel extends FlutterFlowModel<ViewSolutionsWidget> {
   ///  State fields for stateful widgets in this page.
 
+  // State field(s) for searchBar widget.
+  FocusNode? searchBarFocusNode;
+  TextEditingController? searchBarTextController;
+  String? Function(BuildContext, String?)? searchBarTextControllerValidator;
   // Model for BottomNavigationBarSol component.
   late BottomNavigationBarSolModel bottomNavigationBarSolModel;
 
@@ -17,6 +21,9 @@ class ViewSolutionsModel extends FlutterFlowModel<ViewSolutionsWidget> {
 
   @override
   void dispose() {
+    searchBarFocusNode?.dispose();
+    searchBarTextController?.dispose();
+
     bottomNavigationBarSolModel.dispose();
   }
 }

@@ -24,6 +24,9 @@ class _ViewSolutionsWidgetState extends State<ViewSolutionsWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ViewSolutionsModel());
+
+    _model.searchBarTextController ??= TextEditingController();
+    _model.searchBarFocusNode ??= FocusNode();
   }
 
   @override
@@ -51,7 +54,7 @@ class _ViewSolutionsWidgetState extends State<ViewSolutionsWidget> {
                   padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
                   child: Container(
                     width: double.infinity,
-                    height: 140.0,
+                    height: 196.0,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).primaryText,
                       boxShadow: const [
@@ -65,53 +68,175 @@ class _ViewSolutionsWidgetState extends State<ViewSolutionsWidget> {
                         )
                       ],
                     ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              24.0, 12.0, 24.0, 8.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                'My Solutions',
-                                style: FlutterFlowTheme.of(context)
-                                    .displaySmall
-                                    .override(
-                                      fontFamily: 'Urbanist',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                      fontSize: 24.0,
-                                      letterSpacing: 0.0,
+                    child: Align(
+                      alignment: const AlignmentDirectional(0.0, 0.0),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  24.0, 12.0, 24.0, 8.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 10.0, 0.0),
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        context.pushNamed('solverHomepage');
+                                      },
+                                      child: Icon(
+                                        Icons.arrow_back,
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        size: 30.0,
+                                      ),
                                     ),
+                                  ),
+                                  Text(
+                                    'My Solutions',
+                                    style: FlutterFlowTheme.of(context)
+                                        .displaySmall
+                                        .override(
+                                          fontFamily: 'Urbanist',
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                          fontSize: 24.0,
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              24.0, 0.0, 24.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                'Where Challenges Meet Solutions!',
-                                style: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: 'Inter Tight',
-                                      color: const Color(0xFFB1C3D1),
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w200,
+                            ),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  24.0, 0.0, 24.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        40.0, 0.0, 0.0, 0.0),
+                                    child: Text(
+                                      'Where Challenges Meet Solutions!',
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            fontFamily: 'Inter Tight',
+                                            color: const Color(0xFFB1C3D1),
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w200,
+                                          ),
                                     ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 16.0, 16.0, 0.0),
+                              child: Container(
+                                width: 330.0,
+                                height: 40.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            7.0, 0.0, 0.0, 0.0),
+                                        child: TextFormField(
+                                          controller:
+                                              _model.searchBarTextController,
+                                          focusNode: _model.searchBarFocusNode,
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            labelStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Urbanist',
+                                                      color: const Color(0xFF95A1AC),
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                            hintText: 'look up by title',
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: const BorderSide(
+                                                color: Color(0x00000000),
+                                                width: 2.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: const BorderSide(
+                                                color: Color(0x00000000),
+                                                width: 2.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                            errorBorder: OutlineInputBorder(
+                                              borderSide: const BorderSide(
+                                                color: Color(0x00000000),
+                                                width: 2.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderSide: const BorderSide(
+                                                color: Color(0x00000000),
+                                                width: 2.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                            prefixIcon: Icon(
+                                              Icons.search_sharp,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                            ),
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Urbanist',
+                                                color: const Color(0xFF95A1AC),
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                          validator: _model
+                                              .searchBarTextControllerValidator
+                                              .asValidator(context),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
@@ -119,7 +244,7 @@ class _ViewSolutionsWidgetState extends State<ViewSolutionsWidget> {
             ),
           ),
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 150.0, 0.0, 90.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 210.0, 0.0, 90.0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.max,

@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'org_view_solutions_model.dart';
 export 'org_view_solutions_model.dart';
@@ -181,6 +182,16 @@ class _OrgViewSolutionsWidgetState extends State<OrgViewSolutionsWidget> {
                               }
                               List<RepliesRecord> listViewRepliesRecordList =
                                   snapshot.data!;
+                              if (listViewRepliesRecordList.isEmpty) {
+                                return Center(
+                                  child: SvgPicture.asset(
+                                    'assets/images/emptyState.svg',
+                                    width: 50.0,
+                                    height: 100.0,
+                                    fit: BoxFit.contain,
+                                  ),
+                                );
+                              }
 
                               return ListView.builder(
                                 padding: EdgeInsets.zero,

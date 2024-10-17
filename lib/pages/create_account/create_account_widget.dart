@@ -685,7 +685,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                           _model.passwordTextController.text,
                                       userRole: _model.dropDownValue,
                                       username: _model.nameTextController.text,
-                                      photoUrl: '',
+                                      photoUrl: FFAppState().defaultUserPhoto,
                                     ));
 
                                 await authManager.sendEmailVerification();

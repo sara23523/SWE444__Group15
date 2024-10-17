@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class PdfComponentModel extends FlutterFlowModel<PdfComponentWidget> {
   ///  Local state fields for this component.
 
-  String? ffff;
+  String fi = 'http://www.pdf995.com/samples/pdf.pdf';
 
   @override
   void initState(BuildContext context) {}

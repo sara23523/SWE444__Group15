@@ -37,4 +37,11 @@ class FFAppState extends ChangeNotifier {
   set descState(bool value) {
     _descState = value;
   }
+
+  String _defaultUserPhoto =
+      'https://firebasestorage.googleapis.com/v0/b/unlock-444.appspot.com/o/users%2FdefaultUserPhoto.jpg?alt=media&token=02732e6c-f625-4afb-a47f-57e676e84f63';
+  String get defaultUserPhoto => _defaultUserPhoto;
+  set defaultUserPhoto(String value) {
+    _defaultUserPhoto = value;
+  }
 }

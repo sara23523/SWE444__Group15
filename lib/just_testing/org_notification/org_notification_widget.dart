@@ -36,27 +36,66 @@ class _OrgNotificationWidgetState extends State<OrgNotificationWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: const Color(0xFFF1F4F8),
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          automaticallyImplyLeading: false,
-          title: Text(
-            'Notifications',
-            style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Outfit',
-                  color: const Color(0xFF14181B),
-                  fontSize: 24.0,
-                  letterSpacing: 0.0,
-                  fontWeight: FontWeight.normal,
-                ),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(40.0),
+          child: AppBar(
+            backgroundColor: const Color(0xFFF1F4F8),
+            automaticallyImplyLeading: false,
+            actions: const [],
+            centerTitle: false,
+            elevation: 0.0,
           ),
-          actions: const [],
-          centerTitle: false,
-          elevation: 0.0,
         ),
         body: ListView(
           padding: EdgeInsets.zero,
           scrollDirection: Axis.vertical,
           children: [
+            Align(
+              alignment: const AlignmentDirectional(-1.0, 0.0),
+              child: Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 49.0, 2.0),
+                        child: Text(
+                          'Notifications',
+                          textAlign: TextAlign.start,
+                          style: FlutterFlowTheme.of(context)
+                              .headlineMedium
+                              .override(
+                                fontFamily: 'Outfit',
+                                color: const Color(0xFF15161E),
+                                fontSize: 24.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w500,
+                              ),
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 0.0, 0.0),
+                        child: Text(
+                          'Below is a list of previous notifications',
+                          style:
+                              FlutterFlowTheme.of(context).labelMedium.override(
+                                    fontFamily: 'Plus Jakarta Sans',
+                                    color: const Color(0xFF606A85),
+                                    fontSize: 14.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
               child: Container(

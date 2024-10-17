@@ -113,7 +113,6 @@ final parametersBuilderMap =
           'backStack': getParameter<String>(data, 'backStack'),
         },
       ),
-  'viewSolutions': ParameterData.none(),
   'tst': ParameterData.none(),
   'startPage': ParameterData.none(),
   'userType': ParameterData.none(),
@@ -194,6 +193,8 @@ final parametersBuilderMap =
           'recieveChat': getParameter<DocumentReference>(data, 'recieveChat'),
         },
       ),
+  'viewSolutions': ParameterData.none(),
+  'store': ParameterData.none(),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

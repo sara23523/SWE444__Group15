@@ -2,8 +2,6 @@
 export '/home_page1/home_page1_widget.dart' show HomePage1Widget;
 export '/organization/post_challenge/post_challenge_widget.dart'
     show PostChallengeWidget;
-export '/solver/view_solutions/view_solutions_widget.dart'
-    show ViewSolutionsWidget;
 export '/just_testing/tst/tst_widget.dart' show TstWidget;
 export '/pages/start_page/start_page_widget.dart' show StartPageWidget;
 export '/pages/user_type/user_type_widget.dart' show UserTypeWidget;
@@ -58,3 +56,6 @@ export '/pages/chats_copy/chats_copy_widget.dart' show ChatsCopyWidget;
 export '/pages/chat_page_solver/chat_page_solver_widget.dart'
     show ChatPageSolverWidget;
 export '/pages/chat_page_org/chat_page_org_widget.dart' show ChatPageOrgWidget;
+export '/solver/view_solutions/view_solutions_widget.dart'
+    show ViewSolutionsWidget;
+export '/store/store_widget.dart' show StoreWidget;

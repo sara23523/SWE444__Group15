@@ -160,21 +160,6 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                     children: [
                       Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                        child: Text(
-                          'Edit Photo',
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Inter',
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    fontSize: 12.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                        ),
-                      ),
-                      Padding(
-                        padding:
                             const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 5.0),
                         child: StreamBuilder<List<UsersRecord>>(
                           stream: queryUsersRecord(
@@ -292,6 +277,21 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                               ),
                             );
                           },
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                        child: Text(
+                          'Edit Photo',
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Inter',
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    fontSize: 12.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                         ),
                       ),
                     ],

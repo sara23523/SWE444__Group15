@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/solver/pdf_component/pdf_component_widget.dart';
 import 'package:flutter/material.dart';
 import 'sol_details_model.dart';
 export 'sol_details_model.dart';
@@ -308,117 +309,141 @@ class _SolDetailsWidgetState extends State<SolDetailsWidget> {
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 0.0, 16.0, 8.0),
-                                child: Container(
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        blurRadius: 3.0,
-                                        color: Color(0x2F1D2429),
-                                        offset: Offset(
-                                          0.0,
-                                          1.0,
-                                        ),
-                                      )
-                                    ],
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 12.0, 16.0, 12.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  'my file',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Outfit',
-                                                        color:
-                                                            const Color(0xFF0043CE),
-                                                        fontSize: 14.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                      ),
-                                                ),
-                                              ],
-                                            ),
-                                            Text(
-                                              valueOrDefault<String>(
-                                                dateTimeFormat("yMMMd",
-                                                    widget.reply?.createdTime),
-                                                '-',
+                              if (widget.reply?.file != null &&
+                                  widget.reply?.file != '')
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 0.0, 16.0, 8.0),
+                                  child: Container(
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          blurRadius: 3.0,
+                                          color: Color(0x2F1D2429),
+                                          offset: Offset(
+                                            0.0,
+                                            1.0,
+                                          ),
+                                        )
+                                      ],
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          16.0, 12.0, 16.0, 12.0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Text(
+                                                    'Description file',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Outfit',
+                                                          color:
+                                                              const Color(0xFF0043CE),
+                                                          fontSize: 14.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                        ),
+                                                  ),
+                                                ],
                                               ),
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelMedium
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        letterSpacing: 0.0,
+                                              Text(
+                                                valueOrDefault<String>(
+                                                  dateTimeFormat(
+                                                      "yMMMd",
+                                                      widget
+                                                          .reply?.createdTime),
+                                                  '-',
+                                                ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
+                                            ],
+                                          ),
+                                          Divider(
+                                            height: 24.0,
+                                            thickness: 2.0,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryBackground,
+                                          ),
+                                          Align(
+                                            alignment:
+                                                const AlignmentDirectional(0.0, 0.0),
+                                            child: FFButtonWidget(
+                                              onPressed: () async {
+                                                await showModalBottomSheet(
+                                                  isScrollControlled: true,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  enableDrag: false,
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return Padding(
+                                                      padding: MediaQuery
+                                                          .viewInsetsOf(
+                                                              context),
+                                                      child: PdfComponentWidget(
+                                                        fileURL:
+                                                            widget.reply!.file,
                                                       ),
-                                            ),
-                                          ],
-                                        ),
-                                        Divider(
-                                          height: 24.0,
-                                          thickness: 2.0,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                        ),
-                                        Align(
-                                          alignment:
-                                              const AlignmentDirectional(0.0, 0.0),
-                                          child: FFButtonWidget(
-                                            onPressed: () {
-                                              print('Button pressed ...');
-                                            },
-                                            text: 'View pdf',
-                                            options: FFButtonOptions(
-                                              height: 40.0,
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      16.0, 0.0, 16.0, 0.0),
-                                              iconPadding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color: const Color(0xFF0043CE),
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        fontFamily:
-                                                            'Inter Tight',
-                                                        color: Colors.white,
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                              elevation: 0.0,
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
+                                                    );
+                                                  },
+                                                ).then((value) =>
+                                                    safeSetState(() {}));
+                                              },
+                                              text: 'View pdf',
+                                              options: FFButtonOptions(
+                                                height: 40.0,
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        16.0, 0.0, 16.0, 0.0),
+                                                iconPadding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(
+                                                            0.0, 0.0, 0.0, 0.0),
+                                                color: const Color(0xFF0043CE),
+                                                textStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .override(
+                                                          fontFamily:
+                                                              'Inter Tight',
+                                                          color: Colors.white,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                elevation: 0.0,
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
                             ],
                           ),
                         ],

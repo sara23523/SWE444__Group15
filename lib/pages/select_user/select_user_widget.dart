@@ -117,8 +117,9 @@ class _SelectUserWidgetState extends State<SelectUserWidget> {
                           ),
                         );
                       }
-                      List<UsersRecord> listViewUsersRecordList =
-                          snapshot.data!;
+                      List<UsersRecord> listViewUsersRecordList = snapshot.data!
+                          .where((u) => u.uid != currentUserUid)
+                          .toList();
 
                       return ListView.builder(
                         padding: EdgeInsets.zero,

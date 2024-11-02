@@ -135,15 +135,7 @@ class _HomePage1WidgetState extends State<HomePage1Widget> {
                   padding: const EdgeInsetsDirectional.fromSTEB(0.0, 200.0, 0.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      context.pushNamed(
-                        'PostChallenge',
-                        queryParameters: {
-                          'backStack': serializeParam(
-                            '',
-                            ParamType.String,
-                          ),
-                        }.withoutNulls,
-                      );
+                      context.pushNamed('PostChallenge');
                     },
                     text: 'أهلا بالجميع',
                     options: FFButtonOptions(

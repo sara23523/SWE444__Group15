@@ -61,6 +61,20 @@
       ]
     },
     {
+      "collectionGroup": "Users",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "user_role",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "points",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "Chats",
       "queryScope": "COLLECTION",
       "fields": [

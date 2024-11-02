@@ -79,7 +79,6 @@ class _SolProfileCopyWidgetState extends State<SolProfileCopyWidget> {
                 model: _model.bottomNavigationBarSolModel,
                 updateCallback: () => safeSetState(() {}),
                 child: const BottomNavigationBarSolWidget(
-                  selectedPageIndex: 4,
                   hidden: false,
                 ),
               ),

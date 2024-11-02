@@ -10,6 +10,7 @@ import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'view_challenges_model.dart';
 export 'view_challenges_model.dart';
 
@@ -65,6 +66,8 @@ class _ViewChallengesWidgetState extends State<ViewChallengesWidget>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -356,7 +359,13 @@ class _ViewChallengesWidgetState extends State<ViewChallengesWidget>
                                                 borderRadius:
                                                     BorderRadius.circular(26.0),
                                                 child: Image.network(
-                                                  imageUsersRecord!.photoUrl,
+                                                  imageUsersRecord
+                                                              ?.photoUrl !=
+                                                          ''
+                                                      ? imageUsersRecord!
+                                                          .photoUrl
+                                                      : FFAppState()
+                                                          .defaultUserPhoto,
                                                   width: 36.0,
                                                   height: 36.0,
                                                   fit: BoxFit.cover,

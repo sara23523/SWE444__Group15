@@ -108,11 +108,7 @@ class ParameterData {
 final parametersBuilderMap =
     <String, Future<ParameterData> Function(Map<String, dynamic>)>{
   'HomePage1': ParameterData.none(),
-  'PostChallenge': (data) async => ParameterData(
-        allParams: {
-          'backStack': getParameter<String>(data, 'backStack'),
-        },
-      ),
+  'PostChallenge': ParameterData.none(),
   'tst': ParameterData.none(),
   'startPage': ParameterData.none(),
   'userType': ParameterData.none(),
@@ -153,10 +149,7 @@ final parametersBuilderMap =
       ),
   'EditPostChallenge': (data) async => ParameterData(
         allParams: {
-          'title': getParameter<String>(data, 'title'),
-          'challenge': await getDocumentParameter<ChallengesRecord>(
-              data, 'challenge', ChallengesRecord.fromSnapshot),
-          'challengeID': getParameter<String>(data, 'challengeID'),
+          'challengeRef': getParameter<DocumentReference>(data, 'challengeRef'),
         },
       ),
   'blank': (data) async => ParameterData(
@@ -191,10 +184,16 @@ final parametersBuilderMap =
   'chatPage_org': (data) async => ParameterData(
         allParams: {
           'recieveChat': getParameter<DocumentReference>(data, 'recieveChat'),
+          'user': await getDocumentParameter<UsersRecord>(
+              data, 'user', UsersRecord.fromSnapshot),
         },
       ),
   'viewSolutions': ParameterData.none(),
   'store': ParameterData.none(),
+  'defaultaa': ParameterData.none(),
+  'orgHomepageCopy': ParameterData.none(),
+  'orgHomepageCopy2': ParameterData.none(),
+  'payment_test': ParameterData.none(),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

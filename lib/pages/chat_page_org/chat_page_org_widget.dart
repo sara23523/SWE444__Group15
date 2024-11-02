@@ -13,9 +13,11 @@ class ChatPageOrgWidget extends StatefulWidget {
   const ChatPageOrgWidget({
     super.key,
     required this.recieveChat,
+    required this.user,
   });
 
   final DocumentReference? recieveChat;
+  final UsersRecord? user;
 
   @override
   State<ChatPageOrgWidget> createState() => _ChatPageOrgWidgetState();

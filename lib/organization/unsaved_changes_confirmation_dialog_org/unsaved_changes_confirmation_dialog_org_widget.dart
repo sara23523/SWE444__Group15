@@ -9,11 +9,9 @@ class UnsavedChangesConfirmationDialogOrgWidget extends StatefulWidget {
   const UnsavedChangesConfirmationDialogOrgWidget({
     super.key,
     this.challengeReferance,
-    required this.backStack,
   });
 
   final String? challengeReferance;
-  final String? backStack;
 
   @override
   State<UnsavedChangesConfirmationDialogOrgWidget> createState() =>
@@ -141,11 +139,7 @@ class _UnsavedChangesConfirmationDialogOrgWidgetState
                           alignment: const AlignmentDirectional(0.0, 1.0),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              if (widget.backStack == 'orgHomepage') {
-                                context.pushNamed('orgHomepage');
-                              } else {
-                                context.pushNamed('orgViewChallenges');
-                              }
+                              context.pushNamed('orgHomepage');
                             },
                             text: 'Go Back',
                             options: FFButtonOptions(

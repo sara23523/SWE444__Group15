@@ -1,5 +1,3 @@
-import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -258,7 +256,7 @@ class _BottomNavigationBarOrgWidgetState
                         icon: Icon(
                           Icons.person_search,
                           color: FlutterFlowTheme.of(context).primaryBackground,
-                          size: 24.0,
+                          size: 26.0,
                         ),
                         onPressed: () async {
                           context.goNamed(
@@ -293,91 +291,23 @@ class _BottomNavigationBarOrgWidgetState
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Opacity(
-                        opacity: widget.selectedPageIndex == 4 ? 1.0 : 0.5,
-                        child: Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 12.0),
-                            child: InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                context.pushNamed('org_ProfileCopyCopy');
-                              },
-                              child: Container(
-                                width: 25.0,
-                                height: 25.0,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: const Color(0x000043CE),
-                                    width: 2.0,
-                                  ),
-                                ),
-                                child: Opacity(
-                                  opacity: widget.selectedPageIndex == 4
-                                      ? 1.0
-                                      : 0.5,
-                                  child: AuthUserStreamWidget(
-                                    builder: (context) =>
-                                        StreamBuilder<List<UsersRecord>>(
-                                      stream: queryUsersRecord(
-                                        singleRecord: true,
-                                      ),
-                                      builder: (context, snapshot) {
-                                        // Customize what your widget looks like when it's loading.
-                                        if (!snapshot.hasData) {
-                                          return Center(
-                                            child: SizedBox(
-                                              width: 50.0,
-                                              height: 50.0,
-                                              child: CircularProgressIndicator(
-                                                valueColor:
-                                                    AlwaysStoppedAnimation<
-                                                        Color>(
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        List<UsersRecord>
-                                            circleImageUsersRecordList =
-                                            snapshot.data!;
-                                        // Return an empty Container when the item does not exist.
-                                        if (snapshot.data!.isEmpty) {
-                                          return Container();
-                                        }
-                                        final circleImageUsersRecord =
-                                            circleImageUsersRecordList
-                                                    .isNotEmpty
-                                                ? circleImageUsersRecordList
-                                                    .first
-                                                : null;
-
-                                        return Container(
-                                          width: double.infinity,
-                                          height: double.infinity,
-                                          clipBehavior: Clip.antiAlias,
-                                          decoration: const BoxDecoration(
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: Image.network(
-                                            currentUserPhoto,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
+                        opacity: widget.selectedPageIndex == 4 ? 1.0 : .5,
+                        child: Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 12.0),
+                          child: InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              context.pushNamed('ChatsCopy');
+                            },
+                            child: Icon(
+                              Icons.chat_outlined,
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              size: 24.0,
                             ),
                           ),
                         ),

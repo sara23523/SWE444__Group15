@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -75,6 +76,11 @@ class UsersRecord extends FirestoreRecord {
   int get userRole => _userRole ?? 0;
   bool hasUserRole() => _userRole != null;
 
+  // "Category2" field.
+  List<String>? _category2;
+  List<String> get category2 => _category2 ?? const [];
+  bool hasCategory2() => _category2 != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -88,6 +94,7 @@ class UsersRecord extends FirestoreRecord {
     _username = snapshotData['username'] as String?;
     _points = castToType<int>(snapshotData['points']);
     _userRole = castToType<int>(snapshotData['user_role']);
+    _category2 = getDataList(snapshotData['Category2']);
   }
 
   static CollectionReference get collection =>
@@ -162,6 +169,7 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
 
   @override
   bool equals(UsersRecord? e1, UsersRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.email == e2?.email &&
         e1?.displayName == e2?.displayName &&
         e1?.photoUrl == e2?.photoUrl &&
@@ -173,7 +181,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.cRNumber == e2?.cRNumber &&
         e1?.username == e2?.username &&
         e1?.points == e2?.points &&
-        e1?.userRole == e2?.userRole;
+        e1?.userRole == e2?.userRole &&
+        listEquality.equals(e1?.category2, e2?.category2);
   }
 
   @override
@@ -189,7 +198,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.cRNumber,
         e?.username,
         e?.points,
-        e?.userRole
+        e?.userRole,
+        e?.category2
       ]);
 
   @override

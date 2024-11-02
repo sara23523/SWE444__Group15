@@ -59,3 +59,9 @@ export '/pages/chat_page_org/chat_page_org_widget.dart' show ChatPageOrgWidget;
 export '/solver/view_solutions/view_solutions_widget.dart'
     show ViewSolutionsWidget;
 export '/store/store_widget.dart' show StoreWidget;
+export '/defaultaa/defaultaa_widget.dart' show DefaultaaWidget;
+export '/organization/org_homepage_copy/org_homepage_copy_widget.dart'
+    show OrgHomepageCopyWidget;
+export '/organization/org_homepage_copy2/org_homepage_copy2_widget.dart'
+    show OrgHomepageCopy2Widget;
+export '/payment_test/payment_test_widget.dart' show PaymentTestWidget;

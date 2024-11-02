@@ -5,6 +5,12 @@ import 'package:flutter/material.dart';
 
 class DeleteEditConfirmationDialogOrgModel
     extends FlutterFlowModel<DeleteEditConfirmationDialogOrgWidget> {
+  ///  Local state fields for this component.
+
+  DocumentReference? ref;
+
+  int? index = 0;
+
   @override
   void initState(BuildContext context) {}
 

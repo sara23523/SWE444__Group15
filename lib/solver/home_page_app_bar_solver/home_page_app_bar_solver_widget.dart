@@ -1,5 +1,4 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -137,18 +136,44 @@ class _HomePageAppBarSolverWidgetState
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        FlutterFlowIconButton(
-                          borderRadius: 8.0,
-                          buttonSize: 40.0,
-                          fillColor: const Color(0x000043CE),
-                          icon: Icon(
-                            Icons.chat,
-                            color: FlutterFlowTheme.of(context).primaryText,
-                            size: 30.0,
+                        Align(
+                          alignment: const AlignmentDirectional(0.0, 0.0),
+                          child: InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              context.pushNamed('sol_ProfileCopy');
+                            },
+                            child: Container(
+                              width: 60.0,
+                              height: 60.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: const Color(0x000043CE),
+                                  width: 2.0,
+                                ),
+                              ),
+                              child: AuthUserStreamWidget(
+                                builder: (context) => Container(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Image.network(
+                                    currentUserPhoto,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
-                          onPressed: () async {
-                            context.pushNamed('Chats');
-                          },
                         ),
                       ],
                     ),

@@ -56,7 +56,7 @@ class _OrgProfileCopyCopyWidgetState extends State<OrgProfileCopyCopyWidget> {
               size: 30.0,
             ),
             onPressed: () async {
-              context.pop();
+              context.pushNamed('orgHomepage');
             },
           ),
           title: Text(
@@ -80,7 +80,6 @@ class _OrgProfileCopyCopyWidgetState extends State<OrgProfileCopyCopyWidget> {
                 model: _model.bottomNavigationBarOrgModel,
                 updateCallback: () => safeSetState(() {}),
                 child: const BottomNavigationBarOrgWidget(
-                  selectedPageIndex: 4,
                   hidden: false,
                 ),
               ),

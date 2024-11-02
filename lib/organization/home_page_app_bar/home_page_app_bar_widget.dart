@@ -1,5 +1,4 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +44,7 @@ class _HomePageAppBarWidgetState extends State<HomePageAppBarWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 8.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -55,7 +54,7 @@ class _HomePageAppBarWidgetState extends State<HomePageAppBarWidget> {
                   decoration: const BoxDecoration(),
                   child: Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(22.0, 20.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(17.0, 20.0, 0.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -134,19 +133,50 @@ class _HomePageAppBarWidgetState extends State<HomePageAppBarWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        FlutterFlowIconButton(
-                          borderColor: Colors.transparent,
-                          borderRadius: 8.0,
-                          buttonSize: 40.0,
-                          fillColor: const Color(0x000043CE),
-                          icon: Icon(
-                            Icons.chat,
-                            color: FlutterFlowTheme.of(context).primaryText,
-                            size: 30.0,
+                        Align(
+                          alignment: const AlignmentDirectional(0.0, 0.0),
+                          child: InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              if (valueOrDefault(
+                                      currentUserDocument?.userRole, 0) ==
+                                  0) {
+                                context.pushNamed('sol_ProfileCopy');
+                              } else {
+                                context.pushNamed('org_ProfileCopyCopy');
+                              }
+                            },
+                            child: Container(
+                              width: 60.0,
+                              height: 60.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: const Color(0x000043CE),
+                                  width: 2.0,
+                                ),
+                              ),
+                              child: AuthUserStreamWidget(
+                                builder: (context) => Container(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Image.network(
+                                    currentUserPhoto,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
-                          onPressed: () async {
-                            context.pushNamed('ChatsCopy');
-                          },
                         ),
                       ],
                     ),

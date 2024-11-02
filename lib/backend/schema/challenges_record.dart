@@ -81,6 +81,11 @@ class ChallengesRecord extends FirestoreRecord {
   List<String> get selectedCategories => _selectedCategories ?? const [];
   bool hasSelectedCategories() => _selectedCategories != null;
 
+  // "reward_amount" field.
+  double? _rewardAmount;
+  double get rewardAmount => _rewardAmount ?? 0.0;
+  bool hasRewardAmount() => _rewardAmount != null;
+
   void _initializeFields() {
     _id = castToType<int>(snapshotData['ID']);
     _descriptionFile = snapshotData['Description_file'] as String?;
@@ -95,6 +100,7 @@ class ChallengesRecord extends FirestoreRecord {
     _user = snapshotData['user'] as DocumentReference?;
     _challengeDocID = snapshotData['ChallengeDocID'] as DocumentReference?;
     _selectedCategories = getDataList(snapshotData['selectedCategories']);
+    _rewardAmount = castToType<double>(snapshotData['reward_amount']);
   }
 
   static CollectionReference get collection =>
@@ -144,6 +150,7 @@ Map<String, dynamic> createChallengesRecordData({
   String? phoneNumber,
   DocumentReference? user,
   DocumentReference? challengeDocID,
+  double? rewardAmount,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -159,6 +166,7 @@ Map<String, dynamic> createChallengesRecordData({
       'phone_number': phoneNumber,
       'user': user,
       'ChallengeDocID': challengeDocID,
+      'reward_amount': rewardAmount,
     }.withoutNulls,
   );
 
@@ -183,7 +191,8 @@ class ChallengesRecordDocumentEquality implements Equality<ChallengesRecord> {
         e1?.phoneNumber == e2?.phoneNumber &&
         e1?.user == e2?.user &&
         e1?.challengeDocID == e2?.challengeDocID &&
-        listEquality.equals(e1?.selectedCategories, e2?.selectedCategories);
+        listEquality.equals(e1?.selectedCategories, e2?.selectedCategories) &&
+        e1?.rewardAmount == e2?.rewardAmount;
   }
 
   @override
@@ -200,7 +209,8 @@ class ChallengesRecordDocumentEquality implements Equality<ChallengesRecord> {
         e?.phoneNumber,
         e?.user,
         e?.challengeDocID,
-        e?.selectedCategories
+        e?.selectedCategories,
+        e?.rewardAmount
       ]);
 
   @override

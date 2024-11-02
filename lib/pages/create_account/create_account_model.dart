@@ -94,6 +94,9 @@ class CreateAccountModel extends FlutterFlowModel<CreateAccountWidget> {
   FocusNode? bioFocusNode;
   TextEditingController? bioTextController;
   String? Function(BuildContext, String?)? bioTextControllerValidator;
+  // State field(s) for Category2 widget.
+  List<String>? category2Value;
+  FormFieldController<List<String>>? category2ValueController;
 
   @override
   void initState(BuildContext context) {

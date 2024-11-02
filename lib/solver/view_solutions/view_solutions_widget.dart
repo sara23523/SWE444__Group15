@@ -399,7 +399,7 @@ class _ViewSolutionsWidgetState extends State<ViewSolutionsWidget> {
                                               FontAwesomeIcons.angleRight,
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                      .primary,
                                               size: 24.0,
                                             ),
                                           ),

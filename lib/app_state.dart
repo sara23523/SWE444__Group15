@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'flutter_flow/request_manager.dart';
 
 class FFAppState extends ChangeNotifier {
   static FFAppState _instance = FFAppState._internal();
@@ -44,4 +45,19 @@ class FFAppState extends ChangeNotifier {
   set defaultUserPhoto(String value) {
     _defaultUserPhoto = value;
   }
+
+  final _challengeDetailsManager = FutureRequestManager<int>();
+  Future<int> challengeDetails({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Future<int> Function() requestFn,
+  }) =>
+      _challengeDetailsManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearChallengeDetailsCache() => _challengeDetailsManager.clear();
+  void clearChallengeDetailsCacheKey(String? uniqueKey) =>
+      _challengeDetailsManager.clearRequest(uniqueKey);
 }

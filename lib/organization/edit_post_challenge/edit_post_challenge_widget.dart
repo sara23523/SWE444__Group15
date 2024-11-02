@@ -5,7 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
-import '/organization/delete_confirmation_dialog/delete_confirmation_dialog_widget.dart';
+import '/organization/delete_edit_confirmation_dialog_org/delete_edit_confirmation_dialog_org_widget.dart';
 import '/organization/save_edit_confirmation_dialog_copy/save_edit_confirmation_dialog_copy_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,14 +15,10 @@ export 'edit_post_challenge_model.dart';
 class EditPostChallengeWidget extends StatefulWidget {
   const EditPostChallengeWidget({
     super.key,
-    this.title,
-    required this.challenge,
-    this.challengeID,
+    required this.challengeRef,
   });
 
-  final String? title;
-  final ChallengesRecord? challenge;
-  final String? challengeID;
+  final DocumentReference? challengeRef;
 
   @override
   State<EditPostChallengeWidget> createState() =>
@@ -39,11 +35,6 @@ class _EditPostChallengeWidgetState extends State<EditPostChallengeWidget> {
     super.initState();
     _model = createModel(context, () => EditPostChallengeModel());
 
-    _model.titleTextFieldTextController ??= TextEditingController(
-        text: valueOrDefault<String>(
-      widget.challenge?.title,
-      'challenge title',
-    ));
     _model.titleTextFieldFocusNode ??= FocusNode();
     _model.titleTextFieldFocusNode!.addListener(() => safeSetState(() {}));
 
@@ -59,14 +50,8 @@ class _EditPostChallengeWidgetState extends State<EditPostChallengeWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<ChallengesRecord>>(
-      stream: queryChallengesRecord(
-        queryBuilder: (challengesRecord) => challengesRecord.where(
-          'title',
-          isEqualTo: widget.title,
-        ),
-        singleRecord: true,
-      ),
+    return StreamBuilder<ChallengesRecord>(
+      stream: ChallengesRecord.getDocument(widget.challengeRef!),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -85,16 +70,8 @@ class _EditPostChallengeWidgetState extends State<EditPostChallengeWidget> {
             ),
           );
         }
-        List<ChallengesRecord> editPostChallengeChallengesRecordList =
-            snapshot.data!;
-        // Return an empty Container when the item does not exist.
-        if (snapshot.data!.isEmpty) {
-          return Container();
-        }
-        final editPostChallengeChallengesRecord =
-            editPostChallengeChallengesRecordList.isNotEmpty
-                ? editPostChallengeChallengesRecordList.first
-                : null;
+
+        final editPostChallengeChallengesRecord = snapshot.data!;
 
         return GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -115,7 +92,7 @@ class _EditPostChallengeWidgetState extends State<EditPostChallengeWidget> {
                   size: 30.0,
                 ),
                 onPressed: () async {
-                  context.pushNamed('orgViewChallenges');
+                  context.pushNamed('orgHomepage');
                 },
               ),
               title: Text(
@@ -180,7 +157,12 @@ class _EditPostChallengeWidgetState extends State<EditPostChallengeWidget> {
                                         width: 360.0,
                                         child: TextFormField(
                                           controller: _model
-                                              .titleTextFieldTextController,
+                                                  .titleTextFieldTextController ??=
+                                              TextEditingController(
+                                            text:
+                                                editPostChallengeChallengesRecord
+                                                    .title,
+                                          ),
                                           focusNode:
                                               _model.titleTextFieldFocusNode,
                                           autofocus: false,
@@ -316,156 +298,104 @@ class _EditPostChallengeWidgetState extends State<EditPostChallengeWidget> {
                                     Align(
                                       alignment:
                                           const AlignmentDirectional(0.0, -1.0),
-                                      child:
-                                          StreamBuilder<List<ChallengesRecord>>(
-                                        stream: queryChallengesRecord(
-                                          queryBuilder: (challengesRecord) =>
-                                              challengesRecord.where(
-                                            'title',
-                                            isEqualTo: widget.title,
+                                      child: SizedBox(
+                                        width: 360.0,
+                                        child: TextFormField(
+                                          controller: _model
+                                                  .descriptionTextFieldTextController ??=
+                                              TextEditingController(
+                                            text:
+                                                editPostChallengeChallengesRecord
+                                                    .description,
                                           ),
-                                          singleRecord: true,
-                                        ),
-                                        builder: (context, snapshot) {
-                                          // Customize what your widget looks like when it's loading.
-                                          if (!snapshot.hasData) {
-                                            return Center(
-                                              child: SizedBox(
-                                                width: 50.0,
-                                                height: 50.0,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  valueColor:
-                                                      AlwaysStoppedAnimation<
-                                                          Color>(
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                          }
-                                          List<ChallengesRecord>
-                                              descriptionTextFieldChallengesRecordList =
-                                              snapshot.data!;
-                                          // Return an empty Container when the item does not exist.
-                                          if (snapshot.data!.isEmpty) {
-                                            return Container();
-                                          }
-                                          final descriptionTextFieldChallengesRecord =
-                                              descriptionTextFieldChallengesRecordList
-                                                      .isNotEmpty
-                                                  ? descriptionTextFieldChallengesRecordList
-                                                      .first
-                                                  : null;
-
-                                          return SizedBox(
-                                            width: 360.0,
-                                            child: TextFormField(
-                                              controller: _model
-                                                      .descriptionTextFieldTextController ??=
-                                                  TextEditingController(
-                                                text:
-                                                    descriptionTextFieldChallengesRecord
-                                                        ?.description,
-                                              ),
-                                              focusNode: _model
-                                                  .descriptionTextFieldFocusNode,
-                                              autofocus: false,
-                                              obscureText: false,
-                                              decoration: InputDecoration(
-                                                isDense: true,
-                                                labelStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                                hintText:
-                                                    'Describe your challenge here...',
-                                                hintStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                                enabledBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                    color: (_model.desc !=
-                                                                'null') ||
+                                          focusNode: _model
+                                              .descriptionTextFieldFocusNode,
+                                          autofocus: false,
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            isDense: true,
+                                            labelStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .override(
+                                                      fontFamily: 'Inter',
+                                                      letterSpacing: 0.0,
+                                                    ),
+                                            hintText:
+                                                'Describe your challenge here...',
+                                            hintStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .override(
+                                                      fontFamily: 'Inter',
+                                                      letterSpacing: 0.0,
+                                                    ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    (_model.desc != 'null') ||
                                                             (_model.show == 0)
                                                         ? const Color(0xFFD8DADC)
                                                         : FlutterFlowTheme.of(
                                                                 context)
                                                             .error,
-                                                    width: 1.0,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
-                                                ),
-                                                focusedBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(0xFF0043CE),
-                                                    width: 1.0,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
-                                                ),
-                                                errorBorder: OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .error,
-                                                    width: 1.0,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
-                                                ),
-                                                focusedErrorBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .error,
-                                                    width: 1.0,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
-                                                ),
-                                                filled: true,
-                                                fillColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
+                                                width: 1.0,
                                               ),
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                              maxLines: 5,
-                                              minLines: 5,
-                                              maxLength: 300,
-                                              maxLengthEnforcement:
-                                                  MaxLengthEnforcement.enforced,
-                                              cursorColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              validator: _model
-                                                  .descriptionTextFieldTextControllerValidator
-                                                  .asValidator(context),
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
                                             ),
-                                          );
-                                        },
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: const BorderSide(
+                                                color: Color(0xFF0043CE),
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                            ),
+                                            errorBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                            ),
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                            ),
+                                            filled: true,
+                                            fillColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondaryBackground,
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Inter',
+                                                letterSpacing: 0.0,
+                                              ),
+                                          maxLines: 5,
+                                          minLines: 5,
+                                          maxLength: 300,
+                                          maxLengthEnforcement:
+                                              MaxLengthEnforcement.enforced,
+                                          cursorColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .primaryText,
+                                          validator: _model
+                                              .descriptionTextFieldTextControllerValidator
+                                              .asValidator(context),
+                                        ),
                                       ),
                                     ),
                                     if ((_model.show == 1) &&
@@ -632,10 +562,7 @@ class _EditPostChallengeWidgetState extends State<EditPostChallengeWidget> {
                                                                     ?.isNotEmpty ??
                                                                 false)) ||
                                                         (editPostChallengeChallengesRecord
-                                                                    ?.descriptionFile !=
-                                                                null &&
-                                                            editPostChallengeChallengesRecord
-                                                                    ?.descriptionFile !=
+                                                                    .descriptionFile !=
                                                                 '')
                                                     ? 'Success! Your file is secure.'
                                                     : 'Upload File',
@@ -665,10 +592,7 @@ class _EditPostChallengeWidgetState extends State<EditPostChallengeWidget> {
                                                             ?.isNotEmpty ??
                                                         false)) ||
                                                 (editPostChallengeChallengesRecord
-                                                            ?.descriptionFile !=
-                                                        null &&
-                                                    editPostChallengeChallengesRecord
-                                                            ?.descriptionFile !=
+                                                            .descriptionFile !=
                                                         ''))
                                               Padding(
                                                 padding: const EdgeInsetsDirectional
@@ -702,7 +626,7 @@ class _EditPostChallengeWidgetState extends State<EditPostChallengeWidget> {
                                                           '';
                                                     });
 
-                                                    await editPostChallengeChallengesRecord!
+                                                    await editPostChallengeChallengesRecord
                                                         .reference
                                                         .update({
                                                       ...mapToFirestore(
@@ -851,9 +775,8 @@ class _EditPostChallengeWidgetState extends State<EditPostChallengeWidget> {
                                                 }
                                               }
 
-                                              await widget.challenge!.reference
-                                                  .update(
-                                                      createChallengesRecordData(
+                                              await widget.challengeRef!.update(
+                                                  createChallengesRecordData(
                                                 title: _model
                                                     .titleTextFieldTextController
                                                     .text,
@@ -864,13 +787,12 @@ class _EditPostChallengeWidgetState extends State<EditPostChallengeWidget> {
                                                     _model.uploadedFileUrl2,
                                                 uid:
                                                     editPostChallengeChallengesRecord
-                                                        ?.hasUid()
+                                                        .hasUid()
                                                         .toString(),
                                               ));
                                             } else {
-                                              await widget.challenge!.reference
-                                                  .update(
-                                                      createChallengesRecordData(
+                                              await widget.challengeRef!.update(
+                                                  createChallengesRecordData(
                                                 title: _model
                                                     .titleTextFieldTextController
                                                     .text,
@@ -879,7 +801,7 @@ class _EditPostChallengeWidgetState extends State<EditPostChallengeWidget> {
                                                     .text,
                                                 uid:
                                                     editPostChallengeChallengesRecord
-                                                        ?.uid,
+                                                        .uid,
                                               ));
                                             }
 
@@ -952,15 +874,16 @@ class _EditPostChallengeWidgetState extends State<EditPostChallengeWidget> {
                                                       MediaQuery.viewInsetsOf(
                                                           context),
                                                   child:
-                                                      const DeleteConfirmationDialogWidget(),
+                                                      DeleteEditConfirmationDialogOrgWidget(
+                                                    challengeReferance:
+                                                        editPostChallengeChallengesRecord
+                                                            .reference,
+                                                  ),
                                                 ),
                                               );
                                             },
                                           ).then(
                                               (value) => safeSetState(() {}));
-
-                                          await widget.challenge!.reference
-                                              .delete();
                                         },
                                         text: 'Delete challenge',
                                         options: FFButtonOptions(

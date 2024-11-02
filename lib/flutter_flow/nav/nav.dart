@@ -92,12 +92,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'PostChallenge',
           path: '/postChallenge',
-          builder: (context, params) => PostChallengeWidget(
-            backStack: params.getParam(
-              'backStack',
-              ParamType.String,
-            ),
-          ),
+          builder: (context, params) => const PostChallengeWidget(),
         ),
         FFRoute(
           name: 'tst',
@@ -248,21 +243,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'EditPostChallenge',
           path: '/editPostChallenge',
-          asyncParams: {
-            'challenge': getDoc(['Challenges'], ChallengesRecord.fromSnapshot),
-          },
           builder: (context, params) => EditPostChallengeWidget(
-            title: params.getParam(
-              'title',
-              ParamType.String,
-            ),
-            challenge: params.getParam(
-              'challenge',
-              ParamType.Document,
-            ),
-            challengeID: params.getParam(
-              'challengeID',
-              ParamType.String,
+            challengeRef: params.getParam(
+              'challengeRef',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['Challenges'],
             ),
           ),
         ),
@@ -354,12 +340,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'chatPage_org',
           path: '/chatPageOrg',
+          asyncParams: {
+            'user': getDoc(['Users'], UsersRecord.fromSnapshot),
+          },
           builder: (context, params) => ChatPageOrgWidget(
             recieveChat: params.getParam(
               'recieveChat',
               ParamType.DocumentReference,
               isList: false,
               collectionNamePath: ['Chats'],
+            ),
+            user: params.getParam(
+              'user',
+              ParamType.Document,
             ),
           ),
         ),
@@ -372,6 +365,26 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'store',
           path: '/store',
           builder: (context, params) => const StoreWidget(),
+        ),
+        FFRoute(
+          name: 'defaultaa',
+          path: '/defaultaa',
+          builder: (context, params) => const DefaultaaWidget(),
+        ),
+        FFRoute(
+          name: 'orgHomepageCopy',
+          path: '/orgHomepageCopy',
+          builder: (context, params) => const OrgHomepageCopyWidget(),
+        ),
+        FFRoute(
+          name: 'orgHomepageCopy2',
+          path: '/orgHomepageCopy2',
+          builder: (context, params) => const OrgHomepageCopy2Widget(),
+        ),
+        FFRoute(
+          name: 'payment_test',
+          path: '/paymentTest',
+          builder: (context, params) => const PaymentTestWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

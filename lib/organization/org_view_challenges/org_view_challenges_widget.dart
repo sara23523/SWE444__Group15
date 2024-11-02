@@ -207,15 +207,7 @@ class _OrgViewChallengesWidgetState extends State<OrgViewChallengesWidget> {
                                   0.0, 0.0, 15.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
-                                  context.pushNamed(
-                                    'PostChallenge',
-                                    queryParameters: {
-                                      'backStack': serializeParam(
-                                        'View Challenges',
-                                        ParamType.String,
-                                      ),
-                                    }.withoutNulls,
-                                  );
+                                  context.pushNamed('PostChallenge');
                                 },
                                 text: 'Post a challenge',
                                 icon: const Icon(
@@ -524,24 +516,13 @@ class _OrgViewChallengesWidgetState extends State<OrgViewChallengesWidget> {
                                               context.pushNamed(
                                                 'EditPostChallenge',
                                                 queryParameters: {
-                                                  'title': serializeParam(
+                                                  'challengeRef':
+                                                      serializeParam(
                                                     listViewChallengesRecord
-                                                        .title,
-                                                    ParamType.String,
-                                                  ),
-                                                  'challenge': serializeParam(
-                                                    listViewChallengesRecord,
-                                                    ParamType.Document,
-                                                  ),
-                                                  'challengeID': serializeParam(
-                                                    '',
-                                                    ParamType.String,
+                                                        .reference,
+                                                    ParamType.DocumentReference,
                                                   ),
                                                 }.withoutNulls,
-                                                extra: <String, dynamic>{
-                                                  'challenge':
-                                                      listViewChallengesRecord,
-                                                },
                                               );
                                             },
                                           ),

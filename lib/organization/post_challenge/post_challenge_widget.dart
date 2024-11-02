@@ -16,12 +16,7 @@ import 'post_challenge_model.dart';
 export 'post_challenge_model.dart';
 
 class PostChallengeWidget extends StatefulWidget {
-  const PostChallengeWidget({
-    super.key,
-    required this.backStack,
-  });
-
-  final String? backStack;
+  const PostChallengeWidget({super.key});
 
   @override
   State<PostChallengeWidget> createState() => _PostChallengeWidgetState();
@@ -114,9 +109,7 @@ class _PostChallengeWidgetState extends State<PostChallengeWidget> {
                           onTap: () => FocusScope.of(context).unfocus(),
                           child: Padding(
                             padding: MediaQuery.viewInsetsOf(context),
-                            child: UnsavedChangesConfirmationDialogOrgWidget(
-                              backStack: widget.backStack!,
-                            ),
+                            child: const UnsavedChangesConfirmationDialogOrgWidget(),
                           ),
                         );
                       },

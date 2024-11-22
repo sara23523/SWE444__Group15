@@ -420,6 +420,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.Document,
             ),
           ),
+        ),
+        FFRoute(
+          name: 'notiTST',
+          path: '/notiTST',
+          builder: (context, params) => const NotiTSTWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

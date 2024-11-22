@@ -74,3 +74,4 @@ export '/solver/solver_homepage/solver_homepage_widget.dart'
     show SolverHomepageWidget;
 export '/organization/org_view_solver_solutions/org_view_solver_solutions_widget.dart'
     show OrgViewSolverSolutionsWidget;
+export '/just_testing/noti_t_s_t/noti_t_s_t_widget.dart' show NotiTSTWidget;

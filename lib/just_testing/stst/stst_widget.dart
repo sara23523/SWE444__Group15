@@ -4,25 +4,25 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'tst_model.dart';
-export 'tst_model.dart';
+import 'stst_model.dart';
+export 'stst_model.dart';
 
-class TstWidget extends StatefulWidget {
-  const TstWidget({super.key});
+class StstWidget extends StatefulWidget {
+  const StstWidget({super.key});
 
   @override
-  State<TstWidget> createState() => _TstWidgetState();
+  State<StstWidget> createState() => _StstWidgetState();
 }
 
-class _TstWidgetState extends State<TstWidget> {
-  late TstModel _model;
+class _StstWidgetState extends State<StstWidget> {
+  late StstModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => TstModel());
+    _model = createModel(context, () => StstModel());
 
     _model.searchBarTextController ??= TextEditingController();
     _model.searchBarFocusNode ??= FocusNode();

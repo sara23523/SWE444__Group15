@@ -95,9 +95,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const PostChallengeWidget(),
         ),
         FFRoute(
-          name: 'tst',
-          path: '/tst',
-          builder: (context, params) => const TstWidget(),
+          name: 'stst',
+          path: '/stst',
+          builder: (context, params) => const StstWidget(),
         ),
         FFRoute(
           name: 'startPage',

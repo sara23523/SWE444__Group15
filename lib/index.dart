@@ -2,7 +2,7 @@
 export '/home_page1/home_page1_widget.dart' show HomePage1Widget;
 export '/organization/post_challenge/post_challenge_widget.dart'
     show PostChallengeWidget;
-export '/just_testing/tst/tst_widget.dart' show TstWidget;
+export '/just_testing/stst/stst_widget.dart' show StstWidget;
 export '/pages/start_page/start_page_widget.dart' show StartPageWidget;
 export '/pages/user_type/user_type_widget.dart' show UserTypeWidget;
 export '/pages/sign_in/sign_in_widget.dart' show SignInWidget;

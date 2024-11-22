@@ -109,7 +109,7 @@ final parametersBuilderMap =
     <String, Future<ParameterData> Function(Map<String, dynamic>)>{
   'HomePage1': ParameterData.none(),
   'PostChallenge': ParameterData.none(),
-  'tst': ParameterData.none(),
+  'stst': ParameterData.none(),
   'startPage': ParameterData.none(),
   'userType': ParameterData.none(),
   'signIn': ParameterData.none(),

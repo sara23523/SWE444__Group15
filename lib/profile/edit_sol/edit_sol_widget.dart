@@ -6,7 +6,10 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'edit_sol_model.dart';
 export 'edit_sol_model.dart';
 
@@ -41,6 +44,8 @@ class _EditSolWidgetState extends State<EditSolWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -90,55 +95,76 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Expanded(
-                          child: Align(
-                            alignment: const AlignmentDirectional(0.0, 0.0),
-                            child: Padding(
-                              padding: const EdgeInsets.all(2.0),
-                              child: StreamBuilder<List<UsersRecord>>(
-                                stream: queryUsersRecord(
-                                  singleRecord: true,
-                                ),
-                                builder: (context, snapshot) {
-                                  // Customize what your widget looks like when it's loading.
-                                  if (!snapshot.hasData) {
-                                    return Center(
-                                      child: SizedBox(
-                                        width: 50.0,
-                                        height: 50.0,
-                                        child: CircularProgressIndicator(
-                                          valueColor:
-                                              AlwaysStoppedAnimation<Color>(
-                                            FlutterFlowTheme.of(context)
-                                                .primary,
+                          child: Container(
+                            width: 100.0,
+                            height: 100.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: FlutterFlowTheme.of(context).primary,
+                                width: 2.0,
+                              ),
+                            ),
+                            child: Align(
+                              alignment: const AlignmentDirectional(0.0, 0.0),
+                              child: Padding(
+                                padding: const EdgeInsets.all(2.0),
+                                child: StreamBuilder<List<UsersRecord>>(
+                                  stream: queryUsersRecord(
+                                    queryBuilder: (usersRecord) =>
+                                        usersRecord.where(
+                                      'uid',
+                                      isEqualTo: currentUserReference?.id,
+                                    ),
+                                    singleRecord: true,
+                                  ),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 50.0,
+                                          height: 50.0,
+                                          child: CircularProgressIndicator(
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                              FlutterFlowTheme.of(context)
+                                                  .primary,
+                                            ),
                                           ),
                                         ),
+                                      );
+                                    }
+                                    List<UsersRecord>
+                                        circleImageUsersRecordList =
+                                        snapshot.data!;
+                                    // Return an empty Container when the item does not exist.
+                                    if (snapshot.data!.isEmpty) {
+                                      return Container();
+                                    }
+                                    final circleImageUsersRecord =
+                                        circleImageUsersRecordList.isNotEmpty
+                                            ? circleImageUsersRecordList.first
+                                            : null;
+
+                                    return Container(
+                                      width: 90.0,
+                                      height: 90.0,
+                                      clipBehavior: Clip.antiAlias,
+                                      decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Image.network(
+                                        circleImageUsersRecord?.photoUrl != ''
+                                            ? circleImageUsersRecord!.photoUrl
+                                            : FFAppState().defaultUserPhoto,
+                                        fit: BoxFit.fitWidth,
                                       ),
                                     );
-                                  }
-                                  List<UsersRecord> circleImageUsersRecordList =
-                                      snapshot.data!;
-                                  // Return an empty Container when the item does not exist.
-                                  if (snapshot.data!.isEmpty) {
-                                    return Container();
-                                  }
-                                  final circleImageUsersRecord =
-                                      circleImageUsersRecordList.isNotEmpty
-                                          ? circleImageUsersRecordList.first
-                                          : null;
-
-                                  return Container(
-                                    width: 90.0,
-                                    height: 90.0,
-                                    clipBehavior: Clip.antiAlias,
-                                    decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Image.network(
-                                      _model.uploadedFileUrl,
-                                      fit: BoxFit.fitWidth,
-                                    ),
-                                  );
-                                },
+                                  },
+                                ),
                               ),
                             ),
                           ),
@@ -151,24 +177,13 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                     children: [
                       Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                        child: Text(
-                          'Edit Photo',
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Inter',
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    fontSize: 12.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                        ),
-                      ),
-                      Padding(
-                        padding:
                             const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 5.0),
                         child: StreamBuilder<List<UsersRecord>>(
                           stream: queryUsersRecord(
+                            queryBuilder: (usersRecord) => usersRecord.where(
+                              'uid',
+                              isEqualTo: currentUserUid,
+                            ),
                             singleRecord: true,
                           ),
                           builder: (context, snapshot) {
@@ -203,10 +218,9 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                final selectedMedia =
-                                    await selectMediaWithSourceBottomSheet(
-                                  context: context,
-                                  allowPhoto: true,
+                                final selectedMedia = await selectMedia(
+                                  mediaSource: MediaSource.photoGallery,
+                                  multiImage: false,
                                 );
                                 if (selectedMedia != null &&
                                     selectedMedia.every((m) =>
@@ -219,6 +233,11 @@ class _EditSolWidgetState extends State<EditSolWidget> {
 
                                   var downloadUrls = <String>[];
                                   try {
+                                    showUploadMessage(
+                                      context,
+                                      'Uploading file...',
+                                      showLoading: true,
+                                    );
                                     selectedUploadedFiles = selectedMedia
                                         .map((m) => FFUploadedFile(
                                               name:
@@ -240,6 +259,8 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                                         .map((u) => u!)
                                         .toList();
                                   } finally {
+                                    ScaffoldMessenger.of(context)
+                                        .hideCurrentSnackBar();
                                     _model.isDataUploading = false;
                                   }
                                   if (selectedUploadedFiles.length ==
@@ -252,11 +273,19 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                                       _model.uploadedFileUrl =
                                           downloadUrls.first;
                                     });
+                                    showUploadMessage(context, 'Success!');
                                   } else {
                                     safeSetState(() {});
+                                    showUploadMessage(
+                                        context, 'Failed to upload data');
                                     return;
                                   }
                                 }
+
+                                await currentUserReference!
+                                    .update(createUsersRecordData(
+                                  photoUrl: _model.uploadedFileUrl,
+                                ));
                               },
                               child: Icon(
                                 Icons.edit,
@@ -267,6 +296,21 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                           },
                         ),
                       ),
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                        child: Text(
+                          'Edit Photo',
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Inter',
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    fontSize: 12.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                        ),
+                      ),
                     ],
                   ),
                   Padding(
@@ -274,6 +318,10 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                         const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 16.0),
                     child: StreamBuilder<List<UsersRecord>>(
                       stream: queryUsersRecord(
+                        queryBuilder: (usersRecord) => usersRecord.where(
+                          'uid',
+                          isEqualTo: currentUserReference?.id,
+                        ),
                         singleRecord: true,
                       ),
                       builder: (context, snapshot) {
@@ -308,6 +356,12 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                             text: textFieldUsersRecord?.username,
                           ),
                           focusNode: _model.textFieldFocusNode,
+                          onChanged: (_) => EasyDebounce.debounce(
+                            '_model.textController1',
+                            const Duration(milliseconds: 2000),
+                            () => safeSetState(() {}),
+                          ),
+                          textCapitalization: TextCapitalization.words,
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'Full Name',
@@ -332,22 +386,22 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Color(0x00000000),
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).primary,
                                 width: 2.0,
                               ),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             errorBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Color(0x00000000),
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
                                 width: 2.0,
                               ),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             focusedErrorBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Color(0x00000000),
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
                                 width: 2.0,
                               ),
                               borderRadius: BorderRadius.circular(8.0),
@@ -367,6 +421,10 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                               ),
                           validator: _model.textController1Validator
                               .asValidator(context),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(
+                                RegExp('[a-zA-Z]'))
+                          ],
                         );
                       },
                     ),
@@ -376,6 +434,10 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                         const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 12.0),
                     child: StreamBuilder<List<UsersRecord>>(
                       stream: queryUsersRecord(
+                        queryBuilder: (usersRecord) => usersRecord.where(
+                          'uid',
+                          isEqualTo: currentUserReference?.id,
+                        ),
                         singleRecord: true,
                       ),
                       builder: (context, snapshot) {
@@ -432,8 +494,8 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Color(0x00000000),
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).primary,
                                 width: 2.0,
                               ),
                               borderRadius: BorderRadius.circular(8.0),
@@ -467,6 +529,7 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                               ),
                           textAlign: TextAlign.start,
                           maxLines: 3,
+                          maxLength: 150,
                           validator: _model.myBioTextControllerValidator
                               .asValidator(context),
                         );
@@ -480,6 +543,10 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                           const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                       child: StreamBuilder<List<UsersRecord>>(
                         stream: queryUsersRecord(
+                          queryBuilder: (usersRecord) => usersRecord.where(
+                            'uid',
+                            isEqualTo: currentUserReference?.id,
+                          ),
                           singleRecord: true,
                         ),
                         builder: (context, snapshot) {
@@ -509,32 +576,34 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                                   : null;
 
                           return FFButtonWidget(
-                            onPressed: () async {
-                              await currentUserReference!
-                                  .update(createUsersRecordData(
-                                photoUrl: _model.uploadedFileUrl,
-                                bio: _model.myBioTextController.text,
-                                username: _model.textController1.text,
-                                uid: currentUserUid,
-                              ));
-                              await showDialog(
-                                context: context,
-                                builder: (alertDialogContext) {
-                                  return AlertDialog(
-                                    content: const Text('Profile Edit Successflly'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(alertDialogContext),
-                                        child: const Text('Ok'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
+                            onPressed: (_model.textController1.text == '')
+                                ? null
+                                : () async {
+                                    await buttonUsersRecord!.reference
+                                        .update(createUsersRecordData(
+                                      bio: _model.myBioTextController.text,
+                                      username: _model.textController1.text,
+                                      uid: currentUserUid,
+                                    ));
+                                    await showDialog(
+                                      context: context,
+                                      builder: (alertDialogContext) {
+                                        return AlertDialog(
+                                          content:
+                                              const Text('Profile Edit Successflly'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  alertDialogContext),
+                                              child: const Text('Ok'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
 
-                              context.pushNamed('sol_ProfileCopy');
-                            },
+                                    context.pushNamed('sol_ProfileCopyCopy');
+                                  },
                             text: 'Save Changes',
                             options: FFButtonOptions(
                               width: 320.0,
@@ -553,12 +622,13 @@ class _EditSolWidgetState extends State<EditSolWidget> {
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.normal,
                                   ),
-                              elevation: 2.0,
+                              elevation: 0.0,
                               borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
                               borderRadius: BorderRadius.circular(10.0),
+                              disabledColor: const Color(0x8014181B),
                             ),
                           );
                         },

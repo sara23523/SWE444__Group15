@@ -1,7 +1,9 @@
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'start_page_model.dart';
 export 'start_page_model.dart';
 
@@ -12,15 +14,45 @@ class StartPageWidget extends StatefulWidget {
   State<StartPageWidget> createState() => _StartPageWidgetState();
 }
 
-class _StartPageWidgetState extends State<StartPageWidget> {
+class _StartPageWidgetState extends State<StartPageWidget>
+    with TickerProviderStateMixin {
   late StartPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => StartPageModel());
+
+    animationsMap.addAll({
+      'imageOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 1000.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+      'textOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeIn,
+            delay: 800.0.ms,
+            duration: 1000.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+    });
   }
 
   @override
@@ -56,7 +88,7 @@ class _StartPageWidgetState extends State<StartPageWidget> {
                     height: 200.0,
                     fit: BoxFit.cover,
                   ),
-                ),
+                ).animateOnPageLoad(animationsMap['imageOnPageLoadAnimation']!),
               ),
               Container(
                 width: 381.0,
@@ -75,7 +107,8 @@ class _StartPageWidgetState extends State<StartPageWidget> {
                             fontSize: 50.0,
                             letterSpacing: 0.0,
                           ),
-                    ),
+                    ).animateOnPageLoad(
+                        animationsMap['textOnPageLoadAnimation']!),
                   ],
                 ),
               ),
@@ -89,10 +122,11 @@ class _StartPageWidgetState extends State<StartPageWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Text(
-                      'Connect, Solve, Succeed: \nWhere Challenges Meet Solutions',
+                      'Connect, Solve, Succeed: \nWhere Challenges Meet Solutions!',
                       textAlign: TextAlign.center,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Inter',
+                            color: const Color(0xFF211A1A),
                             letterSpacing: 0.0,
                           ),
                     ),

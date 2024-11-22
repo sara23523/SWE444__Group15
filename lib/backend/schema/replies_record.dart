@@ -30,11 +30,6 @@ class RepliesRecord extends FirestoreRecord {
   int get points => _points ?? 0;
   bool hasPoints() => _points != null;
 
-  // "solver" field.
-  DocumentReference? _solver;
-  DocumentReference? get solver => _solver;
-  bool hasSolver() => _solver != null;
-
   // "title" field.
   String? _title;
   String get title => _title ?? '';
@@ -50,14 +45,31 @@ class RepliesRecord extends FirestoreRecord {
   DocumentReference? get challengeRef => _challengeRef;
   bool hasChallengeRef() => _challengeRef != null;
 
+  // "createdTime" field.
+  DateTime? _createdTime;
+  DateTime? get createdTime => _createdTime;
+  bool hasCreatedTime() => _createdTime != null;
+
+  // "isEvaluated" field.
+  bool? _isEvaluated;
+  bool get isEvaluated => _isEvaluated ?? false;
+  bool hasIsEvaluated() => _isEvaluated != null;
+
+  // "privateORpublic" field.
+  String? _privateORpublic;
+  String get privateORpublic => _privateORpublic ?? '';
+  bool hasPrivateORpublic() => _privateORpublic != null;
+
   void _initializeFields() {
     _description = snapshotData['description'] as String?;
     _file = snapshotData['file'] as String?;
     _points = castToType<int>(snapshotData['points']);
-    _solver = snapshotData['solver'] as DocumentReference?;
     _title = snapshotData['title'] as String?;
     _uid = snapshotData['uid'] as String?;
     _challengeRef = snapshotData['challengeRef'] as DocumentReference?;
+    _createdTime = snapshotData['createdTime'] as DateTime?;
+    _isEvaluated = snapshotData['isEvaluated'] as bool?;
+    _privateORpublic = snapshotData['privateORpublic'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -98,20 +110,24 @@ Map<String, dynamic> createRepliesRecordData({
   String? description,
   String? file,
   int? points,
-  DocumentReference? solver,
   String? title,
   String? uid,
   DocumentReference? challengeRef,
+  DateTime? createdTime,
+  bool? isEvaluated,
+  String? privateORpublic,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'description': description,
       'file': file,
       'points': points,
-      'solver': solver,
       'title': title,
       'uid': uid,
       'challengeRef': challengeRef,
+      'createdTime': createdTime,
+      'isEvaluated': isEvaluated,
+      'privateORpublic': privateORpublic,
     }.withoutNulls,
   );
 
@@ -126,10 +142,12 @@ class RepliesRecordDocumentEquality implements Equality<RepliesRecord> {
     return e1?.description == e2?.description &&
         e1?.file == e2?.file &&
         e1?.points == e2?.points &&
-        e1?.solver == e2?.solver &&
         e1?.title == e2?.title &&
         e1?.uid == e2?.uid &&
-        e1?.challengeRef == e2?.challengeRef;
+        e1?.challengeRef == e2?.challengeRef &&
+        e1?.createdTime == e2?.createdTime &&
+        e1?.isEvaluated == e2?.isEvaluated &&
+        e1?.privateORpublic == e2?.privateORpublic;
   }
 
   @override
@@ -137,10 +155,12 @@ class RepliesRecordDocumentEquality implements Equality<RepliesRecord> {
         e?.description,
         e?.file,
         e?.points,
-        e?.solver,
         e?.title,
         e?.uid,
-        e?.challengeRef
+        e?.challengeRef,
+        e?.createdTime,
+        e?.isEvaluated,
+        e?.privateORpublic
       ]);
 
   @override

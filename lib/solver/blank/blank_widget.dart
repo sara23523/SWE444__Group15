@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/solver/challenge_document/challenge_document_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'blank_model.dart';
 export 'blank_model.dart';
 
@@ -40,6 +41,8 @@ class _BlankWidgetState extends State<BlankWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -85,14 +88,50 @@ class _BlankWidgetState extends State<BlankWidget> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Image.network(
-                        'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8ZG9jb3RyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
-                        width: double.infinity,
-                        height: 330.0,
-                        fit: BoxFit.cover,
+                    child: StreamBuilder<List<UsersRecord>>(
+                      stream: queryUsersRecord(
+                        queryBuilder: (usersRecord) => usersRecord.where(
+                          'uid',
+                          isEqualTo: widget.challenge?.uid,
+                        ),
+                        singleRecord: true,
                       ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50.0,
+                              height: 50.0,
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  FlutterFlowTheme.of(context).primary,
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+                        List<UsersRecord> imageUsersRecordList = snapshot.data!;
+                        // Return an empty Container when the item does not exist.
+                        if (snapshot.data!.isEmpty) {
+                          return Container();
+                        }
+                        final imageUsersRecord = imageUsersRecordList.isNotEmpty
+                            ? imageUsersRecordList.first
+                            : null;
+
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Image.network(
+                            imageUsersRecord?.photoUrl != ''
+                                ? imageUsersRecord!.photoUrl
+                                : FFAppState().defaultUserPhoto,
+                            width: double.infinity,
+                            height: 223.0,
+                            fit: BoxFit.cover,
+                          ),
+                        );
+                      },
                     ),
                   ),
                   Padding(
@@ -140,47 +179,53 @@ class _BlankWidgetState extends State<BlankWidget> {
                                     ),
                               ),
                             ),
-                            FFButtonWidget(
-                              onPressed: () async {
-                                await showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  backgroundColor: Colors.transparent,
-                                  enableDrag: false,
-                                  context: context,
-                                  builder: (context) {
-                                    return GestureDetector(
-                                      onTap: () =>
-                                          FocusScope.of(context).unfocus(),
-                                      child: Padding(
-                                        padding:
-                                            MediaQuery.viewInsetsOf(context),
-                                        child: ChallengeDocumentWidget(
-                                          pdf: widget.challenge!,
+                            if (widget.challenge?.descriptionFile != null &&
+                                widget.challenge?.descriptionFile != '')
+                              FFButtonWidget(
+                                onPressed: () async {
+                                  await showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    enableDrag: false,
+                                    context: context,
+                                    builder: (context) {
+                                      return GestureDetector(
+                                        onTap: () =>
+                                            FocusScope.of(context).unfocus(),
+                                        child: Padding(
+                                          padding:
+                                              MediaQuery.viewInsetsOf(context),
+                                          child: ChallengeDocumentWidget(
+                                            pdf: widget.challenge!,
+                                          ),
                                         ),
+                                      );
+                                    },
+                                  ).then((value) => safeSetState(() {}));
+                                },
+                                text: 'Description file',
+                                icon: const Icon(
+                                  Icons.description_rounded,
+                                  size: 15.0,
+                                ),
+                                options: FFButtonOptions(
+                                  height: 40.0,
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 0.0, 16.0, 0.0),
+                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  color: const Color(0xFF0043CE),
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        fontFamily: 'Inter Tight',
+                                        color: Colors.white,
+                                        letterSpacing: 0.0,
                                       ),
-                                    );
-                                  },
-                                ).then((value) => safeSetState(() {}));
-                              },
-                              text: 'Description file',
-                              options: FFButtonOptions(
-                                height: 40.0,
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 0.0, 16.0, 0.0),
-                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: const Color(0xFF0043CE),
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: 'Inter Tight',
-                                      color: Colors.white,
-                                      letterSpacing: 0.0,
-                                    ),
-                                elevation: 0.0,
-                                borderRadius: BorderRadius.circular(8.0),
+                                  elevation: 0.0,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
                               ),
-                            ),
                           ],
                         ),
                       ),
@@ -192,11 +237,26 @@ class _BlankWidgetState extends State<BlankWidget> {
                 alignment: const AlignmentDirectional(0.0, 1.0),
                 child: FFButtonWidget(
                   onPressed: () async {
-                    context.pushNamed('submitsol');
+                    context.pushNamed(
+                      'submitsol',
+                      queryParameters: {
+                        'challenge': serializeParam(
+                          widget.challenge?.reference,
+                          ParamType.DocumentReference,
+                        ),
+                        'challengWholeDoc': serializeParam(
+                          widget.challenge,
+                          ParamType.Document,
+                        ),
+                      }.withoutNulls,
+                      extra: <String, dynamic>{
+                        'challengWholeDoc': widget.challenge,
+                      },
+                    );
                   },
                   text: 'Submit Solution',
                   options: FFButtonOptions(
-                    width: 340.0,
+                    width: 320.0,
                     height: 54.0,
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),

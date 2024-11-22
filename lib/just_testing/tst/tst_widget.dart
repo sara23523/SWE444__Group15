@@ -77,50 +77,17 @@ class _TstWidgetState extends State<TstWidget> {
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            StreamBuilder<List<SolverRecord>>(
-                              stream: querySolverRecord(
-                                singleRecord: true,
-                              ),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 50.0,
-                                      height: 50.0,
-                                      child: CircularProgressIndicator(
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                          FlutterFlowTheme.of(context).primary,
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                }
-                                List<SolverRecord> textSolverRecordList =
-                                    snapshot.data!;
-                                // Return an empty Container when the item does not exist.
-                                if (snapshot.data!.isEmpty) {
-                                  return Container();
-                                }
-                                final textSolverRecord =
-                                    textSolverRecordList.isNotEmpty
-                                        ? textSolverRecordList.first
-                                        : null;
-
-                                return Text(
-                                  'userName',
-                                  style: FlutterFlowTheme.of(context)
-                                      .displaySmall
-                                      .override(
-                                        fontFamily: 'Urbanist',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                        fontSize: 24.0,
-                                        letterSpacing: 0.0,
-                                      ),
-                                );
-                              },
+                            Text(
+                              'userName',
+                              style: FlutterFlowTheme.of(context)
+                                  .displaySmall
+                                  .override(
+                                    fontFamily: 'Urbanist',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
+                                    fontSize: 24.0,
+                                    letterSpacing: 0.0,
+                                  ),
                             ),
                             Text(
                               '\'s Solutions',

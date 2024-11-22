@@ -55,7 +55,7 @@ class _SolProfileCopyWidgetState extends State<SolProfileCopyWidget> {
               size: 30.0,
             ),
             onPressed: () async {
-              context.pop();
+              context.pushNamed('solverHomepageCopyy');
             },
           ),
           title: Text(
@@ -79,7 +79,7 @@ class _SolProfileCopyWidgetState extends State<SolProfileCopyWidget> {
                 model: _model.bottomNavigationBarSolModel,
                 updateCallback: () => safeSetState(() {}),
                 child: const BottomNavigationBarSolWidget(
-                  selectedPageIndex: 4,
+                  selectedPageIndex: 5,
                   hidden: false,
                 ),
               ),
@@ -119,6 +119,11 @@ class _SolProfileCopyWidgetState extends State<SolProfileCopyWidget> {
                                   builder: (context) =>
                                       StreamBuilder<List<UsersRecord>>(
                                     stream: queryUsersRecord(
+                                      queryBuilder: (usersRecord) =>
+                                          usersRecord.where(
+                                        'uid',
+                                        isEqualTo: currentUserReference?.id,
+                                      ),
                                       singleRecord: true,
                                     ),
                                     builder: (context, snapshot) {
@@ -178,6 +183,11 @@ class _SolProfileCopyWidgetState extends State<SolProfileCopyWidget> {
                                       builder: (context) =>
                                           StreamBuilder<List<UsersRecord>>(
                                         stream: queryUsersRecord(
+                                          queryBuilder: (usersRecord) =>
+                                              usersRecord.where(
+                                            'uid',
+                                            isEqualTo: currentUserReference?.id,
+                                          ),
                                           singleRecord: true,
                                         ),
                                         builder: (context, snapshot) {
@@ -240,6 +250,11 @@ class _SolProfileCopyWidgetState extends State<SolProfileCopyWidget> {
                                           0.0, 4.0, 0.0, 0.0),
                                       child: StreamBuilder<List<UsersRecord>>(
                                         stream: queryUsersRecord(
+                                          queryBuilder: (usersRecord) =>
+                                              usersRecord.where(
+                                            'uid',
+                                            isEqualTo: currentUserReference?.id,
+                                          ),
                                           singleRecord: true,
                                         ),
                                         builder: (context, snapshot) {
@@ -302,6 +317,12 @@ class _SolProfileCopyWidgetState extends State<SolProfileCopyWidget> {
                                         builder: (context) =>
                                             StreamBuilder<List<UsersRecord>>(
                                           stream: queryUsersRecord(
+                                            queryBuilder: (usersRecord) =>
+                                                usersRecord.where(
+                                              'uid',
+                                              isEqualTo:
+                                                  currentUserReference?.id,
+                                            ),
                                             singleRecord: true,
                                           ),
                                           builder: (context, snapshot) {
@@ -414,6 +435,11 @@ class _SolProfileCopyWidgetState extends State<SolProfileCopyWidget> {
                             ),
                             StreamBuilder<List<UsersRecord>>(
                               stream: queryUsersRecord(
+                                queryBuilder: (usersRecord) =>
+                                    usersRecord.where(
+                                  'uid',
+                                  isEqualTo: currentUserReference?.id,
+                                ),
                                 singleRecord: true,
                               ),
                               builder: (context, snapshot) {

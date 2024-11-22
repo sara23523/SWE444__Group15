@@ -1,21 +1,7 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /Organization/{document} {
-      allow create: if true;
-      allow read: if true;
-      allow write: if true;
-      allow delete: if true;
-    }
-
     match /Challenges/{document} {
-      allow create: if true;
-      allow read: if true;
-      allow write: if true;
-      allow delete: if true;
-    }
-
-    match /Solver/{document} {
       allow create: if true;
       allow read: if true;
       allow write: if true;
@@ -34,6 +20,56 @@ service cloud.firestore {
       allow read: if request.auth.uid == document;
       allow write: if request.auth.uid == document;
       allow delete: if request.auth.uid == document;
+    }
+
+    match /Chats/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /Chats/{parent}/chatMessages/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /{path=**}/chatMessages/{document} {
+      allow read: if true;
+    }
+
+
+    match /Categories/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /Challenges/{parent}/Solutions/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /{path=**}/Solutions/{document} {
+      allow read: if true;
+    }
+
+
+    match /Transactions/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /ff_user_push_notifications/{id} {
+      allow read, update, delete: if false;
+      allow create: if /databases/$(database)/documents/Users/$(request.auth.uid) == request.resource.data.sender;
     }
   }
 }

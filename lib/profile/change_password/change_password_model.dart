@@ -5,31 +5,31 @@ import 'package:flutter/material.dart';
 class ChangePasswordModel extends FlutterFlowModel<ChangePasswordWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final formKey = GlobalKey<FormState>();
   // State field(s) for emailAddress widget.
-  FocusNode? emailAddressFocusNode;
-  TextEditingController? emailAddressTextController;
-  String? Function(BuildContext, String?)? emailAddressTextControllerValidator;
-  String? _emailAddressTextControllerValidator(
-      BuildContext context, String? val) {
-    if (val == null || val.isEmpty) {
-      return 'Field is required';
-    }
-
-    if (!RegExp(kTextValidatorEmailRegex).hasMatch(val)) {
-      return 'Has to be a valid email address.';
-    }
-    return null;
-  }
+  FocusNode? emailAddressFocusNode1;
+  TextEditingController? emailAddressTextController1;
+  String? Function(BuildContext, String?)? emailAddressTextController1Validator;
+  // State field(s) for emailAddress widget.
+  FocusNode? emailAddressFocusNode2;
+  TextEditingController? emailAddressTextController2;
+  String? Function(BuildContext, String?)? emailAddressTextController2Validator;
+  // State field(s) for emailAddress widget.
+  FocusNode? emailAddressFocusNode3;
+  TextEditingController? emailAddressTextController3;
+  String? Function(BuildContext, String?)? emailAddressTextController3Validator;
 
   @override
-  void initState(BuildContext context) {
-    emailAddressTextControllerValidator = _emailAddressTextControllerValidator;
-  }
+  void initState(BuildContext context) {}
 
   @override
   void dispose() {
-    emailAddressFocusNode?.dispose();
-    emailAddressTextController?.dispose();
+    emailAddressFocusNode1?.dispose();
+    emailAddressTextController1?.dispose();
+
+    emailAddressFocusNode2?.dispose();
+    emailAddressTextController2?.dispose();
+
+    emailAddressFocusNode3?.dispose();
+    emailAddressTextController3?.dispose();
   }
 }

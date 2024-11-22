@@ -1,12 +1,10 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/backend/firebase_storage/storage.dart';
 import '/components/bottom_navigation_bar_org_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/upload_data.dart';
 import 'package:flutter/material.dart';
 import 'org_profile_copy_copy_model.dart';
 export 'org_profile_copy_copy_model.dart';
@@ -58,7 +56,7 @@ class _OrgProfileCopyCopyWidgetState extends State<OrgProfileCopyCopyWidget> {
               size: 30.0,
             ),
             onPressed: () async {
-              context.pop();
+              context.pushNamed('orgHomepage');
             },
           ),
           title: Text(
@@ -82,7 +80,7 @@ class _OrgProfileCopyCopyWidgetState extends State<OrgProfileCopyCopyWidget> {
                 model: _model.bottomNavigationBarOrgModel,
                 updateCallback: () => safeSetState(() {}),
                 child: const BottomNavigationBarOrgWidget(
-                  selectedPageIndex: 4,
+                  selectedPageIndex: 5,
                   hidden: false,
                 ),
               ),
@@ -115,112 +113,57 @@ class _OrgProfileCopyCopyWidgetState extends State<OrgProfileCopyCopyWidget> {
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(2.0),
-                              child: StreamBuilder<List<UsersRecord>>(
-                                stream: queryUsersRecord(
-                                  singleRecord: true,
-                                ),
-                                builder: (context, snapshot) {
-                                  // Customize what your widget looks like when it's loading.
-                                  if (!snapshot.hasData) {
-                                    return Center(
-                                      child: SizedBox(
-                                        width: 50.0,
-                                        height: 50.0,
-                                        child: CircularProgressIndicator(
-                                          valueColor:
-                                              AlwaysStoppedAnimation<Color>(
-                                            FlutterFlowTheme.of(context)
-                                                .primary,
+                              child: AuthUserStreamWidget(
+                                builder: (context) =>
+                                    StreamBuilder<List<UsersRecord>>(
+                                  stream: queryUsersRecord(
+                                    queryBuilder: (usersRecord) =>
+                                        usersRecord.where(
+                                      'uid',
+                                      isEqualTo: currentUserReference?.id,
+                                    ),
+                                    singleRecord: true,
+                                  ),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 50.0,
+                                          height: 50.0,
+                                          child: CircularProgressIndicator(
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                              FlutterFlowTheme.of(context)
+                                                  .primary,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    );
-                                  }
-                                  List<UsersRecord> userAvatarUsersRecordList =
-                                      snapshot.data!;
-                                  // Return an empty Container when the item does not exist.
-                                  if (snapshot.data!.isEmpty) {
-                                    return Container();
-                                  }
-                                  final userAvatarUsersRecord =
-                                      userAvatarUsersRecordList.isNotEmpty
-                                          ? userAvatarUsersRecordList.first
-                                          : null;
-
-                                  return InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      final selectedMedia =
-                                          await selectMediaWithSourceBottomSheet(
-                                        context: context,
-                                        allowPhoto: true,
                                       );
-                                      if (selectedMedia != null &&
-                                          selectedMedia.every((m) =>
-                                              validateFileFormat(
-                                                  m.storagePath, context))) {
-                                        safeSetState(() =>
-                                            _model.isDataUploading = true);
-                                        var selectedUploadedFiles =
-                                            <FFUploadedFile>[];
+                                    }
+                                    List<UsersRecord>
+                                        userAvatarUsersRecordList =
+                                        snapshot.data!;
+                                    // Return an empty Container when the item does not exist.
+                                    if (snapshot.data!.isEmpty) {
+                                      return Container();
+                                    }
+                                    final userAvatarUsersRecord =
+                                        userAvatarUsersRecordList.isNotEmpty
+                                            ? userAvatarUsersRecordList.first
+                                            : null;
 
-                                        var downloadUrls = <String>[];
-                                        try {
-                                          selectedUploadedFiles = selectedMedia
-                                              .map((m) => FFUploadedFile(
-                                                    name: m.storagePath
-                                                        .split('/')
-                                                        .last,
-                                                    bytes: m.bytes,
-                                                    height:
-                                                        m.dimensions?.height,
-                                                    width: m.dimensions?.width,
-                                                    blurHash: m.blurHash,
-                                                  ))
-                                              .toList();
-
-                                          downloadUrls = (await Future.wait(
-                                            selectedMedia.map(
-                                              (m) async => await uploadData(
-                                                  m.storagePath, m.bytes),
-                                            ),
-                                          ))
-                                              .where((u) => u != null)
-                                              .map((u) => u!)
-                                              .toList();
-                                        } finally {
-                                          _model.isDataUploading = false;
-                                        }
-                                        if (selectedUploadedFiles.length ==
-                                                selectedMedia.length &&
-                                            downloadUrls.length ==
-                                                selectedMedia.length) {
-                                          safeSetState(() {
-                                            _model.uploadedLocalFile =
-                                                selectedUploadedFiles.first;
-                                            _model.uploadedFileUrl =
-                                                downloadUrls.first;
-                                          });
-                                        } else {
-                                          safeSetState(() {});
-                                          return;
-                                        }
-                                      }
-                                    },
-                                    child: ClipRRect(
+                                    return ClipRRect(
                                       borderRadius: BorderRadius.circular(60.0),
                                       child: Image.network(
-                                        userAvatarUsersRecord!.photoUrl,
+                                        currentUserPhoto,
                                         width: 80.0,
                                         height: 80.0,
                                         fit: BoxFit.cover,
                                       ),
-                                    ),
-                                  );
-                                },
+                                    );
+                                  },
+                                ),
                               ),
                             ),
                           ),
@@ -235,6 +178,11 @@ class _OrgProfileCopyCopyWidgetState extends State<OrgProfileCopyCopyWidget> {
                                 children: [
                                   StreamBuilder<List<UsersRecord>>(
                                     stream: queryUsersRecord(
+                                      queryBuilder: (usersRecord) =>
+                                          usersRecord.where(
+                                        'uid',
+                                        isEqualTo: currentUserReference?.id,
+                                      ),
                                       singleRecord: true,
                                     ),
                                     builder: (context, snapshot) {
@@ -288,6 +236,11 @@ class _OrgProfileCopyCopyWidgetState extends State<OrgProfileCopyCopyWidget> {
                                         0.0, 4.0, 0.0, 0.0),
                                     child: StreamBuilder<List<UsersRecord>>(
                                       stream: queryUsersRecord(
+                                        queryBuilder: (usersRecord) =>
+                                            usersRecord.where(
+                                          'uid',
+                                          isEqualTo: currentUserReference?.id,
+                                        ),
                                         singleRecord: true,
                                       ),
                                       builder: (context, snapshot) {
@@ -346,6 +299,11 @@ class _OrgProfileCopyCopyWidgetState extends State<OrgProfileCopyCopyWidget> {
                                       builder: (context) =>
                                           StreamBuilder<List<UsersRecord>>(
                                         stream: queryUsersRecord(
+                                          queryBuilder: (usersRecord) =>
+                                              usersRecord.where(
+                                            'uid',
+                                            isEqualTo: currentUserReference?.id,
+                                          ),
                                           singleRecord: true,
                                         ),
                                         builder: (context, snapshot) {
@@ -454,6 +412,11 @@ class _OrgProfileCopyCopyWidgetState extends State<OrgProfileCopyCopyWidget> {
                                   builder: (context) =>
                                       StreamBuilder<List<UsersRecord>>(
                                     stream: queryUsersRecord(
+                                      queryBuilder: (usersRecord) =>
+                                          usersRecord.where(
+                                        'uid',
+                                        isEqualTo: currentUserReference?.id,
+                                      ),
                                       singleRecord: true,
                                     ),
                                     builder: (context, snapshot) {

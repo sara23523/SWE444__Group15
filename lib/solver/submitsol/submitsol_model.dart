@@ -1,4 +1,5 @@
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/form_field_controller.dart';
 import 'submitsol_widget.dart' show SubmitsolWidget;
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,10 @@ class SubmitsolModel extends FlutterFlowModel<SubmitsolWidget> {
   String? title = '';
 
   String? desc;
+
+  DocumentReference? orgReference;
+
+  String? porp;
 
   ///  State fields for stateful widgets in this page.
 
@@ -27,6 +32,9 @@ class SubmitsolModel extends FlutterFlowModel<SubmitsolWidget> {
   FFUploadedFile uploadedLocalFile1 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
 
+  // State field(s) for pORp widget.
+  String? pORpValue;
+  FormFieldController<String>? pORpValueController;
   bool isDataUploading2 = false;
   FFUploadedFile uploadedLocalFile2 =
       FFUploadedFile(bytes: Uint8List.fromList([]));

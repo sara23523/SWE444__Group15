@@ -11,6 +11,26 @@ class PostChallengeModel extends FlutterFlowModel<PostChallengeWidget> {
 
   String? desc;
 
+  List<DocumentReference> solversref = [];
+  void addToSolversref(DocumentReference item) => solversref.add(item);
+  void removeFromSolversref(DocumentReference item) => solversref.remove(item);
+  void removeAtIndexFromSolversref(int index) => solversref.removeAt(index);
+  void insertAtIndexInSolversref(int index, DocumentReference item) =>
+      solversref.insert(index, item);
+  void updateSolversrefAtIndex(
+          int index, Function(DocumentReference) updateFn) =>
+      solversref[index] = updateFn(solversref[index]);
+
+  List<String> selectedtypes = [];
+  void addToSelectedtypes(String item) => selectedtypes.add(item);
+  void removeFromSelectedtypes(String item) => selectedtypes.remove(item);
+  void removeAtIndexFromSelectedtypes(int index) =>
+      selectedtypes.removeAt(index);
+  void insertAtIndexInSelectedtypes(int index, String item) =>
+      selectedtypes.insert(index, item);
+  void updateSelectedtypesAtIndex(int index, Function(String) updateFn) =>
+      selectedtypes[index] = updateFn(selectedtypes[index]);
+
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for TitleTextField widget.

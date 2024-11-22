@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/pages/send_email_verification/send_email_verification_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'create_account_model.dart';
@@ -47,6 +46,9 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
 
     _model.bioTextController ??= TextEditingController();
     _model.bioFocusNode ??= FocusNode();
+
+    _model.ibanTextController ??= TextEditingController();
+    _model.ibanFocusNode ??= FocusNode();
   }
 
   @override
@@ -233,6 +235,12 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                       fontFamily: 'Inter',
                                       letterSpacing: 0.0,
                                     ),
+                                maxLength: 20,
+                                buildCounter: (context,
+                                        {required currentLength,
+                                        required isFocused,
+                                        maxLength}) =>
+                                    null,
                                 validator: _model.nameTextControllerValidator
                                     .asValidator(context),
                               ),
@@ -299,6 +307,12 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                       fontFamily: 'Inter',
                                       letterSpacing: 0.0,
                                     ),
+                                maxLength: 20,
+                                buildCounter: (context,
+                                        {required currentLength,
+                                        required isFocused,
+                                        maxLength}) =>
+                                    null,
                                 keyboardType: TextInputType.number,
                                 validator: _model
                                     .commercialRegistrationNumberTextControllerValidator
@@ -367,6 +381,12 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                       fontFamily: 'Inter',
                                       letterSpacing: 0.0,
                                     ),
+                                maxLength: 100,
+                                buildCounter: (context,
+                                        {required currentLength,
+                                        required isFocused,
+                                        maxLength}) =>
+                                    null,
                                 keyboardType: TextInputType.emailAddress,
                                 validator: _model.emailTextControllerValidator
                                     .asValidator(context),
@@ -449,6 +469,12 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                       letterSpacing: 0.0,
                                     ),
                                 minLines: 1,
+                                maxLength: 12,
+                                buildCounter: (context,
+                                        {required currentLength,
+                                        required isFocused,
+                                        maxLength}) =>
+                                    null,
                                 validator: _model
                                     .passwordTextControllerValidator
                                     .asValidator(context),
@@ -532,6 +558,12 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                       letterSpacing: 0.0,
                                     ),
                                 minLines: 1,
+                                maxLength: 12,
+                                buildCounter: (context,
+                                        {required currentLength,
+                                        required isFocused,
+                                        maxLength}) =>
+                                    null,
                                 validator: _model
                                     .confirmPasswordTextControllerValidator
                                     .asValidator(context),
@@ -598,51 +630,234 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                       fontFamily: 'Inter',
                                       letterSpacing: 0.0,
                                     ),
+                                maxLength: 120,
+                                buildCounter: (context,
+                                        {required currentLength,
+                                        required isFocused,
+                                        maxLength}) =>
+                                    null,
                                 validator: _model.bioTextControllerValidator
                                     .asValidator(context),
                               ),
                             ),
                           ),
-                        if (_model.dropDownValue != null)
+                        if (_model.dropDownValue == 0)
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 16.0),
-                            child: FFButtonWidget(
-                              onPressed: () async {
-                                await authManager.refreshUser();
-                                if (_model.formKey.currentState == null ||
-                                    !_model.formKey.currentState!.validate()) {
-                                  return;
-                                }
-                                if (_model.dropDownValue == null) {
-                                  return;
-                                }
-                                GoRouter.of(context).prepareAuthEvent();
-                                if (_model.passwordTextController.text !=
-                                    _model.confirmPasswordTextController.text) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text(
-                                        'Passwords don\'t match!',
+                            child: SizedBox(
+                              width: 370.0,
+                              child: TextFormField(
+                                controller: _model.ibanTextController,
+                                focusNode: _model.ibanFocusNode,
+                                autofocus: false,
+                                textInputAction: TextInputAction.done,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  labelText: 'IBAN',
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        letterSpacing: 0.0,
                                       ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                      width: 2.0,
                                     ),
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                  filled: true,
+                                  fillColor: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      letterSpacing: 0.0,
+                                    ),
+                                maxLength: 120,
+                                buildCounter: (context,
+                                        {required currentLength,
+                                        required isFocused,
+                                        maxLength}) =>
+                                    null,
+                                validator: _model.ibanTextControllerValidator
+                                    .asValidator(context),
+                              ),
+                            ),
+                          ),
+                        if (_model.dropDownValue == 0)
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 8.0, 12.0),
+                                child: FlutterFlowDropDown<String>(
+                                  multiSelectController:
+                                      _model.category2ValueController ??=
+                                          FormListFieldController<String>(null),
+                                  options: const [
+                                    'Technology',
+                                    'Marketing',
+                                    'Business & Strategy',
+                                    'Finance',
+                                    'Design',
+                                    'Operations & Logistics',
+                                    'Education & Training',
+                                    'Healthcare',
+                                    'Legal & Compliance',
+                                    'Human Resources',
+                                    'Sustainability & Environment',
+                                    'Art & Creativity',
+                                    'Sales & Customer Service',
+                                    'Personal Development',
+                                    'Other'
+                                  ],
+                                  width: 280.0,
+                                  searchHintTextStyle:
+                                      FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            letterSpacing: 0.0,
+                                          ),
+                                  searchTextStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        letterSpacing: 0.0,
+                                      ),
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        letterSpacing: 0.0,
+                                        lineHeight: 1.0,
+                                      ),
+                                  hintText: 'your experience in..',
+                                  searchHintText: 'your experience...',
+                                  searchCursorColor:
+                                      FlutterFlowTheme.of(context).primary,
+                                  icon: Icon(
+                                    Icons.keyboard_arrow_down_rounded,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    size: 24.0,
+                                  ),
+                                  fillColor: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
+                                  elevation: 2.0,
+                                  borderColor: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
+                                  borderWidth: 1.0,
+                                  borderRadius: 10.0,
+                                  margin: const EdgeInsetsDirectional.fromSTEB(
+                                      12.0, 0.0, 12.0, 0.0),
+                                  hidesUnderline: true,
+                                  isOverButton: false,
+                                  isSearchable: true,
+                                  isMultiSelect: true,
+                                  onMultiSelectChanged: (val) => safeSetState(
+                                      () => _model.category2Value = val),
+                                ),
+                              ),
+                              Flexible(
+                                child: Align(
+                                  alignment: const AlignmentDirectional(-1.0, -20.0),
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      safeSetState(() {
+                                        _model.category2ValueController
+                                            ?.reset();
+                                      });
+                                    },
+                                    child: Icon(
+                                      Icons.restart_alt_rounded,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      size: 25.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        if (_model.dropDownValue != null)
+                          Align(
+                            alignment: const AlignmentDirectional(0.0, 1.0),
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 16.0),
+                              child: FFButtonWidget(
+                                onPressed: () async {
+                                  if (_model.formKey.currentState == null ||
+                                      !_model.formKey.currentState!
+                                          .validate()) {
+                                    return;
+                                  }
+                                  if (_model.dropDownValue == null) {
+                                    return;
+                                  }
+                                  GoRouter.of(context).prepareAuthEvent();
+                                  if (_model.passwordTextController.text !=
+                                      _model
+                                          .confirmPasswordTextController.text) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          'Passwords don\'t match!',
+                                        ),
+                                      ),
+                                    );
+                                    return;
+                                  }
+
+                                  final user =
+                                      await authManager.createAccountWithEmail(
+                                    context,
+                                    _model.emailTextController.text,
+                                    _model.passwordTextController.text,
                                   );
-                                  return;
-                                }
+                                  if (user == null) {
+                                    return;
+                                  }
 
-                                final user =
-                                    await authManager.createAccountWithEmail(
-                                  context,
-                                  _model.emailTextController.text,
-                                  _model.passwordTextController.text,
-                                );
-                                if (user == null) {
-                                  return;
-                                }
-
-                                await UsersRecord.collection
-                                    .doc(user.uid)
-                                    .update(createUsersRecordData(
+                                  await UsersRecord.collection
+                                      .doc(user.uid)
+                                      .update({
+                                    ...createUsersRecordData(
                                       bio: _model.bioTextController.text,
                                       cRNumber: _model
                                           .commercialRegistrationNumberTextController
@@ -651,62 +866,48 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                           _model.passwordTextController.text,
                                       userRole: _model.dropDownValue,
                                       username: _model.nameTextController.text,
-                                      photoUrl: '',
-                                    ));
-
-                                await authManager.sendEmailVerification();
-                                if (currentUserEmailVerified == true) {
-                                  if (valueOrDefault(
-                                          currentUserDocument?.userRole, 0) ==
-                                      1) {
-                                    context.pushNamedAuth(
-                                        'orgHomepage', context.mounted);
-                                  } else {
-                                    context.pushNamedAuth(
-                                        'solverHomepage', context.mounted);
-                                  }
-                                } else {
-                                  await showModalBottomSheet(
-                                    isScrollControlled: true,
-                                    backgroundColor: Colors.transparent,
-                                    enableDrag: false,
-                                    context: context,
-                                    builder: (context) {
-                                      return GestureDetector(
-                                        onTap: () =>
-                                            FocusScope.of(context).unfocus(),
-                                        child: Padding(
-                                          padding:
-                                              MediaQuery.viewInsetsOf(context),
-                                          child: const SendEmailVerificationWidget(),
-                                        ),
-                                      );
-                                    },
-                                  ).then((value) => safeSetState(() {}));
-                                }
-                              },
-                              text: 'Create Account',
-                              options: FFButtonOptions(
-                                width: 370.0,
-                                height: 44.0,
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: 'Inter Tight',
-                                      color: Colors.white,
-                                      letterSpacing: 0.0,
+                                      photoUrl: FFAppState().defaultUserPhoto,
+                                      points: 0,
+                                      email: _model.emailTextController.text,
                                     ),
-                                elevation: 0.0,
-                                borderSide: const BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1.0,
+                                    ...mapToFirestore(
+                                      {
+                                        'Category2': _model.category2Value,
+                                        'created_time':
+                                            FieldValue.serverTimestamp(),
+                                      },
+                                    ),
+                                  });
+
+                                  await authManager.sendEmailVerification();
+
+                                  context.pushNamedAuth(
+                                      'signIn', context.mounted);
+                                },
+                                text: 'Create Account',
+                                options: FFButtonOptions(
+                                  width: 370.0,
+                                  height: 44.0,
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        fontFamily: 'Inter Tight',
+                                        color: Colors.white,
+                                        letterSpacing: 0.0,
+                                      ),
+                                  elevation: 0.0,
+                                  borderSide: const BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(12.0),
                                 ),
-                                borderRadius: BorderRadius.circular(12.0),
                               ),
                             ),
                           ),

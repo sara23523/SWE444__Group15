@@ -98,8 +98,11 @@ class _ChallengeDocumentWidgetState extends State<ChallengeDocumentWidget> {
               thickness: 1.0,
               color: FlutterFlowTheme.of(context).alternate,
             ),
-            const FlutterFlowPdfViewer(
-              networkPath: 'http://www.pdf995.com/samples/pdf.pdf',
+            FlutterFlowPdfViewer(
+              networkPath: valueOrDefault<String>(
+                widget.pdf?.descriptionFile,
+                'http://www.pdf995.com/samples/pdf.pdf',
+              ),
               height: 500.0,
               horizontalScroll: false,
             ),

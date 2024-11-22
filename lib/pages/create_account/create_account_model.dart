@@ -94,6 +94,13 @@ class CreateAccountModel extends FlutterFlowModel<CreateAccountWidget> {
   FocusNode? bioFocusNode;
   TextEditingController? bioTextController;
   String? Function(BuildContext, String?)? bioTextControllerValidator;
+  // State field(s) for IBAN widget.
+  FocusNode? ibanFocusNode;
+  TextEditingController? ibanTextController;
+  String? Function(BuildContext, String?)? ibanTextControllerValidator;
+  // State field(s) for Category2 widget.
+  List<String>? category2Value;
+  FormFieldController<List<String>>? category2ValueController;
 
   @override
   void initState(BuildContext context) {
@@ -127,5 +134,8 @@ class CreateAccountModel extends FlutterFlowModel<CreateAccountWidget> {
 
     bioFocusNode?.dispose();
     bioTextController?.dispose();
+
+    ibanFocusNode?.dispose();
+    ibanTextController?.dispose();
   }
 }

@@ -7,7 +7,12 @@ import 'pdf_component_model.dart';
 export 'pdf_component_model.dart';
 
 class PdfComponentWidget extends StatefulWidget {
-  const PdfComponentWidget({super.key});
+  const PdfComponentWidget({
+    super.key,
+    required this.fileURL,
+  });
+
+  final String? fileURL;
 
   @override
   State<PdfComponentWidget> createState() => _PdfComponentWidgetState();
@@ -91,9 +96,9 @@ class _PdfComponentWidgetState extends State<PdfComponentWidget> {
               thickness: 1.0,
               color: FlutterFlowTheme.of(context).alternate,
             ),
-            const FlutterFlowPdfViewer(
-              networkPath: 'http://www.pdf995.com/samples/pdf.pdf',
-              height: 500.0,
+            FlutterFlowPdfViewer(
+              networkPath: widget.fileURL!,
+              height: 484.0,
               horizontalScroll: false,
             ),
           ].divide(const SizedBox(height: 4.0)),

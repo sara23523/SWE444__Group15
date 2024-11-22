@@ -217,7 +217,7 @@ class _BottomNavigationBarOrgWidgetState
                         ),
                         onPressed: () async {
                           context.goNamed(
-                            'ViewChallengesCopy',
+                            'orgViewChallenges',
                             extra: <String, dynamic>{
                               kTransitionInfoKey: const TransitionInfo(
                                 hasTransition: true,
@@ -254,13 +254,13 @@ class _BottomNavigationBarOrgWidgetState
                         buttonSize: 50.0,
                         fillColor: const Color(0x004B39EF),
                         icon: Icon(
-                          Icons.key,
+                          Icons.person_search,
                           color: FlutterFlowTheme.of(context).primaryBackground,
-                          size: 24.0,
+                          size: 26.0,
                         ),
                         onPressed: () async {
-                          context.pushNamed(
-                            'viewSolutionsCopy',
+                          context.goNamed(
+                            'viewSolvers',
                             extra: <String, dynamic>{
                               kTransitionInfoKey: const TransitionInfo(
                                 hasTransition: true,
@@ -284,48 +284,46 @@ class _BottomNavigationBarOrgWidgetState
                           animationsMap['dividerOnPageLoadAnimation3']!),
                   ],
                 ),
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Opacity(
-                      opacity: widget.selectedPageIndex == 4 ? 1.0 : 0.5,
-                      child: FlutterFlowIconButton(
-                        borderColor: Colors.transparent,
-                        borderRadius: 30.0,
-                        borderWidth: 0.0,
-                        buttonSize: 50.0,
-                        fillColor: const Color(0x004B39EF),
-                        icon: Icon(
-                          Icons.person_outline,
-                          color: FlutterFlowTheme.of(context).primaryBackground,
-                          size: 24.0,
-                        ),
-                        onPressed: () async {
-                          context.pushNamed(
-                            'org_ProfileCopyCopy',
-                            extra: <String, dynamic>{
-                              kTransitionInfoKey: const TransitionInfo(
-                                hasTransition: true,
-                                transitionType: PageTransitionType.fade,
-                                duration: Duration(milliseconds: 0),
-                              ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Opacity(
+                        opacity: widget.selectedPageIndex == 4 ? 1.0 : .5,
+                        child: Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 12.0),
+                          child: InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              context.pushNamed('ChatsCopy');
                             },
-                          );
-                        },
-                      ),
-                    ),
-                    if (widget.selectedPageIndex == 4)
-                      const SizedBox(
-                        width: 30.0,
-                        child: Divider(
-                          height: 2.0,
-                          thickness: 2.0,
-                          color: Color(0xFF7EC1E5),
+                            child: Icon(
+                              Icons.chat_outlined,
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              size: 24.0,
+                            ),
+                          ),
                         ),
-                      ).animateOnPageLoad(
-                          animationsMap['dividerOnPageLoadAnimation4']!),
-                  ],
+                      ),
+                      if (widget.selectedPageIndex == 4)
+                        const SizedBox(
+                          width: 30.0,
+                          child: Divider(
+                            height: 2.0,
+                            thickness: 2.0,
+                            color: Color(0xFF7EC1E5),
+                          ),
+                        ).animateOnPageLoad(
+                            animationsMap['dividerOnPageLoadAnimation4']!),
+                    ],
+                  ),
                 ),
               ]
                   .divide(const SizedBox(width: 16.0))

@@ -6,7 +6,9 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'edit_org_model.dart';
 export 'edit_org_model.dart';
 
@@ -29,11 +31,6 @@ class _EditOrgWidgetState extends State<EditOrgWidget> {
 
     _model.textFieldFocusNode ??= FocusNode();
 
-    _model.myBioTextController ??= TextEditingController(
-        text: valueOrDefault<String>(
-      valueOrDefault(currentUserDocument?.bio, ''),
-      'bio',
-    ));
     _model.myBioFocusNode ??= FocusNode();
   }
 
@@ -46,6 +43,8 @@ class _EditOrgWidgetState extends State<EditOrgWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -93,8 +92,8 @@ class _EditOrgWidgetState extends State<EditOrgWidget> {
                   children: [
                     Expanded(
                       child: Container(
-                        width: 90.0,
-                        height: 90.0,
+                        width: 100.0,
+                        height: 100.0,
                         decoration: BoxDecoration(
                           color: FlutterFlowTheme.of(context).primaryBackground,
                           shape: BoxShape.circle,
@@ -109,6 +108,11 @@ class _EditOrgWidgetState extends State<EditOrgWidget> {
                             padding: const EdgeInsets.all(2.0),
                             child: StreamBuilder<List<UsersRecord>>(
                               stream: queryUsersRecord(
+                                queryBuilder: (usersRecord) =>
+                                    usersRecord.where(
+                                  'uid',
+                                  isEqualTo: currentUserReference?.id,
+                                ),
                                 singleRecord: true,
                               ),
                               builder: (context, snapshot) {
@@ -146,7 +150,9 @@ class _EditOrgWidgetState extends State<EditOrgWidget> {
                                     shape: BoxShape.circle,
                                   ),
                                   child: Image.network(
-                                    _model.uploadedFileUrl,
+                                    circleImageUsersRecord?.photoUrl != ''
+                                        ? circleImageUsersRecord!.photoUrl
+                                        : FFAppState().defaultUserPhoto,
                                     fit: BoxFit.fitWidth,
                                   ),
                                 );
@@ -173,23 +179,6 @@ class _EditOrgWidgetState extends State<EditOrgWidget> {
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 10.0, 0.0, 0.0),
-                              child: Text(
-                                'Edit Photo',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      fontSize: 12.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                              ),
-                            ),
                             StreamBuilder<List<UsersRecord>>(
                               stream: queryUsersRecord(
                                 singleRecord: true,
@@ -247,6 +236,11 @@ class _EditOrgWidgetState extends State<EditOrgWidget> {
 
                                       var downloadUrls = <String>[];
                                       try {
+                                        showUploadMessage(
+                                          context,
+                                          'Uploading file...',
+                                          showLoading: true,
+                                        );
                                         selectedUploadedFiles = selectedMedia
                                             .map((m) => FFUploadedFile(
                                                   name: m.storagePath
@@ -269,6 +263,8 @@ class _EditOrgWidgetState extends State<EditOrgWidget> {
                                             .map((u) => u!)
                                             .toList();
                                       } finally {
+                                        ScaffoldMessenger.of(context)
+                                            .hideCurrentSnackBar();
                                         _model.isDataUploading = false;
                                       }
                                       if (selectedUploadedFiles.length ==
@@ -281,14 +277,39 @@ class _EditOrgWidgetState extends State<EditOrgWidget> {
                                           _model.uploadedFileUrl =
                                               downloadUrls.first;
                                         });
+                                        showUploadMessage(context, 'Success!');
                                       } else {
                                         safeSetState(() {});
+                                        showUploadMessage(
+                                            context, 'Failed to upload data');
                                         return;
                                       }
                                     }
+
+                                    await currentUserReference!
+                                        .update(createUsersRecordData(
+                                      photoUrl: _model.uploadedFileUrl,
+                                    ));
                                   },
                                 );
                               },
+                            ),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 10.0, 0.0, 0.0),
+                              child: Text(
+                                'Edit Photo',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      fontSize: 12.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
                             ),
                           ],
                         ),
@@ -301,6 +322,10 @@ class _EditOrgWidgetState extends State<EditOrgWidget> {
                 padding: const EdgeInsetsDirectional.fromSTEB(20.0, 16.0, 20.0, 16.0),
                 child: StreamBuilder<List<UsersRecord>>(
                   stream: queryUsersRecord(
+                    queryBuilder: (usersRecord) => usersRecord.where(
+                      'uid',
+                      isEqualTo: currentUserReference?.id,
+                    ),
                     singleRecord: true,
                   ),
                   builder: (context, snapshot) {
@@ -334,6 +359,11 @@ class _EditOrgWidgetState extends State<EditOrgWidget> {
                         text: textFieldUsersRecord?.username,
                       ),
                       focusNode: _model.textFieldFocusNode,
+                      onChanged: (_) => EasyDebounce.debounce(
+                        '_model.textController1',
+                        const Duration(milliseconds: 2000),
+                        () => safeSetState(() {}),
+                      ),
                       obscureText: false,
                       decoration: InputDecoration(
                         labelText: 'Full Name',
@@ -395,98 +425,104 @@ class _EditOrgWidgetState extends State<EditOrgWidget> {
               ),
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 12.0),
-                child: AuthUserStreamWidget(
-                  builder: (context) => StreamBuilder<List<UsersRecord>>(
-                    stream: queryUsersRecord(
-                      singleRecord: true,
+                child: StreamBuilder<List<UsersRecord>>(
+                  stream: queryUsersRecord(
+                    queryBuilder: (usersRecord) => usersRecord.where(
+                      'uid',
+                      isEqualTo: currentUserReference?.id,
                     ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50.0,
-                            height: 50.0,
-                            child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                FlutterFlowTheme.of(context).primary,
-                              ),
-                            ),
-                          ),
-                        );
-                      }
-                      List<UsersRecord> myBioUsersRecordList = snapshot.data!;
-                      // Return an empty Container when the item does not exist.
-                      if (snapshot.data!.isEmpty) {
-                        return Container();
-                      }
-                      final myBioUsersRecord = myBioUsersRecordList.isNotEmpty
-                          ? myBioUsersRecordList.first
-                          : null;
-
-                      return TextFormField(
-                        controller: _model.myBioTextController,
-                        focusNode: _model.myBioFocusNode,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          labelText: 'Bio',
-                          labelStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
-                                  ),
-                          hintText: 'A little about you...',
-                          hintStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
-                                  ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).alternate,
-                              width: 2.0,
-                            ),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Color(0x00000000),
-                              width: 2.0,
-                            ),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Color(0x00000000),
-                              width: 2.0,
-                            ),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Color(0x00000000),
-                              width: 2.0,
-                            ),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          filled: true,
-                          fillColor:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                          contentPadding: const EdgeInsetsDirectional.fromSTEB(
-                              20.0, 24.0, 0.0, 24.0),
-                        ),
-                        style: FlutterFlowTheme.of(context).titleSmall.override(
-                              fontFamily: 'Inter Tight',
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              letterSpacing: 0.0,
-                            ),
-                        textAlign: TextAlign.start,
-                        maxLines: 3,
-                        validator: _model.myBioTextControllerValidator
-                            .asValidator(context),
-                      );
-                    },
+                    singleRecord: true,
                   ),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50.0,
+                          height: 50.0,
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              FlutterFlowTheme.of(context).primary,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                    List<UsersRecord> myBioUsersRecordList = snapshot.data!;
+                    // Return an empty Container when the item does not exist.
+                    if (snapshot.data!.isEmpty) {
+                      return Container();
+                    }
+                    final myBioUsersRecord = myBioUsersRecordList.isNotEmpty
+                        ? myBioUsersRecordList.first
+                        : null;
+
+                    return TextFormField(
+                      controller: _model.myBioTextController ??=
+                          TextEditingController(
+                        text: myBioUsersRecord?.bio,
+                      ),
+                      focusNode: _model.myBioFocusNode,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        labelText: 'Bio',
+                        labelStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.override(
+                                  fontFamily: 'Inter',
+                                  letterSpacing: 0.0,
+                                ),
+                        hintText: 'A little about you...',
+                        hintStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.override(
+                                  fontFamily: 'Inter',
+                                  letterSpacing: 0.0,
+                                ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: FlutterFlowTheme.of(context).alternate,
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                            color: Color(0x00000000),
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                            color: Color(0x00000000),
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                            color: Color(0x00000000),
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        filled: true,
+                        fillColor:
+                            FlutterFlowTheme.of(context).secondaryBackground,
+                        contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                            20.0, 24.0, 0.0, 24.0),
+                      ),
+                      style: FlutterFlowTheme.of(context).titleSmall.override(
+                            fontFamily: 'Inter Tight',
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            letterSpacing: 0.0,
+                          ),
+                      textAlign: TextAlign.start,
+                      maxLines: 3,
+                      maxLength: 150,
+                      validator: _model.myBioTextControllerValidator
+                          .asValidator(context),
+                    );
+                  },
                 ),
               ),
               Align(
@@ -495,6 +531,10 @@ class _EditOrgWidgetState extends State<EditOrgWidget> {
                   padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                   child: StreamBuilder<List<UsersRecord>>(
                     stream: queryUsersRecord(
+                      queryBuilder: (usersRecord) => usersRecord.where(
+                        'uid',
+                        isEqualTo: currentUserReference?.id,
+                      ),
                       singleRecord: true,
                     ),
                     builder: (context, snapshot) {
@@ -522,35 +562,33 @@ class _EditOrgWidgetState extends State<EditOrgWidget> {
                           : null;
 
                       return FFButtonWidget(
-                        onPressed: () async {
-                          await currentUserReference!
-                              .update(createUsersRecordData(
-                            photoUrl: _model.uploadedFileUrl,
-                            displayName: valueOrDefault<String>(
-                              _model.textController1.text,
-                              'name',
-                            ),
-                            bio: _model.myBioTextController.text,
-                            uid: currentUserUid,
-                          ));
-                          await showDialog(
-                            context: context,
-                            builder: (alertDialogContext) {
-                              return AlertDialog(
-                                content: const Text('Profile Edit Successfliy'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(alertDialogContext),
-                                    child: const Text('Ok'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
+                        onPressed: (_model.textController1.text == '')
+                            ? null
+                            : () async {
+                                await currentUserReference!
+                                    .update(createUsersRecordData(
+                                  bio: _model.myBioTextController.text,
+                                  uid: currentUserUid,
+                                  username: _model.textController1.text,
+                                ));
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      content: const Text('Profile Edit Successfliy'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: const Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
 
-                          context.pushNamed('org_ProfileCopyCopy');
-                        },
+                                context.pushNamed('org_ProfileCopyCopyCopy');
+                              },
                         text: 'Save Changes',
                         options: FFButtonOptions(
                           width: 320.0,
@@ -568,12 +606,13 @@ class _EditOrgWidgetState extends State<EditOrgWidget> {
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.normal,
                                   ),
-                          elevation: 2.0,
+                          elevation: 0.0,
                           borderSide: const BorderSide(
                             color: Colors.transparent,
                             width: 1.0,
                           ),
                           borderRadius: BorderRadius.circular(10.0),
+                          disabledColor: const Color(0x7F14181B),
                         ),
                       );
                     },

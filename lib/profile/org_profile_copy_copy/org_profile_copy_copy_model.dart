@@ -9,10 +9,6 @@ class OrgProfileCopyCopyModel
 
   // Model for BottomNavigationBarOrg component.
   late BottomNavigationBarOrgModel bottomNavigationBarOrgModel;
-  bool isDataUploading = false;
-  FFUploadedFile uploadedLocalFile =
-      FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl = '';
 
   @override
   void initState(BuildContext context) {

@@ -225,7 +225,6 @@ class _SelectUserWidgetState extends State<SelectUserWidget> {
                                                 .doc()
                                                 .set({
                                               ...createChatsRecordData(
-                                                lastMessage: 'say hello!',
                                                 timeStamp: getCurrentTimestamp,
                                               ),
                                               ...mapToFirestore(

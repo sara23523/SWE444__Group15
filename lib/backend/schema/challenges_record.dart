@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -15,11 +14,6 @@ class ChallengesRecord extends FirestoreRecord {
   ) {
     _initializeFields();
   }
-
-  // "ID" field.
-  int? _id;
-  int get id => _id ?? 0;
-  bool hasId() => _id != null;
 
   // "Description_file" field.
   String? _descriptionFile;
@@ -86,8 +80,12 @@ class ChallengesRecord extends FirestoreRecord {
   DateTime? get createdTime => _createdTime;
   bool hasCreatedTime() => _createdTime != null;
 
+  // "ID" field.
+  String? _id;
+  String get id => _id ?? '';
+  bool hasId() => _id != null;
+
   void _initializeFields() {
-    _id = castToType<int>(snapshotData['ID']);
     _descriptionFile = snapshotData['Description_file'] as String?;
     _description = snapshotData['description'] as String?;
     _title = snapshotData['title'] as String?;
@@ -101,6 +99,7 @@ class ChallengesRecord extends FirestoreRecord {
     _selectedCategories = getDataList(snapshotData['selectedCategories']);
     _rewardAmount = castToType<double>(snapshotData['reward_amount']);
     _createdTime = snapshotData['created_time'] as DateTime?;
+    _id = snapshotData['ID'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -138,7 +137,6 @@ class ChallengesRecord extends FirestoreRecord {
 }
 
 Map<String, dynamic> createChallengesRecordData({
-  int? id,
   String? descriptionFile,
   String? description,
   String? title,
@@ -151,10 +149,10 @@ Map<String, dynamic> createChallengesRecordData({
   DocumentReference? challengeDocID,
   double? rewardAmount,
   DateTime? createdTime,
+  String? id,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
-      'ID': id,
       'Description_file': descriptionFile,
       'description': description,
       'title': title,
@@ -167,6 +165,7 @@ Map<String, dynamic> createChallengesRecordData({
       'ChallengeDocID': challengeDocID,
       'reward_amount': rewardAmount,
       'created_time': createdTime,
+      'ID': id,
     }.withoutNulls,
   );
 
@@ -179,8 +178,7 @@ class ChallengesRecordDocumentEquality implements Equality<ChallengesRecord> {
   @override
   bool equals(ChallengesRecord? e1, ChallengesRecord? e2) {
     const listEquality = ListEquality();
-    return e1?.id == e2?.id &&
-        e1?.descriptionFile == e2?.descriptionFile &&
+    return e1?.descriptionFile == e2?.descriptionFile &&
         e1?.description == e2?.description &&
         e1?.title == e2?.title &&
         e1?.email == e2?.email &&
@@ -192,12 +190,12 @@ class ChallengesRecordDocumentEquality implements Equality<ChallengesRecord> {
         e1?.challengeDocID == e2?.challengeDocID &&
         listEquality.equals(e1?.selectedCategories, e2?.selectedCategories) &&
         e1?.rewardAmount == e2?.rewardAmount &&
-        e1?.createdTime == e2?.createdTime;
+        e1?.createdTime == e2?.createdTime &&
+        e1?.id == e2?.id;
   }
 
   @override
   int hash(ChallengesRecord? e) => const ListEquality().hash([
-        e?.id,
         e?.descriptionFile,
         e?.description,
         e?.title,
@@ -210,7 +208,8 @@ class ChallengesRecordDocumentEquality implements Equality<ChallengesRecord> {
         e?.challengeDocID,
         e?.selectedCategories,
         e?.rewardAmount,
-        e?.createdTime
+        e?.createdTime,
+        e?.id
       ]);
 
   @override

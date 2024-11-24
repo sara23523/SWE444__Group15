@@ -425,6 +425,69 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'notiTST',
           path: '/notiTST',
           builder: (context, params) => const NotiTSTWidget(),
+        ),
+        FFRoute(
+          name: 'SolverProfilePage',
+          path: '/solverProfilePage',
+          asyncParams: {
+            'solver': getDoc(['Users'], UsersRecord.fromSnapshot),
+          },
+          builder: (context, params) => SolverProfilePageWidget(
+            solver: params.getParam(
+              'solver',
+              ParamType.Document,
+            ),
+            ref: params.getParam(
+              'ref',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['Users'],
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'favouritesList',
+          path: '/favouritesList',
+          builder: (context, params) => const FavouritesListWidget(),
+        ),
+        FFRoute(
+          name: 'solverTransactionsSummary',
+          path: '/solverTransactionsSummary',
+          builder: (context, params) => const SolverTransactionsSummaryWidget(),
+        ),
+        FFRoute(
+          name: 'OrgTransactionsSummary',
+          path: '/orgTransactionsSummary',
+          builder: (context, params) => const OrgTransactionsSummaryWidget(),
+        ),
+        FFRoute(
+          name: 'SolverProfilePageCopy',
+          path: '/solverProfilePageCopy',
+          asyncParams: {
+            'solver': getDoc(['Users'], UsersRecord.fromSnapshot),
+          },
+          builder: (context, params) => SolverProfilePageCopyWidget(
+            solver: params.getParam(
+              'solver',
+              ParamType.Document,
+            ),
+            ref: params.getParam(
+              'ref',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['Users'],
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'SuccessPayment',
+          path: '/successPayment',
+          builder: (context, params) => const SuccessPaymentWidget(),
+        ),
+        FFRoute(
+          name: 'SuccessPaymentCopy',
+          path: '/successPaymentCopy',
+          builder: (context, params) => const SuccessPaymentCopyWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -544,6 +607,7 @@ class FFParameters {
     ParamType type, {
     bool isList = false,
     List<String>? collectionNamePath,
+    StructBuilder<T>? structBuilder,
   }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -562,6 +626,7 @@ class FFParameters {
       type,
       isList,
       collectionNamePath: collectionNamePath,
+      structBuilder: structBuilder,
     );
   }
 }

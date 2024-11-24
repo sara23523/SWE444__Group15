@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'solver_homepage_model.dart';
 export 'solver_homepage_model.dart';
 
@@ -61,6 +62,8 @@ class _SolverHomepageWidgetState extends State<SolverHomepageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -600,250 +603,339 @@ class _SolverHomepageWidgetState extends State<SolverHomepageWidget> {
                                 return Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       30.0, 4.0, 30.0, 8.0),
-                                  child: Container(
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      boxShadow: const [
-                                        BoxShadow(
-                                          blurRadius: 1.0,
-                                          color: Color(0x32000000),
-                                        )
-                                      ],
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 10.0, 0.0, 8.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    8.0, 0.0, 8.0, 10.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          4.0, 0.0, 12.0, 0.0),
-                                                  child: Container(
-                                                    width: 50.0,
-                                                    height: 50.0,
-                                                    clipBehavior:
-                                                        Clip.antiAlias,
-                                                    decoration: const BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    child: Image.network(
-                                                      listViewChallengesRecord
-                                                          .photoUrl,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Padding(
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      context.pushNamed(
+                                        'blank',
+                                        queryParameters: {
+                                          'challenge': serializeParam(
+                                            listViewChallengesRecord,
+                                            ParamType.Document,
+                                          ),
+                                        }.withoutNulls,
+                                        extra: <String, dynamic>{
+                                          'challenge': listViewChallengesRecord,
+                                        },
+                                      );
+                                    },
+                                    child: Container(
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            blurRadius: 1.0,
+                                            color: Color(0x32000000),
+                                          )
+                                        ],
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 10.0, 0.0, 8.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      8.0, 0.0, 8.0, 10.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Padding(
                                                     padding:
                                                         const EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 5.0,
-                                                                0.0, 0.0),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          valueOrDefault<
-                                                              String>(
-                                                            listViewChallengesRecord
-                                                                .title,
-                                                            'challenge title',
+                                                            .fromSTEB(4.0, 0.0,
+                                                                12.0, 0.0),
+                                                    child: StreamBuilder<
+                                                        List<UsersRecord>>(
+                                                      stream: queryUsersRecord(
+                                                        queryBuilder: (usersRecord) =>
+                                                            usersRecord
+                                                                .where(
+                                                                  'uid',
+                                                                  isEqualTo:
+                                                                      listViewChallengesRecord
+                                                                          .user
+                                                                          ?.id,
+                                                                )
+                                                                .orderBy(
+                                                                    'created_time',
+                                                                    descending:
+                                                                        true),
+                                                        singleRecord: true,
+                                                      ),
+                                                      builder:
+                                                          (context, snapshot) {
+                                                        // Customize what your widget looks like when it's loading.
+                                                        if (!snapshot.hasData) {
+                                                          return Center(
+                                                            child: SizedBox(
+                                                              width: 50.0,
+                                                              height: 50.0,
+                                                              child:
+                                                                  CircularProgressIndicator(
+                                                                valueColor:
+                                                                    AlwaysStoppedAnimation<
+                                                                        Color>(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          );
+                                                        }
+                                                        List<UsersRecord>
+                                                            circleImageUsersRecordList =
+                                                            snapshot.data!;
+                                                        // Return an empty Container when the item does not exist.
+                                                        if (snapshot
+                                                            .data!.isEmpty) {
+                                                          return Container();
+                                                        }
+                                                        final circleImageUsersRecord =
+                                                            circleImageUsersRecordList
+                                                                    .isNotEmpty
+                                                                ? circleImageUsersRecordList
+                                                                    .first
+                                                                : null;
+
+                                                        return Container(
+                                                          width: 50.0,
+                                                          height: 50.0,
+                                                          clipBehavior:
+                                                              Clip.antiAlias,
+                                                          decoration:
+                                                              const BoxDecoration(
+                                                            shape:
+                                                                BoxShape.circle,
                                                           ),
+                                                          child: Image.network(
+                                                            circleImageUsersRecord
+                                                                        ?.photoUrl !=
+                                                                    ''
+                                                                ? circleImageUsersRecord!
+                                                                    .photoUrl
+                                                                : FFAppState()
+                                                                    .defaultUserPhoto,
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                        );
+                                                      },
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  5.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            valueOrDefault<
+                                                                String>(
+                                                              listViewChallengesRecord
+                                                                  .title,
+                                                              'challenge title',
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                          ),
+                                                          Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Flexible(
+                                                                child: Padding(
+                                                                  padding: const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          4.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child: Text(
+                                                                    listViewChallengesRecord
+                                                                        .description
+                                                                        .maybeHandleOverflow(
+                                                                      maxChars:
+                                                                          60,
+                                                                      replacement:
+                                                                          '…',
+                                                                    ),
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .labelMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Inter',
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                        ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Divider(
+                                              thickness: 1.0,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 3.0, 0.0, 0.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(25.0, 0.0,
+                                                                0.0, 0.0),
+                                                    child: FaIcon(
+                                                      FontAwesomeIcons.comment,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      size: 20.0,
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(8.0, 0.0,
+                                                                0.0, 0.0),
+                                                    child: FutureBuilder<int>(
+                                                      future: FFAppState()
+                                                          .challengeDetails(
+                                                        requestFn: () =>
+                                                            queryRepliesRecordCount(
+                                                          queryBuilder:
+                                                              (repliesRecord) =>
+                                                                  repliesRecord
+                                                                      .where(
+                                                            'challengeRef',
+                                                            isEqualTo:
+                                                                listViewChallengesRecord
+                                                                    .reference,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      builder:
+                                                          (context, snapshot) {
+                                                        // Customize what your widget looks like when it's loading.
+                                                        if (!snapshot.hasData) {
+                                                          return Center(
+                                                            child: SizedBox(
+                                                              width: 50.0,
+                                                              height: 50.0,
+                                                              child:
+                                                                  CircularProgressIndicator(
+                                                                valueColor:
+                                                                    AlwaysStoppedAnimation<
+                                                                        Color>(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          );
+                                                        }
+                                                        int textCount =
+                                                            snapshot.data!;
+
+                                                        return Text(
+                                                          textCount.toString(),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .bodyMedium
+                                                              .labelSmall
                                                               .override(
                                                                 fontFamily:
                                                                     'Inter',
                                                                 letterSpacing:
                                                                     0.0,
                                                               ),
-                                                        ),
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: [
-                                                            Flexible(
-                                                              child: Padding(
-                                                                padding:
-                                                                    const EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            4.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                child: Text(
-                                                                  listViewChallengesRecord
-                                                                      .description
-                                                                      .maybeHandleOverflow(
-                                                                    maxChars:
-                                                                        60,
-                                                                    replacement:
-                                                                        '…',
-                                                                  ),
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .labelMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Inter',
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                      ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
+                                                        );
+                                                      },
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Divider(
-                                            thickness: 1.0,
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 3.0, 0.0, 0.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          25.0, 0.0, 0.0, 0.0),
-                                                  child: FaIcon(
-                                                    FontAwesomeIcons.comment,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primary,
-                                                    size: 20.0,
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          8.0, 0.0, 0.0, 0.0),
-                                                  child: FutureBuilder<int>(
-                                                    future: FFAppState()
-                                                        .challengeDetails(
-                                                      requestFn: () =>
-                                                          queryRepliesRecordCount(
-                                                        queryBuilder:
-                                                            (repliesRecord) =>
-                                                                repliesRecord
-                                                                    .where(
-                                                          'challengeRef',
-                                                          isEqualTo:
-                                                              listViewChallengesRecord
-                                                                  .reference,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      // Customize what your widget looks like when it's loading.
-                                                      if (!snapshot.hasData) {
-                                                        return Center(
-                                                          child: SizedBox(
-                                                            width: 50.0,
-                                                            height: 50.0,
-                                                            child:
-                                                                CircularProgressIndicator(
-                                                              valueColor:
-                                                                  AlwaysStoppedAnimation<
-                                                                      Color>(
-                                                                FlutterFlowTheme.of(
+                                                  Flexible(
+                                                    child: Align(
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                              1.0, 0.0),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    8.0,
+                                                                    0.0,
+                                                                    12.0,
+                                                                    0.0),
+                                                        child: Text(
+                                                          'Show More..',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .labelSmall
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Inter',
+                                                                color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .primary,
+                                                                letterSpacing:
+                                                                    0.0,
                                                               ),
-                                                            ),
-                                                          ),
-                                                        );
-                                                      }
-                                                      int textCount =
-                                                          snapshot.data!;
-
-                                                      return Text(
-                                                        textCount.toString(),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelSmall
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Inter',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                      );
-                                                    },
-                                                  ),
-                                                ),
-                                                Flexible(
-                                                  child: Align(
-                                                    alignment:
-                                                        const AlignmentDirectional(
-                                                            1.0, 0.0),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  8.0,
-                                                                  0.0,
-                                                                  12.0,
-                                                                  0.0),
-                                                      child: Text(
-                                                        'Show More..',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelSmall
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Inter',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -862,7 +954,9 @@ class _SolverHomepageWidgetState extends State<SolverHomepageWidget> {
                 child: wrapWithModel(
                   model: _model.bottomNavigationBarSolModel,
                   updateCallback: () => safeSetState(() {}),
-                  child: const BottomNavigationBarSolWidget(),
+                  child: const BottomNavigationBarSolWidget(
+                    hidden: false,
+                  ),
                 ),
               ),
             ],

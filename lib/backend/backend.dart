@@ -13,6 +13,7 @@ import 'schema/chat_messages_record.dart';
 import 'schema/categories_record.dart';
 import 'schema/solutions_record.dart';
 import 'schema/transactions_record.dart';
+import 'schema/favourites_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart' hide Order;
@@ -29,6 +30,7 @@ export 'schema/chat_messages_record.dart';
 export 'schema/categories_record.dart';
 export 'schema/solutions_record.dart';
 export 'schema/transactions_record.dart';
+export 'schema/favourites_record.dart';
 
 /// Functions to query ChallengesRecords (as a Stream and as a Future).
 Future<int> queryChallengesRecordCount({
@@ -327,6 +329,46 @@ Future<List<TransactionsRecord>> queryTransactionsRecordOnce({
     queryCollectionOnce(
       TransactionsRecord.collection,
       TransactionsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query FavouritesRecords (as a Stream and as a Future).
+Future<int> queryFavouritesRecordCount({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      FavouritesRecord.collection(parent),
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<FavouritesRecord>> queryFavouritesRecord({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      FavouritesRecord.collection(parent),
+      FavouritesRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<FavouritesRecord>> queryFavouritesRecordOnce({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      FavouritesRecord.collection(parent),
+      FavouritesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,

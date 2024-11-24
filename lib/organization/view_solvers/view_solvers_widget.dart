@@ -475,32 +475,22 @@ class _ViewSolversWidgetState extends State<ViewSolversWidget>
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            await showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              enableDrag: false,
-                                              context: context,
-                                              builder: (context) {
-                                                return GestureDetector(
-                                                  onTap: () =>
-                                                      FocusScope.of(context)
-                                                          .unfocus(),
-                                                  child: Padding(
-                                                    padding:
-                                                        MediaQuery.viewInsetsOf(
-                                                            context),
-                                                    child: SolverProfileWidget(
-                                                      solver:
-                                                          viewSolversCopyItem,
-                                                      ref: viewSolversCopyItem
-                                                          .reference,
-                                                    ),
-                                                  ),
-                                                );
+                                            context.pushNamed(
+                                              'SolverProfilePageCopy',
+                                              queryParameters: {
+                                                'solver': serializeParam(
+                                                  viewSolversCopyItem,
+                                                  ParamType.Document,
+                                                ),
+                                                'ref': serializeParam(
+                                                  viewSolversCopyItem.reference,
+                                                  ParamType.DocumentReference,
+                                                ),
+                                              }.withoutNulls,
+                                              extra: <String, dynamic>{
+                                                'solver': viewSolversCopyItem,
                                               },
-                                            ).then(
-                                                (value) => safeSetState(() {}));
+                                            );
                                           },
                                           child: Container(
                                             width: double.infinity,
@@ -1004,7 +994,7 @@ class _ViewSolversWidgetState extends State<ViewSolversWidget>
                       model: _model.bottomNavigationBarOrgModel,
                       updateCallback: () => safeSetState(() {}),
                       child: const BottomNavigationBarOrgWidget(
-                        selectedPageIndex: 3,
+                        selectedPageIndex: 2,
                         hidden: false,
                       ),
                     ),

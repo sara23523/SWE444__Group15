@@ -1,7 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
-import '/backend/push_notifications/push_notifications_util.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -10,6 +9,7 @@ import '/flutter_flow/upload_data.dart';
 import '/organization/selection_limit_exceeded_dialog/selection_limit_exceeded_dialog_widget.dart';
 import '/organization/unsaved_changes_confirmation_dialog_org/unsaved_changes_confirmation_dialog_org_widget.dart';
 import '/pages/post_confirmation_dialog/post_confirmation_dialog_widget.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'post_challenge_model.dart';
@@ -946,16 +946,11 @@ class _PostChallengeWidgetState extends State<PostChallengeWidget> {
                                                   .toList()
                                                   .cast<DocumentReference>();
                                           safeSetState(() {});
-                                          triggerPushNotification(
-                                            notificationTitle:
-                                                'a new challenge is posted!',
-                                            notificationText:
-                                                'Check it out! ${valueOrDefault(currentUserDocument?.username, '')}, just posted: ${_model.titleTextFieldTextController.text}',
-                                            notificationSound: 'default',
-                                            userRefs:
-                                                _model.solversref.toList(),
-                                            initialPageName: 'ViewChallenges',
-                                            parameterData: {},
+                                          await actions.notificationAction(
+                                            'a new challenge is posted!',
+                                            'Check it out! ${valueOrDefault(currentUserDocument?.username, '')} just posted:${_model.titleTextFieldTextController.text}',
+                                            'default',
+                                            _model.solversref.toList(),
                                           );
                                           await showModalBottomSheet(
                                             isScrollControlled: true,

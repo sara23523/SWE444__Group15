@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/push_notifications/push_notifications_util.dart';
 import '/components/bottom_navigation_bar_org_widget.dart';
 import '/components/more_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -16,6 +17,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'org_homepage_model.dart';
 export 'org_homepage_model.dart';
 
@@ -93,6 +95,8 @@ class _OrgHomepageWidgetState extends State<OrgHomepageWidget>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return StreamBuilder<List<ChallengesRecord>>(
       stream: queryChallengesRecord(
         queryBuilder: (challengesRecord) => challengesRecord.where(
@@ -174,7 +178,10 @@ class _OrgHomepageWidgetState extends State<OrgHomepageWidget>
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               17.0, 0.0, 0.0, 15.0),
                           child: Text(
-                            'Overview',
+                            valueOrDefault<String>(
+                              currentJwtToken,
+                              '123',
+                            ),
                             style: FlutterFlowTheme.of(context)
                                 .titleLarge
                                 .override(
@@ -256,7 +263,9 @@ class _OrgHomepageWidgetState extends State<OrgHomepageWidget>
                                                 alignment: const AlignmentDirectional(
                                                     -1.0, 0.0),
                                                 child: Text(
-                                                  containerCount.toString(),
+                                                  orgHomepageChallengesRecordList
+                                                      .length
+                                                      .toString(),
                                                   textAlign: TextAlign.start,
                                                   style: FlutterFlowTheme.of(
                                                           context)
@@ -280,11 +289,29 @@ class _OrgHomepageWidgetState extends State<OrgHomepageWidget>
                                           padding:
                                               const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 12.0, 12.0, 0.0),
-                                          child: Icon(
-                                            Icons.lock_outline,
-                                            color: FlutterFlowTheme.of(context)
-                                                .error,
-                                            size: 24.0,
+                                          child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              triggerPushNotification(
+                                                notificationTitle: 'hihi',
+                                                notificationText: 'bey',
+                                                userRefs: [
+                                                  currentUserReference!
+                                                ],
+                                                initialPageName: 'orgHomepage',
+                                                parameterData: {},
+                                              );
+                                            },
+                                            child: Icon(
+                                              Icons.lock_outline,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
+                                              size: 24.0,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -929,7 +956,9 @@ class _OrgHomepageWidgetState extends State<OrgHomepageWidget>
                                                                         ),
                                                                         child: Image
                                                                             .network(
-                                                                          currentUserPhoto,
+                                                                          currentUserPhoto != ''
+                                                                              ? currentUserPhoto
+                                                                              : FFAppState().defaultUserPhoto,
                                                                           fit: BoxFit
                                                                               .cover,
                                                                         ),

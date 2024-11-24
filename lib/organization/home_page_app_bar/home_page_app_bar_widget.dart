@@ -112,20 +112,6 @@ class _HomePageAppBarWidgetState extends State<HomePageAppBarWidget> {
                     ),
                   ),
                 ),
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
-                      child: Icon(
-                        Icons.notifications_active,
-                        color: FlutterFlowTheme.of(context).primaryText,
-                        size: 30.0,
-                      ),
-                    ),
-                  ],
-                ),
                 Align(
                   alignment: const AlignmentDirectional(1.0, 0.0),
                   child: Padding(

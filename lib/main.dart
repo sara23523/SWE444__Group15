@@ -1,3 +1,4 @@
+import '/custom_code/actions/index.dart' as actions;
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -19,10 +20,18 @@ void main() async {
 
   await initFirebase();
 
+  // Start initial custom actions code
+  await actions.initStripe();
+  // End initial custom actions code
+
   final appState = FFAppState(); // Initialize FFAppState
   await appState.initializePersistedState();
 
   await initializeStripe();
+
+  // Start final custom actions code
+  await actions.initMessaging();
+  // End final custom actions code
 
   runApp(ChangeNotifierProvider(
     create: (context) => appState,

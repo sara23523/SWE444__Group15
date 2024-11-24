@@ -211,13 +211,13 @@ class _BottomNavigationBarOrgWidgetState
                         buttonSize: 50.0,
                         fillColor: const Color(0x004B39EF),
                         icon: Icon(
-                          Icons.lock_outline_sharp,
+                          Icons.person_search,
                           color: FlutterFlowTheme.of(context).primaryBackground,
-                          size: 24.0,
+                          size: 26.0,
                         ),
                         onPressed: () async {
                           context.goNamed(
-                            'orgViewChallenges',
+                            'viewSolvers',
                             extra: <String, dynamic>{
                               kTransitionInfoKey: const TransitionInfo(
                                 hasTransition: true,
@@ -249,18 +249,17 @@ class _BottomNavigationBarOrgWidgetState
                       opacity: widget.selectedPageIndex == 3 ? 1.0 : 0.5,
                       child: FlutterFlowIconButton(
                         borderColor: Colors.transparent,
-                        borderRadius: 30.0,
                         borderWidth: 0.0,
                         buttonSize: 50.0,
                         fillColor: const Color(0x004B39EF),
                         icon: Icon(
-                          Icons.person_search,
+                          Icons.star_rounded,
                           color: FlutterFlowTheme.of(context).primaryBackground,
-                          size: 26.0,
+                          size: 30.0,
                         ),
                         onPressed: () async {
                           context.goNamed(
-                            'viewSolvers',
+                            'favouritesList',
                             extra: <String, dynamic>{
                               kTransitionInfoKey: const TransitionInfo(
                                 hasTransition: true,

@@ -75,3 +75,16 @@ export '/solver/solver_homepage/solver_homepage_widget.dart'
 export '/organization/org_view_solver_solutions/org_view_solver_solutions_widget.dart'
     show OrgViewSolverSolutionsWidget;
 export '/just_testing/noti_t_s_t/noti_t_s_t_widget.dart' show NotiTSTWidget;
+export '/organization/solver_profile_page/solver_profile_page_widget.dart'
+    show SolverProfilePageWidget;
+export '/organization/favourites_list/favourites_list_widget.dart'
+    show FavouritesListWidget;
+export '/solver_transactions_summary/solver_transactions_summary_widget.dart'
+    show SolverTransactionsSummaryWidget;
+export '/org_transactions_summary/org_transactions_summary_widget.dart'
+    show OrgTransactionsSummaryWidget;
+export '/organization/solver_profile_page_copy/solver_profile_page_copy_widget.dart'
+    show SolverProfilePageCopyWidget;
+export '/success_payment/success_payment_widget.dart' show SuccessPaymentWidget;
+export '/success_payment_copy/success_payment_copy_widget.dart'
+    show SuccessPaymentCopyWidget;

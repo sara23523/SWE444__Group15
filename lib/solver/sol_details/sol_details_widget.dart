@@ -1,13 +1,15 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/backend/push_notifications/push_notifications_util.dart';
 import '/backend/stripe/payment_manager.dart';
-import '/components/solver_profile_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/solver/pdf_component/pdf_component_widget.dart';
+import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'sol_details_model.dart';
@@ -401,29 +403,29 @@ class _SolDetailsWidgetState extends State<SolDetailsWidget> {
                                                       highlightColor:
                                                           Colors.transparent,
                                                       onTap: () async {
-                                                        await showModalBottomSheet(
-                                                          isScrollControlled:
-                                                              true,
-                                                          backgroundColor:
-                                                              Colors
-                                                                  .transparent,
-                                                          enableDrag: false,
-                                                          context: context,
-                                                          builder: (context) {
-                                                            return Padding(
-                                                              padding: MediaQuery
-                                                                  .viewInsetsOf(
-                                                                      context),
-                                                              child:
-                                                                  SolverProfileWidget(
-                                                                solver:
-                                                                    circleImageUsersRecord,
-                                                              ),
-                                                            );
+                                                        context.pushNamed(
+                                                          'SolverProfilePageCopy',
+                                                          queryParameters: {
+                                                            'solver':
+                                                                serializeParam(
+                                                              circleImageUsersRecord,
+                                                              ParamType
+                                                                  .Document,
+                                                            ),
+                                                            'ref':
+                                                                serializeParam(
+                                                              circleImageUsersRecord
+                                                                  .reference,
+                                                              ParamType
+                                                                  .DocumentReference,
+                                                            ),
+                                                          }.withoutNulls,
+                                                          extra: <String,
+                                                              dynamic>{
+                                                            'solver':
+                                                                circleImageUsersRecord,
                                                           },
-                                                        ).then((value) =>
-                                                            safeSetState(
-                                                                () {}));
+                                                        );
                                                       },
                                                       child: Container(
                                                         width: 50.0,
@@ -690,19 +692,6 @@ class _SolDetailsWidgetState extends State<SolDetailsWidget> {
                                     children: [
                                       Padding(
                                         padding: const EdgeInsetsDirectional.fromSTEB(
-                                            14.0, 10.0, 0.0, 0.0),
-                                        child: Text(
-                                          'Selecting \'Excellent\' awards 20 points, \'Very Good\' awards 10 points, and \'Nice Try\' awards 5 points to the solver.',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                letterSpacing: 0.0,
-                                              ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 14.0, 0.0, 14.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
@@ -711,7 +700,7 @@ class _SolDetailsWidgetState extends State<SolDetailsWidget> {
                                           children: [
                                             FFButtonWidget(
                                               onPressed: () async {
-                                                _model.userIdSolver20 =
+                                                _model.userIdSolver200 =
                                                     await queryRepliesRecordOnce(
                                                   queryBuilder:
                                                       (repliesRecord) =>
@@ -733,7 +722,7 @@ class _SolDetailsWidgetState extends State<SolDetailsWidget> {
                                                     },
                                                   ),
                                                 });
-                                                _model.solverId20 =
+                                                _model.solverId200 =
                                                     await queryUsersRecordOnce(
                                                   queryBuilder: (usersRecord) =>
                                                       usersRecord.where(
@@ -745,7 +734,7 @@ class _SolDetailsWidgetState extends State<SolDetailsWidget> {
                                                 ).then((s) => s.firstOrNull);
 
                                                 await _model
-                                                    .solverId20!.reference
+                                                    .solverId200!.reference
                                                     .update({
                                                   ...mapToFirestore(
                                                     {
@@ -766,29 +755,49 @@ class _SolDetailsWidgetState extends State<SolDetailsWidget> {
 
                                                 safeSetState(() {});
                                               },
-                                              text: 'Excellent',
+                                              text: '20',
+                                              icon: Icon(
+                                                Icons.stars_sharp,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                size: 25.0,
+                                              ),
                                               options: FFButtonOptions(
                                                 height: 40.0,
                                                 padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 16.0, 0.0),
+                                                iconAlignment:
+                                                    IconAlignment.end,
                                                 iconPadding:
                                                     const EdgeInsetsDirectional
                                                         .fromSTEB(
                                                             0.0, 0.0, 0.0, 0.0),
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .success,
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmall
-                                                        .override(
-                                                          fontFamily:
-                                                              'Inter Tight',
-                                                          color: Colors.white,
-                                                          letterSpacing: 0.0,
-                                                        ),
+                                                        .secondaryBackground,
+                                                textStyle: FlutterFlowTheme.of(
+                                                        context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily: 'Inter Tight',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      fontSize: 20.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                    ),
                                                 elevation: 0.0,
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
+                                                  width: 2.0,
+                                                ),
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
                                               ),
@@ -850,29 +859,46 @@ class _SolDetailsWidgetState extends State<SolDetailsWidget> {
 
                                                 safeSetState(() {});
                                               },
-                                              text: 'Very Good',
+                                              text: '10',
+                                              icon: const Icon(
+                                                Icons.stars_sharp,
+                                                size: 25.0,
+                                              ),
                                               options: FFButtonOptions(
                                                 height: 40.0,
                                                 padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 16.0, 0.0),
+                                                iconAlignment:
+                                                    IconAlignment.end,
                                                 iconPadding:
                                                     const EdgeInsetsDirectional
                                                         .fromSTEB(
                                                             0.0, 0.0, 0.0, 0.0),
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .warning,
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmall
-                                                        .override(
-                                                          fontFamily:
-                                                              'Inter Tight',
-                                                          color: Colors.white,
-                                                          letterSpacing: 0.0,
-                                                        ),
+                                                        .secondaryBackground,
+                                                textStyle: FlutterFlowTheme.of(
+                                                        context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily: 'Inter Tight',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      fontSize: 20.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                    ),
                                                 elevation: 0.0,
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
+                                                  width: 2.0,
+                                                ),
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
                                               ),
@@ -934,29 +960,46 @@ class _SolDetailsWidgetState extends State<SolDetailsWidget> {
 
                                                 safeSetState(() {});
                                               },
-                                              text: 'Nice try',
+                                              text: '5',
+                                              icon: const Icon(
+                                                Icons.stars_sharp,
+                                                size: 25.0,
+                                              ),
                                               options: FFButtonOptions(
                                                 height: 40.0,
                                                 padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 16.0, 0.0),
+                                                iconAlignment:
+                                                    IconAlignment.end,
                                                 iconPadding:
                                                     const EdgeInsetsDirectional
                                                         .fromSTEB(
                                                             0.0, 0.0, 0.0, 0.0),
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .error,
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmall
-                                                        .override(
-                                                          fontFamily:
-                                                              'Inter Tight',
-                                                          color: Colors.white,
-                                                          letterSpacing: 0.0,
-                                                        ),
+                                                        .secondaryBackground,
+                                                textStyle: FlutterFlowTheme.of(
+                                                        context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily: 'Inter Tight',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      fontSize: 20.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                    ),
                                                 elevation: 0.0,
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
+                                                  width: 2.0,
+                                                ),
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
                                               ),
@@ -992,29 +1035,30 @@ class _SolDetailsWidgetState extends State<SolDetailsWidget> {
                               ),
                             ),
                           ),
-                          if ((_model.isEvaluated == true) &&
-                              (valueOrDefault(
-                                      currentUserDocument?.userRole, 0) ==
-                                  1))
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  20.0, 0.0, 0.0, 12.0),
-                              child: AuthUserStreamWidget(
-                                builder: (context) => Text(
-                                  'Reward Solution',
-                                  style: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        letterSpacing: 0.0,
-                                      ),
+                          if (valueOrDefault(
+                                  currentUserDocument?.userRole, 0) ==
+                              1)
+                            Align(
+                              alignment: const AlignmentDirectional(-1.0, -1.0),
+                              child: Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    20.0, 0.0, 0.0, 12.0),
+                                child: AuthUserStreamWidget(
+                                  builder: (context) => Text(
+                                    'Reward Solution',
+                                    style: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
                                 ),
                               ),
                             ),
-                          if ((valueOrDefault(
-                                      currentUserDocument?.userRole, 0) ==
-                                  1) &&
-                              (_model.isEvaluated != null))
+                          if (valueOrDefault(
+                                  currentUserDocument?.userRole, 0) ==
+                              1)
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   16.0, 0.0, 16.0, 8.0),
@@ -1049,7 +1093,14 @@ class _SolDetailsWidgetState extends State<SolDetailsWidget> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Flexible(
+                                            Container(
+                                              width: 324.0,
+                                              height: 44.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                              ),
                                               child: Text(
                                                 'Select the \'Pay\'  to proceed with payment via PayPal or credit card.',
                                                 style:
@@ -1076,59 +1127,219 @@ class _SolDetailsWidgetState extends State<SolDetailsWidget> {
                                             padding:
                                                 const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 12.0, 0.0, 0.0),
-                                            child: FFButtonWidget(
-                                              onPressed: () async {
-                                                final paymentResponse =
-                                                    await processStripePayment(
-                                                  context,
-                                                  amount: columnChallengesRecord
-                                                      .rewardAmount
-                                                      .round(),
-                                                  currency: 'SAR',
-                                                  customerEmail:
-                                                      columnChallengesRecord
-                                                          .email,
-                                                  customerName:
-                                                      columnChallengesRecord
-                                                          .displayName,
-                                                  allowGooglePay: false,
-                                                  allowApplePay: false,
-                                                );
-                                                if (paymentResponse.paymentId ==
-                                                        null &&
-                                                    paymentResponse
-                                                            .errorMessage !=
-                                                        null) {
-                                                  showSnackbar(
-                                                    context,
-                                                    'Error: ${paymentResponse.errorMessage}',
+                                            child: StreamBuilder<
+                                                List<UsersRecord>>(
+                                              stream: queryUsersRecord(
+                                                queryBuilder: (usersRecord) =>
+                                                    usersRecord.where(
+                                                  'uid',
+                                                  isEqualTo: widget.reply?.uid,
+                                                ),
+                                                singleRecord: true,
+                                              ),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return Center(
+                                                    child: SizedBox(
+                                                      width: 50.0,
+                                                      height: 50.0,
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        valueColor:
+                                                            AlwaysStoppedAnimation<
+                                                                Color>(
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                        ),
+                                                      ),
+                                                    ),
                                                   );
                                                 }
-                                                _model.paymentId =
-                                                    paymentResponse.paymentId ??
-                                                        '';
+                                                List<UsersRecord>
+                                                    buttonUsersRecordList =
+                                                    snapshot.data!;
+                                                // Return an empty Container when the item does not exist.
+                                                if (snapshot.data!.isEmpty) {
+                                                  return Container();
+                                                }
+                                                final buttonUsersRecord =
+                                                    buttonUsersRecordList
+                                                            .isNotEmpty
+                                                        ? buttonUsersRecordList
+                                                            .first
+                                                        : null;
 
-                                                _model.isPaid = true;
-                                                safeSetState(() {});
+                                                return FFButtonWidget(
+                                                  onPressed: () async {
+                                                    var shouldSetState = false;
+                                                    final paymentResponse =
+                                                        await processStripePayment(
+                                                      context,
+                                                      amount:
+                                                          columnChallengesRecord
+                                                              .rewardAmount
+                                                              .round(),
+                                                      currency: 'SAR',
+                                                      customerEmail:
+                                                          currentUserEmail,
+                                                      allowGooglePay: false,
+                                                      allowApplePay: false,
+                                                    );
+                                                    if (paymentResponse
+                                                                .paymentId ==
+                                                            null &&
+                                                        paymentResponse
+                                                                .errorMessage !=
+                                                            null) {
+                                                      showSnackbar(
+                                                        context,
+                                                        'Error: ${paymentResponse.errorMessage}',
+                                                      );
+                                                    }
+                                                    _model.paymentId =
+                                                        paymentResponse
+                                                                .paymentId ??
+                                                            '';
 
-                                                safeSetState(() {});
-                                              },
-                                              text: 'Pay ',
-                                              options: FFButtonOptions(
-                                                width: 100.0,
-                                                height: 50.0,
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 0.0),
-                                                iconPadding:
-                                                    const EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
-                                                color:
-                                                    FlutterFlowTheme.of(context)
+                                                    shouldSetState = true;
+                                                    _model.isPaid = true;
+                                                    safeSetState(() {});
+
+                                                    await TransactionsRecord
+                                                        .collection
+                                                        .doc()
+                                                        .set(
+                                                            createTransactionsRecordData(
+                                                          amount:
+                                                              columnChallengesRecord
+                                                                  .rewardAmount,
+                                                          currency: 'SAR',
+                                                          date:
+                                                              getCurrentTimestamp,
+                                                          id: random_data
+                                                              .randomString(
+                                                            10,
+                                                            15,
+                                                            true,
+                                                            true,
+                                                            true,
+                                                          ),
+                                                          solverID:
+                                                              buttonUsersRecord
+                                                                  ?.reference,
+                                                          organizationID:
+                                                              currentUserReference,
+                                                        ));
+
+                                                    context.pushNamed(
+                                                        'SuccessPayment');
+
+                                                    triggerPushNotification(
+                                                      notificationTitle:
+                                                          'Exciting news! ',
+                                                      notificationText:
+                                                          'you just got paid by${valueOrDefault(currentUserDocument?.username, '')}  !',
+                                                      userRefs: [
+                                                        buttonUsersRecord!
+                                                            .reference
+                                                      ],
+                                                      initialPageName:
+                                                          'solverTransactionsSummary',
+                                                      parameterData: {},
+                                                    );
+                                                    _model.apiPayment =
+                                                        await UnlockApiFlowAPIGroup
+                                                            .oneTimePaymentMobileCall
+                                                            .call(
+                                                      amount:
+                                                          columnChallengesRecord
+                                                              .rewardAmount
+                                                              .toString(),
+                                                      currency: 'SAR',
+                                                      email:
+                                                          columnChallengesRecord
+                                                              .email,
+                                                    );
+
+                                                    shouldSetState = true;
+                                                    if ((_model.apiPayment
+                                                            ?.succeeded ??
+                                                        true)) {
+                                                      _model.paymentStatus =
+                                                          await actions
+                                                              .initPayment(
+                                                        PaymentIntentStruct
+                                                                .maybeFromMap((_model
+                                                                        .apiPayment
+                                                                        ?.jsonBody ??
+                                                                    ''))!
+                                                            .clientSecret,
+                                                      );
+                                                      shouldSetState = true;
+                                                      if (_model
+                                                              .paymentStatus ==
+                                                          true) {
+                                                        _model.isPaid = true;
+                                                        safeSetState(() {});
+
+                                                        await TransactionsRecord
+                                                            .collection
+                                                            .doc()
+                                                            .set(
+                                                                createTransactionsRecordData(
+                                                              amount: columnChallengesRecord
+                                                                  .rewardAmount,
+                                                              currency: 'SAR',
+                                                              date:
+                                                                  getCurrentTimestamp,
+                                                              id: random_data
+                                                                  .randomString(
+                                                                10,
+                                                                15,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                              ),
+                                                            ));
+
+                                                        context.pushNamed(
+                                                            'SuccessPayment');
+                                                      } else {
+                                                        if (shouldSetState) {
+                                                          safeSetState(() {});
+                                                        }
+                                                        return;
+                                                      }
+                                                    } else {
+                                                      if (shouldSetState) {
+                                                        safeSetState(() {});
+                                                      }
+                                                      return;
+                                                    }
+
+                                                    if (shouldSetState) {
+                                                      safeSetState(() {});
+                                                    }
+                                                  },
+                                                  text: 'Pay ',
+                                                  options: FFButtonOptions(
+                                                    width: 100.0,
+                                                    height: 50.0,
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 0.0),
+                                                    iconPadding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 0.0),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
                                                         .primaryText,
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    textStyle: FlutterFlowTheme
+                                                            .of(context)
                                                         .titleSmall
                                                         .override(
                                                           fontFamily: 'Outfit',
@@ -1140,12 +1351,14 @@ class _SolDetailsWidgetState extends State<SolDetailsWidget> {
                                                           fontWeight:
                                                               FontWeight.normal,
                                                         ),
-                                                elevation: 2.0,
-                                                borderSide: const BorderSide(
-                                                  color: Colors.transparent,
-                                                  width: 1.0,
-                                                ),
-                                              ),
+                                                    elevation: 2.0,
+                                                    borderSide: const BorderSide(
+                                                      color: Colors.transparent,
+                                                      width: 1.0,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
                                             ),
                                           ),
                                         ),

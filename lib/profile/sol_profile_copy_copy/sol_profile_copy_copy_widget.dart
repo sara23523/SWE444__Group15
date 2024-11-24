@@ -854,6 +854,101 @@ class _SolProfileCopyCopyWidgetState extends State<SolProfileCopyCopyWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
+                          context.pushNamed('solverTransactionsSummary');
+                        },
+                        child: Material(
+                          color: Colors.transparent,
+                          elevation: 0.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Container(
+                            width: MediaQuery.sizeOf(context).width * 1.0,
+                            height: 50.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              borderRadius: BorderRadius.circular(10.0),
+                              border: Border.all(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                width: 0.0,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 0.0, 4.0, 0.0),
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  context
+                                      .pushNamed('solverTransactionsSummary');
+                                },
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 15.0, 0.0),
+                                      child: Icon(
+                                        Icons.payments_rounded,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        size: 24.0,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Payment history',
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            fontFamily: 'Inter Tight',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
+                                    Flexible(
+                                      child: Align(
+                                        alignment:
+                                            const AlignmentDirectional(1.0, 0.0),
+                                        child: FlutterFlowIconButton(
+                                          borderColor: Colors.transparent,
+                                          borderRadius: 30.0,
+                                          buttonSize: 46.0,
+                                          icon: const Icon(
+                                            Icons.chevron_right_rounded,
+                                            color: Color(0xFF95A1AC),
+                                            size: 25.0,
+                                          ),
+                                          onPressed: () async {
+                                            context.pushNamed(
+                                                'solverTransactionsSummary');
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(30.0, 10.0, 30.0, 0.0),
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
                           context.pushNamed('change_password');
                         },
                         child: Material(

@@ -60,6 +60,11 @@ class RepliesRecord extends FirestoreRecord {
   String get privateORpublic => _privateORpublic ?? '';
   bool hasPrivateORpublic() => _privateORpublic != null;
 
+  // "solverRef" field.
+  DocumentReference? _solverRef;
+  DocumentReference? get solverRef => _solverRef;
+  bool hasSolverRef() => _solverRef != null;
+
   void _initializeFields() {
     _description = snapshotData['description'] as String?;
     _file = snapshotData['file'] as String?;
@@ -70,6 +75,7 @@ class RepliesRecord extends FirestoreRecord {
     _createdTime = snapshotData['createdTime'] as DateTime?;
     _isEvaluated = snapshotData['isEvaluated'] as bool?;
     _privateORpublic = snapshotData['privateORpublic'] as String?;
+    _solverRef = snapshotData['solverRef'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -116,6 +122,7 @@ Map<String, dynamic> createRepliesRecordData({
   DateTime? createdTime,
   bool? isEvaluated,
   String? privateORpublic,
+  DocumentReference? solverRef,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -128,6 +135,7 @@ Map<String, dynamic> createRepliesRecordData({
       'createdTime': createdTime,
       'isEvaluated': isEvaluated,
       'privateORpublic': privateORpublic,
+      'solverRef': solverRef,
     }.withoutNulls,
   );
 
@@ -147,7 +155,8 @@ class RepliesRecordDocumentEquality implements Equality<RepliesRecord> {
         e1?.challengeRef == e2?.challengeRef &&
         e1?.createdTime == e2?.createdTime &&
         e1?.isEvaluated == e2?.isEvaluated &&
-        e1?.privateORpublic == e2?.privateORpublic;
+        e1?.privateORpublic == e2?.privateORpublic &&
+        e1?.solverRef == e2?.solverRef;
   }
 
   @override
@@ -160,7 +169,8 @@ class RepliesRecordDocumentEquality implements Equality<RepliesRecord> {
         e?.challengeRef,
         e?.createdTime,
         e?.isEvaluated,
-        e?.privateORpublic
+        e?.privateORpublic,
+        e?.solverRef
       ]);
 
   @override

@@ -46,8 +46,8 @@ class TransactionsRecord extends FirestoreRecord {
   bool hasSolutionID() => _solutionID != null;
 
   // "ID" field.
-  int? _id;
-  int get id => _id ?? 0;
+  String? _id;
+  String get id => _id ?? '';
   bool hasId() => _id != null;
 
   void _initializeFields() {
@@ -57,7 +57,7 @@ class TransactionsRecord extends FirestoreRecord {
     _currency = snapshotData['Currency'] as String?;
     _date = snapshotData['Date'] as DateTime?;
     _solutionID = snapshotData['SolutionID'] as DocumentReference?;
-    _id = castToType<int>(snapshotData['ID']);
+    _id = snapshotData['ID'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -101,7 +101,7 @@ Map<String, dynamic> createTransactionsRecordData({
   String? currency,
   DateTime? date,
   DocumentReference? solutionID,
-  int? id,
+  String? id,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{

@@ -431,8 +431,7 @@ class _SignInWidgetState extends State<SignInWidget>
                                           'orgHomepage', context.mounted);
                                     } else {
                                       context.pushNamedAuth(
-                                          'solverHomepageCopyy',
-                                          context.mounted);
+                                          'solverHomepage', context.mounted);
                                     }
                                   },
                                   text: 'Sign In',

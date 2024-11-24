@@ -196,7 +196,7 @@ class _ChatPageSolverWidgetState extends State<ChatPageSolverWidget> {
                                                           0.0, 3.0, 0.0, 0.0),
                                                   child: Text(
                                                     dateTimeFormat(
-                                                        "relative",
+                                                        "d/M h:mm a",
                                                         listViewChatMessagesRecord
                                                             .timeStamp!),
                                                     style: FlutterFlowTheme.of(
@@ -260,7 +260,7 @@ class _ChatPageSolverWidgetState extends State<ChatPageSolverWidget> {
                                                           0.0, 3.0, 0.0, 0.0),
                                                   child: Text(
                                                     dateTimeFormat(
-                                                        "relative",
+                                                        "d/M h:mm a",
                                                         listViewChatMessagesRecord
                                                             .timeStamp!),
                                                     style: FlutterFlowTheme.of(

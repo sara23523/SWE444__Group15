@@ -114,7 +114,7 @@ class _SolverProfileWidgetState extends State<SolverProfileWidget>
 
                     return Container(
                       width: double.infinity,
-                      height: 400.0,
+                      height: double.infinity,
                       constraints: const BoxConstraints(
                         maxWidth: 500.0,
                       ),
@@ -500,6 +500,11 @@ class _SolverProfileWidgetState extends State<SolverProfileWidget>
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
+                                    const Icon(
+                                      Icons.star_rounded,
+                                      color: Color(0x560043CE),
+                                      size: 50.0,
+                                    ),
                                     InkWell(
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
@@ -588,6 +593,42 @@ class _SolverProfileWidgetState extends State<SolverProfileWidget>
                                   ].divide(const SizedBox(width: 2.0)),
                                 ),
                               ],
+                            ),
+                          ),
+                          Container(
+                            width: double.infinity,
+                            height: 100.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              borderRadius: BorderRadius.circular(0.0),
+                            ),
+                            child: ListView(
+                              padding: EdgeInsets.zero,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              children: [
+                                Container(
+                                  width: 100.0,
+                                  height: 100.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                  ),
+                                  child: Container(
+                                    width: 20.0,
+                                    height: 20.0,
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Image.network(
+                                      'https://picsum.photos/seed/230/600',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ].divide(const SizedBox(width: 10.0)),
                             ),
                           ),
                         ],

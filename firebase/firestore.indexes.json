@@ -105,6 +105,34 @@
           "order": "DESCENDING"
         }
       ]
+    },
+    {
+      "collectionGroup": "Transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "SolverID",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "Date",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "OrganizationID",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "Date",
+          "order": "ASCENDING"
+        }
+      ]
     }
   ],
   "fieldOverrides": [

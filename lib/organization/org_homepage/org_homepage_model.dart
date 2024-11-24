@@ -17,6 +17,8 @@ class OrgHomepageModel extends FlutterFlowModel<OrgHomepageWidget> {
   void updateListAtIndex(int index, Function(DocumentReference) updateFn) =>
       list[index] = updateFn(list[index]);
 
+  String token = 'overview';
+
   ///  State fields for stateful widgets in this page.
 
   // Model for HomePage_AppBar component.

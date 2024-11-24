@@ -300,7 +300,9 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                                                               listViewChatsRecord
                                                                   .lastMessage
                                                                   .maybeHandleOverflow(
-                                                                maxChars: 20,
+                                                                maxChars: 15,
+                                                                replacement:
+                                                                    '…',
                                                               ),
                                                               textAlign:
                                                                   TextAlign
@@ -355,87 +357,111 @@ class _ChatsWidgetState extends State<ChatsWidget> {
                                                             ),
                                                           ),
                                                         ),
-                                                      Text(
-                                                        dateTimeFormat(
-                                                            "relative",
-                                                            listViewChatsRecord
-                                                                .timeStamp!),
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Inter',
-                                                              fontSize: 12.0,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                            ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    2.0,
+                                                                    0.0,
+                                                                    2.0,
+                                                                    0.0),
+                                                        child: Text(
+                                                          dateTimeFormat(
+                                                              "relative",
+                                                              listViewChatsRecord
+                                                                  .timeStamp!),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Inter',
+                                                                fontSize: 12.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
+                                                        ),
                                                       ),
-                                                      InkWell(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        focusColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        onTap: () async {
-                                                          context.pushNamed(
-                                                            'chatPage_solver',
-                                                            queryParameters: {
-                                                              'recieveChat':
-                                                                  serializeParam(
-                                                                listViewChatsRecord
-                                                                    .reference,
-                                                                ParamType
-                                                                    .DocumentReference,
-                                                              ),
-                                                              'user':
-                                                                  serializeParam(
-                                                                rowUsersRecord,
-                                                                ParamType
-                                                                    .Document,
-                                                              ),
-                                                            }.withoutNulls,
-                                                            extra: <String,
-                                                                dynamic>{
-                                                              'user':
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    3.0,
+                                                                    0.0,
+                                                                    3.0,
+                                                                    0.0),
+                                                        child: InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
+                                                          onTap: () async {
+                                                            context.pushNamed(
+                                                              'chatPage_solver',
+                                                              queryParameters: {
+                                                                'recieveChat':
+                                                                    serializeParam(
+                                                                  listViewChatsRecord
+                                                                      .reference,
+                                                                  ParamType
+                                                                      .DocumentReference,
+                                                                ),
+                                                                'user':
+                                                                    serializeParam(
                                                                   rowUsersRecord,
-                                                            },
-                                                          );
-                                                        },
-                                                        child: const Icon(
-                                                          Icons
-                                                              .chevron_right_rounded,
-                                                          color:
-                                                              Color(0xFF7C8791),
-                                                          size: 30.0,
+                                                                  ParamType
+                                                                      .Document,
+                                                                ),
+                                                              }.withoutNulls,
+                                                              extra: <String,
+                                                                  dynamic>{
+                                                                'user':
+                                                                    rowUsersRecord,
+                                                              },
+                                                            );
+                                                          },
+                                                          child: const Icon(
+                                                            Icons
+                                                                .chevron_right_rounded,
+                                                            color: Color(
+                                                                0xFF7C8791),
+                                                            size: 30.0,
+                                                          ),
                                                         ),
                                                       ),
                                                     ],
                                                   ),
-                                                  InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    hoverColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onTap: () async {
-                                                      await listViewChatsRecord
-                                                          .reference
-                                                          .delete();
-                                                    },
-                                                    child: Icon(
-                                                      Icons.delete,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .error,
-                                                      size: 24.0,
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(2.0, 0.0,
+                                                                2.0, 0.0),
+                                                    child: InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        await listViewChatsRecord
+                                                            .reference
+                                                            .delete();
+                                                      },
+                                                      child: Icon(
+                                                        Icons.delete,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .error,
+                                                        size: 24.0,
+                                                      ),
                                                     ),
                                                   ),
                                                 ],

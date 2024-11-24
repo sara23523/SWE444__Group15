@@ -206,6 +206,25 @@ final parametersBuilderMap =
         },
       ),
   'notiTST': ParameterData.none(),
+  'SolverProfilePage': (data) async => ParameterData(
+        allParams: {
+          'solver': await getDocumentParameter<UsersRecord>(
+              data, 'solver', UsersRecord.fromSnapshot),
+          'ref': getParameter<DocumentReference>(data, 'ref'),
+        },
+      ),
+  'favouritesList': ParameterData.none(),
+  'solverTransactionsSummary': ParameterData.none(),
+  'OrgTransactionsSummary': ParameterData.none(),
+  'SolverProfilePageCopy': (data) async => ParameterData(
+        allParams: {
+          'solver': await getDocumentParameter<UsersRecord>(
+              data, 'solver', UsersRecord.fromSnapshot),
+          'ref': getParameter<DocumentReference>(data, 'ref'),
+        },
+      ),
+  'SuccessPayment': ParameterData.none(),
+  'SuccessPaymentCopy': ParameterData.none(),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

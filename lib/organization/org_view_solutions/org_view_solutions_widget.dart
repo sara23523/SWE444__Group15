@@ -81,6 +81,36 @@ class _OrgViewSolutionsWidgetState extends State<OrgViewSolutionsWidget> {
         return Scaffold(
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          appBar: AppBar(
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+            automaticallyImplyLeading: false,
+            leading: FlutterFlowIconButton(
+              borderColor: Colors.transparent,
+              borderRadius: 30.0,
+              borderWidth: 1.0,
+              buttonSize: 60.0,
+              icon: Icon(
+                Icons.arrow_back_rounded,
+                color: FlutterFlowTheme.of(context).primaryText,
+                size: 30.0,
+              ),
+              onPressed: () async {
+                context.pop();
+              },
+            ),
+            title: Text(
+              'View Solutions',
+              style: FlutterFlowTheme.of(context).headlineMedium.override(
+                    fontFamily: 'Inter Tight',
+                    color: FlutterFlowTheme.of(context).primaryText,
+                    fontSize: 22.0,
+                    letterSpacing: 0.0,
+                  ),
+            ),
+            actions: const [],
+            centerTitle: true,
+            elevation: 0.0,
+          ),
           body: Stack(
             children: [
               Align(
@@ -91,97 +121,104 @@ class _OrgViewSolutionsWidgetState extends State<OrgViewSolutionsWidget> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
-                        child: Container(
-                          width: double.infinity,
-                          height: 104.0,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).primaryText,
-                            boxShadow: const [
-                              BoxShadow(
-                                blurRadius: 3.0,
-                                color: Color(0x33000000),
-                                offset: Offset(
-                                  0.0,
-                                  2.0,
-                                ),
-                              )
-                            ],
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    24.0, 12.0, 24.0, 8.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 12.0, 0.0),
-                                      child: InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          context.pushNamed('orgHomepage');
-                                        },
-                                        child: Icon(
-                                          Icons.arrow_back,
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                          size: 24.0,
+                      if (false)
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 8.0),
+                          child: Container(
+                            width: double.infinity,
+                            height: 104.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      24.0, 12.0, 24.0, 8.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Align(
+                                        alignment:
+                                            const AlignmentDirectional(-1.0, 0.0),
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 12.0, 0.0),
+                                          child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              context.pushNamed('orgHomepage');
+                                            },
+                                            child: Icon(
+                                              Icons.arrow_back,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              size: 24.0,
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Text(
-                                      'View Solutions',
-                                      style: FlutterFlowTheme.of(context)
-                                          .displaySmall
-                                          .override(
-                                            fontFamily: 'Urbanist',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryBackground,
-                                            fontSize: 24.0,
-                                            letterSpacing: 0.0,
+                                      Flexible(
+                                        child: Align(
+                                          alignment:
+                                              const AlignmentDirectional(0.0, 0.0),
+                                          child: Text(
+                                            'View Solutions',
+                                            style: FlutterFlowTheme.of(context)
+                                                .displaySmall
+                                                .override(
+                                                  fontFamily: 'Urbanist',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  fontSize: 24.0,
+                                                  letterSpacing: 0.0,
+                                                ),
                                           ),
-                                    ),
-                                  ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    24.0, 0.0, 24.0, 0.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Text(
-                                      'Where Challenges Meet Solutions!',
-                                      style: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            fontFamily: 'Inter Tight',
-                                            color: const Color(0xFFB1C3D1),
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w200,
-                                          ),
-                                    ),
-                                  ],
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      24.0, 0.0, 24.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      if (false)
+                                        Text(
+                                          'Where Challenges Meet Solutions!',
+                                          style: FlutterFlowTheme.of(context)
+                                              .titleSmall
+                                              .override(
+                                                fontFamily: 'Inter Tight',
+                                                color: const Color(0xFFB1C3D1),
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w200,
+                                              ),
+                                        ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
                       Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(
-                            16.0, 4.0, 16.0, 8.0),
+                            16.0, 20.0, 16.0, 8.0),
                         child: FutureBuilder<int>(
                           future: FFAppState().challengeDetails(
                             requestFn: () => queryRepliesRecordCount(),
@@ -408,9 +445,7 @@ class _OrgViewSolutionsWidgetState extends State<OrgViewSolutionsWidget> {
                                                       16.0, 0.0, 16.0, 0.0),
                                               iconPadding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
+                                              color: const Color(0x330043CE),
                                               textStyle: FlutterFlowTheme.of(
                                                       context)
                                                   .titleSmall
@@ -423,6 +458,12 @@ class _OrgViewSolutionsWidgetState extends State<OrgViewSolutionsWidget> {
                                                     letterSpacing: 0.0,
                                                   ),
                                               elevation: 0.0,
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                width: 2.0,
+                                              ),
                                               borderRadius:
                                                   BorderRadius.circular(8.0),
                                             ),

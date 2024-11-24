@@ -15,6 +15,13 @@ class FFAppState extends ChangeNotifier {
     _instance = FFAppState._internal();
   }
 
+  String _token = '';
+  String get token => _token;
+  set token(String value) {
+    _token = value;
+    notifyListeners();
+  }
+
   Future initializePersistedState() async {}
 
   void update(VoidCallback callback) {
